@@ -2,8 +2,10 @@ import Link from 'next/link';
 import { DOMAIN_COLORS, DOMAIN_NAMES } from '@/lib/constants';
 import type { Domain } from '@/lib/types';
 import { DOMAINS } from '@/lib/types';
+import { getAllStories } from '@/lib/content';
 
 export default function Home() {
+  const stories = getAllStories();
   return (
     <div className="relative">
       {/* Hero */}
@@ -148,6 +150,43 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Latest Stories */}
+      {stories.length > 0 && (
+        <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-white">The Stories</h2>
+            <p className="mt-2 text-muted">
+              Near-future fiction. Published Saturdays.
+            </p>
+          </div>
+
+          <div className="space-y-4">
+            {stories.map((story) => (
+              <Link
+                key={story.slug}
+                href={`/stories/${story.slug}`}
+                className="group flex items-baseline justify-between gap-4 rounded-lg border border-border bg-surface px-6 py-4 hover:border-accent/30 transition-all"
+              >
+                <div className="min-w-0">
+                  <h3 className="text-base font-medium text-white group-hover:text-accent transition-colors truncate">
+                    {story.title}
+                  </h3>
+                  {story.summary && (
+                    <p className="mt-1 text-sm text-muted line-clamp-1">{story.summary}</p>
+                  )}
+                </div>
+                <span className="shrink-0 text-xs text-muted">
+                  {new Date(story.published).toLocaleDateString('en-US', {
+                    month: 'short',
+                    day: 'numeric',
+                  })}
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       {/* Domain Preview Grid */}
       <section className="mx-auto max-w-5xl px-4 py-16 sm:px-6">

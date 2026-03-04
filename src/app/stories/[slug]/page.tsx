@@ -20,6 +20,19 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: story.title,
     description: story.summary,
+    openGraph: {
+      title: story.title,
+      description: story.summary || '',
+      type: 'article',
+      publishedTime: story.published,
+      authors: ['SB Corvus'],
+      tags: story.themes,
+    },
+    twitter: {
+      card: 'summary',
+      title: story.title,
+      description: story.summary || '',
+    },
   };
 }
 
