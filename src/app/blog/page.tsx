@@ -46,6 +46,12 @@ export default function BlogPage() {
                     day: 'numeric',
                   })}
                 </span>
+                {post.author && (
+                  <>
+                    <span>&middot;</span>
+                    <span>{post.author}</span>
+                  </>
+                )}
                 {post.tags && post.tags.length > 0 && (
                   <>
                     <span>&middot;</span>

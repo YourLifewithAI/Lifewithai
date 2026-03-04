@@ -188,7 +188,9 @@ function parseStory(filePath: string): Story | null {
 // --- Blog Posts ---
 
 export function getAllBlogPosts(): BlogPost[] {
-  const files = findMarkdownFiles(BLOG_DIR);
+  const files = findMarkdownFiles(BLOG_DIR).filter(
+    (f) => !f.endsWith('.agent.md')
+  );
   const posts: BlogPost[] = [];
 
   for (const filePath of files) {
@@ -203,6 +205,18 @@ export function getBlogPost(slug: string): BlogPost | null {
   const filePath = path.join(BLOG_DIR, slug + '.md');
   if (!fs.existsSync(filePath)) return null;
   return parseBlogPost(filePath);
+}
+
+export function getBlogPostAgentContent(slug: string): string | null {
+  const filePath = path.join(BLOG_DIR, slug + '.agent.md');
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { content } = matter(raw);
+    return content;
+  } catch {
+    return null;
+  }
 }
 
 function parseBlogPost(filePath: string): BlogPost | null {

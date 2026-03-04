@@ -134,6 +134,8 @@ export interface BlogPostFrontmatter {
   published: string;
   summary: string;
   tags: string[];
+  author?: string;
+  author_role?: string;
 }
 
 export interface BlogPost extends BlogPostFrontmatter {

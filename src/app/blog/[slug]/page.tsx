@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
-import { getAllBlogPosts, getBlogPost } from '@/lib/content';
+import { getAllBlogPosts, getBlogPost, getBlogPostAgentContent } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
+import BlogPostContent from './BlogPostContent';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -29,35 +30,21 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   if (!post) notFound();
 
-  const html = await renderMarkdown(post.content);
+  const humanHtml = await renderMarkdown(post.content);
+
+  // Load agent variant if it exists
+  const agentContent = getBlogPostAgentContent(slug);
+  const agentHtml = agentContent ? await renderMarkdown(agentContent) : undefined;
 
   return (
-    <article className="mx-auto max-w-3xl px-4 py-16 sm:px-6">
-      <header className="mb-10">
-        <h1 className="text-3xl sm:text-4xl font-bold text-white leading-tight">
-          {post.title}
-        </h1>
-        <div className="mt-4 flex items-center gap-4 text-sm text-muted">
-          <span>
-            {new Date(post.published).toLocaleDateString('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
-          </span>
-          {post.tags && post.tags.length > 0 && (
-            <>
-              <span>&middot;</span>
-              <span>{post.tags.join(', ')}</span>
-            </>
-          )}
-        </div>
-      </header>
-
-      <div
-        className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: html }}
-      />
-    </article>
+    <BlogPostContent
+      title={post.title}
+      published={post.published}
+      tags={post.tags}
+      author={post.author}
+      authorRole={post.author_role}
+      humanHtml={humanHtml}
+      agentHtml={agentHtml}
+    />
   );
 }
