@@ -83,14 +83,16 @@ export async function GET() {
           operationId: 'getEntry',
           summary: 'Get a single knowledge entry with full content',
           description:
-            'Returns the complete entry including content, parameters, citations, cross-references, and open questions.',
+            'Returns the complete entry including content, parameters, citations, cross-references, and open questions. ' +
+            'Entry IDs follow the format: {domain}/{subdomain}/{slug}.',
           parameters: [
             {
               name: 'id',
               in: 'path',
               required: true,
               schema: { type: 'string' },
-              example: 'energy-systems/solar-integration',
+              description: 'Entry ID in format domain/subdomain/slug. Use /api/v1/domains/{slug}/entries to discover entry IDs.',
+              example: 'energy-systems/solar/solar-integration',
             },
           ],
           responses: {
