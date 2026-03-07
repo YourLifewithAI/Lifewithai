@@ -147,7 +147,8 @@ export async function GET(request: NextRequest) {
   // Strip IP hashes from public response
   const sanitized = items.map(({ ip_hash: _ip, ...rest }) => rest);
 
-  return apiResponse({
+  // Build response with no-cache (feedback is dynamic state, not static content)
+  const responseData = {
     feedback: sanitized,
     total: sanitized.length,
     filters: {
@@ -155,7 +156,18 @@ export async function GET(request: NextRequest) {
       since: since || 'all',
       limit,
     },
-  });
+  };
+
+  return Response.json(
+    { ...responseData },
+    {
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Cache-Control': 'no-store, max-age=0',
+      },
+    }
+  );
 }
 
 // --- Helpers ---
