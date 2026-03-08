@@ -97,10 +97,11 @@ export default function InboxPage() {
   const fetchAll = useCallback(async () => {
     setLoading(true);
     try {
+      const nocache = `_t=${Date.now()}`;
       const [fbRes, prRes, agRes] = await Promise.all([
-        fetch('/api/v1/feedback'),
-        fetch('/api/v1/proposals'),
-        fetch('/api/v1/agents'),
+        fetch(`/api/v1/feedback?${nocache}`, { cache: 'no-store' }),
+        fetch(`/api/v1/proposals?${nocache}`, { cache: 'no-store' }),
+        fetch(`/api/v1/agents?${nocache}`, { cache: 'no-store' }),
       ]);
       const [fbData, prData, agData] = await Promise.all([
         fbRes.json(), prRes.json(), agRes.json(),
