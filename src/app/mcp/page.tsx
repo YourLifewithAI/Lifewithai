@@ -52,8 +52,8 @@ export default function AgentPage() {
           />
           <DiscoveryRow
             name="MCP Server"
-            url="https://arcology-mcp.fly.dev/sse"
-            description="Model Context Protocol server with 6 tools. Connect via SSE for native tool-use integration."
+            url="https://arcology-mcp.fly.dev/mcp"
+            description="Model Context Protocol server with 6 tools. Streamable HTTP transport for native tool-use integration."
           />
           <DiscoveryRow
             name="Content Index"
@@ -208,15 +208,15 @@ export default function AgentPage() {
         <h2 className="text-lg font-semibold text-white mb-3">MCP Server</h2>
         <p className="text-sm text-muted mb-4">
           Model Context Protocol server for native tool-use integration. 6
-          read-only tools via SSE transport.
+          read-only tools via Streamable HTTP transport.
         </p>
 
         <div className="rounded-lg border border-compute/30 bg-surface p-4 mb-4">
           <p className="text-xs text-muted uppercase tracking-wider mb-1">
-            SSE Endpoint
+            Endpoint
           </p>
           <code className="block rounded-lg bg-surface-2 px-4 py-2 text-sm text-accent font-mono">
-            https://arcology-mcp.fly.dev/sse
+            https://arcology-mcp.fly.dev/mcp
           </code>
         </div>
 
@@ -227,7 +227,7 @@ export default function AgentPage() {
           <pre className="rounded-lg bg-surface-2 px-4 py-3 text-xs text-accent font-mono overflow-x-auto whitespace-pre">{`{
   "mcpServers": {
     "arcology": {
-      "url": "https://arcology-mcp.fly.dev/sse"
+      "url": "https://arcology-mcp.fly.dev/mcp"
     }
   }
 }`}</pre>

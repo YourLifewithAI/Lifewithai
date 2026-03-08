@@ -28,7 +28,7 @@ export async function GET() {
     '',
     '## MCP Server (Model Context Protocol)',
     '',
-    '- SSE Endpoint: https://arcology-mcp.fly.dev/sse',
+    '- Endpoint: https://arcology-mcp.fly.dev/mcp (Streamable HTTP)',
     '- 6 tools: read_node, search_knowledge, list_domains, get_open_questions, get_entry_parameters, get_domain_stats',
     '- No authentication required (read-only)',
     '',

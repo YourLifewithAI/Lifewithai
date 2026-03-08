@@ -22,8 +22,8 @@ pip install -e .
 # Run with stdio (for Claude Desktop)
 python server.py
 
-# Run with SSE (for remote access)
-MCP_TRANSPORT=sse python server.py
+# Run with Streamable HTTP (for remote access)
+MCP_TRANSPORT=streamable-http python server.py
 
 # Point to local Next.js dev server
 INDEX_URL=http://localhost:3000/content-index.json python server.py
@@ -61,5 +61,5 @@ Then point DNS: `mcp.lifewithai.ai` → Fly.io app.
 ## Architecture
 
 ```
-content-index.json (Netlify) → [HTTP fetch, cached 5 min] → MCP server (Fly.io) → agents via SSE
+content-index.json (Netlify) → [HTTP fetch, cached 5 min] → MCP server (Fly.io) → agents via Streamable HTTP (/mcp)
 ```

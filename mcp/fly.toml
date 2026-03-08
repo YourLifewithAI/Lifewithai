@@ -9,7 +9,7 @@ primary_region = "dfw"  # Dallas — closest to Burleson County, TX
   dockerfile = "Dockerfile"
 
 [env]
-  MCP_TRANSPORT = "sse"
+  MCP_TRANSPORT = "streamable-http"
   MCP_HOST = "0.0.0.0"
   MCP_PORT = "8000"
   INDEX_URL = "https://lifewithai.ai/content-index.json"

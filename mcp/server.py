@@ -6,7 +6,7 @@ Phase 0: Read-only access to the engineering knowledge base.
 6 tools for AI agents to discover, search, and reason about
 the collaborative engineering knowledge base for Arcology One.
 
-Transport: SSE (Server-Sent Events)
+Transport: Streamable HTTP (endpoint: /mcp)
 Data source: content-index.json from the main site
 """
 
@@ -295,11 +295,11 @@ def main():
     """Run the MCP server."""
     transport = os.environ.get("MCP_TRANSPORT", "stdio")
 
-    if transport == "sse":
+    if transport in ("streamable-http", "sse"):
         host = os.environ.get("MCP_HOST", "0.0.0.0")
         port = int(os.environ.get("MCP_PORT", "8000"))
-        logger.info(f"Starting MCP server (SSE) on {host}:{port}")
-        mcp.run(transport="sse", host=host, port=port)
+        logger.info(f"Starting MCP server (streamable-http) on {host}:{port}")
+        mcp.run(transport="streamable-http", host=host, port=port)
     else:
         logger.info("Starting MCP server (stdio)")
         mcp.run(transport="stdio")

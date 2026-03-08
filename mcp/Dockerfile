@@ -8,8 +8,8 @@ RUN pip install --no-cache-dir "fastmcp>=2.0.0" "httpx>=0.27.0" "pydantic>=2.0.0
 # Copy application code
 COPY *.py .
 
-# Default to SSE transport for production
-ENV MCP_TRANSPORT=sse
+# Default to Streamable HTTP transport for production
+ENV MCP_TRANSPORT=streamable-http
 ENV MCP_HOST=0.0.0.0
 ENV MCP_PORT=8000
 
