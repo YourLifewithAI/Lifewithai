@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { CONFIDENCE_INFO } from '@/lib/types';
 import type { DomainMeta, ConfidenceLevel, KEDLLevel, Parameter } from '@/lib/types';
 import SubscribeForm from '@/components/SubscribeForm';
+import ContributeBanner from '@/components/ContributeBanner';
 
 interface SerializedEntry {
   slug: string;
@@ -210,6 +211,11 @@ export default function DomainPageClient({
             ))}
           </div>
         )}
+      </section>
+
+      {/* Contribute CTA */}
+      <section className="mb-12">
+        <ContributeBanner domain={domain} domainName={meta.name} variant="inline" />
       </section>
 
       {/* Open Questions */}

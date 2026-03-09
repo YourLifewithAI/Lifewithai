@@ -1,0 +1,48 @@
+{
+  "type": "briefing",
+  "title": "Research Briefing: Foundation Systems, District Energy, Materials + 6 more \u2014 Mar 08, 2026",
+  "date": "2026-03-08",
+  "description": "Daily research digest covering 9 sessions: Foundation Systems, District Energy, Materials, Fire & Life Safety, Network Infrastructure, AI Governance, Residential Design, Security Architecture, Workforce.",
+  "topics": [
+    {
+      "domain": "Structural Engineering",
+      "subdomain": "Foundation Systems"
+    },
+    {
+      "domain": "Energy Systems",
+      "subdomain": "District Energy"
+    },
+    {
+      "domain": "Structural Engineering",
+      "subdomain": "Materials"
+    },
+    {
+      "domain": "Mechanical & Electrical",
+      "subdomain": "Fire & Life Safety"
+    },
+    {
+      "domain": "AI & Compute Infrastructure",
+      "subdomain": "Network Infrastructure"
+    },
+    {
+      "domain": "AI & Compute Infrastructure",
+      "subdomain": "AI Governance"
+    },
+    {
+      "domain": "Urban Design & Livability",
+      "subdomain": "Residential Design"
+    },
+    {
+      "domain": "Institutional Design",
+      "subdomain": "Security Architecture"
+    },
+    {
+      "domain": "Construction & Logistics",
+      "subdomain": "Workforce"
+    }
+  ],
+  "session_count": 9,
+  "experts_found": 0,
+  "ai_systems_found": 0,
+  "word_count": 1403
+}

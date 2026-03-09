@@ -17,6 +17,7 @@
 //        AUTH_SECRET=... (generate with: openssl rand -base64 32)
 
 import { type NextRequest } from 'next/server';
+import { getServerSession } from 'next-auth';
 import crypto from 'crypto';
 import type {
   UserSession,
@@ -27,6 +28,7 @@ import type {
   TrustScore,
 } from './auth-types';
 import { API_KEY_PREFIX, DEFAULT_TRUST_SCORE, DEFAULT_RATE_LIMITS } from './auth-types';
+import { authOptions } from './auth-config';
 import { getJSON, setJSON } from './storage';
 
 const RATE_LIMIT_STORE = 'rate-limits';
@@ -82,14 +84,13 @@ export type AuthResult =
 /**
  * Authenticate a request. Checks (in order):
  *   1. API key in Authorization header (for agents)
- *   2. Session cookie (for OAuth humans)
+ *   2. NextAuth session (for OAuth humans)
  *   3. Falls back to anonymous
  */
-export function authenticateRequest(
+export async function authenticateRequest(
   request: NextRequest,
-  users: UserSession[],
   agents: RegisteredAgent[]
-): AuthResult {
+): Promise<AuthResult> {
   // 1. Check for API key
   const authHeader = request.headers.get('authorization');
   if (authHeader) {
@@ -103,12 +104,30 @@ export function authenticateRequest(
     }
   }
 
-  // 2. Check for session cookie (placeholder — will be replaced by NextAuth.js)
-  const sessionToken = request.cookies.get('next-auth.session-token')?.value;
-  if (sessionToken) {
-    // TODO: Validate session token via NextAuth.js
-    // const session = await getServerSession(authOptions);
-    // if (session?.user) return { type: 'human', user: session.user };
+  // 2. Check for NextAuth session
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      // Build a UserSession-compatible object from the NextAuth session
+      const user: UserSession = {
+        id: session.user.id,
+        provider: (session.user.provider || 'github') as 'github' | 'google',
+        provider_id: session.user.providerId || '',
+        name: session.user.name || '',
+        email: session.user.email || '',
+        avatar_url: session.user.image || undefined,
+        created_at: '', // Not available from session, but not needed for auth check
+        last_login: new Date().toISOString(),
+        trust_score: {
+          ...DEFAULT_TRUST_SCORE,
+          overall: session.user.trustScore ?? 0.5,
+        },
+        role: (session.user.role || 'visitor') as UserSession['role'],
+      };
+      return { type: 'human', user };
+    }
+  } catch {
+    // Session check failed — fall through to anonymous
   }
 
   // 3. Anonymous

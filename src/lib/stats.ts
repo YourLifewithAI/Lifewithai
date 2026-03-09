@@ -144,6 +144,34 @@ export function computeAggregateStats(
   };
 }
 
+/**
+ * Compute the distribution of confidence levels across all parameters.
+ * Returns per-domain and aggregate counts for CL 1-5.
+ */
+export function computeParameterConfidenceDistribution(
+  entries: KnowledgeEntry[]
+): {
+  aggregate: Record<string, number>;
+  byDomain: Record<string, Record<string, number>>;
+  total: number;
+} {
+  const aggregate: Record<string, number> = {};
+  const byDomain: Record<string, Record<string, number>> = {};
+  let total = 0;
+
+  for (const entry of entries) {
+    if (!byDomain[entry.domain]) byDomain[entry.domain] = {};
+    for (const param of entry.parameters) {
+      const key = String(param.confidence);
+      aggregate[key] = (aggregate[key] || 0) + 1;
+      byDomain[entry.domain][key] = (byDomain[entry.domain][key] || 0) + 1;
+      total++;
+    }
+  }
+
+  return { aggregate, byDomain, total };
+}
+
 function coefficientOfVariation(values: number[]): number {
   if (values.length === 0) return 0;
   const mean = values.reduce((a, b) => a + b, 0) / values.length;

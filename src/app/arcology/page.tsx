@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import { getAllDomainMeta, getAllKnowledgeEntries } from '@/lib/content';
 import { DOMAIN_COLORS } from '@/lib/constants';
-import { computeAggregateStats } from '@/lib/stats';
+import { computeAggregateStats, computeDomainStats, computeParameterConfidenceDistribution } from '@/lib/stats';
+import DomainHealthGrid from '@/components/DomainHealthGrid';
+import ContributeBanner from '@/components/ContributeBanner';
 import type { Metadata } from 'next';
 import type { Domain } from '@/lib/types';
 
@@ -14,6 +16,17 @@ export default function ArcologyLandingPage() {
   const domains = getAllDomainMeta();
   const entries = getAllKnowledgeEntries();
   const stats = computeAggregateStats(entries, domains);
+  const domainStats = computeDomainStats(entries, domains);
+  const paramConf = computeParameterConfidenceDistribution(entries);
+
+  // Compute subdomain coverage per domain
+  const subdomainCoverage: Record<string, { total: number; populated: number }> = {};
+  for (const d of domains) {
+    const populated = d.subdomains.filter((s) =>
+      entries.some((e) => e.domain === d.slug && e.subdomain === s.slug)
+    ).length;
+    subdomainCoverage[d.slug] = { total: d.subdomains.length, populated };
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
@@ -73,6 +86,21 @@ export default function ArcologyLandingPage() {
             );
           })}
         </div>
+      </section>
+
+      {/* Domain Health */}
+      <section className="mb-16">
+        <DomainHealthGrid
+          domainStats={domainStats}
+          parameterConfidence={paramConf.byDomain}
+          subdomainCoverage={subdomainCoverage}
+          variant="full"
+        />
+      </section>
+
+      {/* Contribute CTA */}
+      <section className="mb-16">
+        <ContributeBanner variant="full" />
       </section>
 
       {/* Links */}

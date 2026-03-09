@@ -8,8 +8,10 @@
 // Stored in Netlify Blobs ('feedback' store).
 
 import { type NextRequest } from 'next/server';
+import { getServerSession } from 'next-auth';
 import crypto from 'crypto';
 import { apiResponse, errorResponse } from '@/lib/api-helpers';
+import { authOptions } from '@/lib/auth-config';
 import { setJSON, getAll } from '@/lib/storage';
 
 const FEEDBACK_STORE = 'feedback';
@@ -19,8 +21,11 @@ const VALID_CATEGORIES = [
   'suggestion',
   'ux',
   'content',
+  'parameters',
+  'citation',
   'api',
   'accessibility',
+  'general',
   'other',
 ] as const;
 
@@ -41,9 +46,9 @@ interface StoredFeedback {
 // Rate limit: 20/hour, 100/day per IP
 const rateLimits = new Map<string, { count: number; reset: number }>();
 
-function checkRate(ipHash: string): boolean {
+function checkRate(identifier: string, maxPerHour: number = 20): boolean {
   const now = Date.now();
-  const key = `feedback:${ipHash}`;
+  const key = `feedback:${identifier}`;
   const entry = rateLimits.get(key);
 
   if (!entry || now > entry.reset) {
@@ -51,7 +56,7 @@ function checkRate(ipHash: string): boolean {
     return true;
   }
 
-  if (entry.count >= 20) return false;
+  if (entry.count >= maxPerHour) return false;
   entry.count++;
   return true;
 }
@@ -61,8 +66,24 @@ function checkRate(ipHash: string): boolean {
 export async function POST(request: NextRequest) {
   const ipHash = hashIP(request);
 
-  if (!checkRate(ipHash)) {
-    return errorResponse('Rate limit exceeded. Max 20 feedback submissions per hour.', 429);
+  // Check for authenticated session — higher rate limits
+  let sessionUserId: string | null = null;
+  let sessionUserName: string | null = null;
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      sessionUserId = session.user.id;
+      sessionUserName = session.user.name || null;
+    }
+  } catch {
+    // Session check failed — continue as anonymous
+  }
+
+  // Rate limit: authenticated users get 60/hr, anonymous get 20/hr
+  const rateKey = sessionUserId ? `user:${sessionUserId}` : ipHash;
+  const rateLimit = sessionUserId ? 60 : 20;
+  if (!checkRate(rateKey, rateLimit)) {
+    return errorResponse(`Rate limit exceeded. Max ${rateLimit} feedback submissions per hour.`, 429);
   }
 
   let body: Record<string, unknown>;
@@ -72,9 +93,14 @@ export async function POST(request: NextRequest) {
     return errorResponse('Invalid JSON in request body', 400);
   }
 
+  // For authenticated users, source is auto-filled if not provided
+  if (!body.source && sessionUserId) {
+    body.source = `user:${sessionUserId}`;
+  }
+
   // Validate required fields
   if (!body.source || typeof body.source !== 'string') {
-    return errorResponse('Missing required field: source (string — your agent name or model)', 400);
+    return errorResponse('Missing required field: source (string — your name, agent name, or model)', 400);
   }
   if (!body.category || !VALID_CATEGORIES.includes(body.category as FeedbackCategory)) {
     return errorResponse(

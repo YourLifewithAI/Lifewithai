@@ -1,8 +1,10 @@
 import Link from 'next/link';
 import { getAllKnowledgeEntries, getAllDomainMeta } from '@/lib/content';
-import { computeAggregateStats, computeDomainStats } from '@/lib/stats';
+import { computeAggregateStats, computeDomainStats, computeParameterConfidenceDistribution } from '@/lib/stats';
 import { DOMAIN_COLORS, DOMAIN_NAMES } from '@/lib/constants';
 import { KEDL_INFO, CONFIDENCE_INFO } from '@/lib/types';
+import DomainHealthGrid from '@/components/DomainHealthGrid';
+import ContributeBanner from '@/components/ContributeBanner';
 import type { Domain, KEDLLevel, ConfidenceLevel } from '@/lib/types';
 import type { Metadata } from 'next';
 
@@ -16,6 +18,16 @@ export default function StatsPage() {
   const domains = getAllDomainMeta();
   const stats = computeAggregateStats(entries, domains);
   const domainStats = computeDomainStats(entries, domains);
+  const paramConf = computeParameterConfidenceDistribution(entries);
+
+  // Compute subdomain coverage per domain
+  const subdomainCoverage: Record<string, { total: number; populated: number }> = {};
+  for (const d of domains) {
+    const populated = d.subdomains.filter((s) =>
+      entries.some((e) => e.domain === d.slug && e.subdomain === s.slug)
+    ).length;
+    subdomainCoverage[d.slug] = { total: d.subdomains.length, populated };
+  }
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6">
@@ -104,44 +116,20 @@ export default function StatsPage() {
         </div>
       </section>
 
-      {/* Domain Breakdown */}
-      <section>
-        <h2 className="text-xl font-semibold text-white mb-6">Domain Breakdown</h2>
-        <div className="space-y-3">
-          {domainStats.map((ds) => {
-            const color = DOMAIN_COLORS[ds.slug as Domain] || '#888';
-            const maxCount = Math.max(...domainStats.map((d) => d.entry_count), 1);
-            const barWidth = (ds.entry_count / maxCount) * 100;
+      {/* Domain Health */}
+      <section className="mb-12">
+        <h2 className="text-xl font-semibold text-white mb-6">Domain Health</h2>
+        <DomainHealthGrid
+          domainStats={domainStats}
+          parameterConfidence={paramConf.byDomain}
+          subdomainCoverage={subdomainCoverage}
+          variant="full"
+        />
+      </section>
 
-            return (
-              <Link
-                key={ds.slug}
-                href={`/arcology/${ds.slug}`}
-                className="block group rounded-lg border border-border bg-surface p-4 hover:border-accent/30 transition-all"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    <div className="h-3 w-3 rounded-full" style={{ background: color }} />
-                    <span className="font-medium text-foreground group-hover:text-accent transition-colors">
-                      {ds.name}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-4 text-xs text-muted">
-                    <span>{ds.entry_count} entries</span>
-                    <span>{ds.open_question_count} questions</span>
-                    <span>{ds.subdomain_count} subdomains</span>
-                  </div>
-                </div>
-                <div className="h-1.5 rounded-full bg-surface-2 overflow-hidden">
-                  <div
-                    className="h-full rounded-full transition-all"
-                    style={{ width: `${barWidth}%`, background: color }}
-                  />
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+      {/* Contribute CTA */}
+      <section>
+        <ContributeBanner variant="full" />
       </section>
     </div>
   );

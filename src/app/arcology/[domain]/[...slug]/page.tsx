@@ -5,6 +5,8 @@ import { renderMarkdown } from '@/lib/markdown';
 import { DOMAIN_COLORS, DOMAIN_NAMES } from '@/lib/constants';
 import { KEDL_INFO, CONFIDENCE_INFO } from '@/lib/types';
 import type { Domain, KEDLLevel, ConfidenceLevel } from '@/lib/types';
+import FeedbackWidget from '@/components/FeedbackWidget';
+import ContributeBanner from '@/components/ContributeBanner';
 import type { Metadata } from 'next';
 
 interface PageProps {
@@ -282,6 +284,20 @@ export default async function KnowledgeEntryPage({ params }: PageProps) {
             <p className="text-muted">{confInfo.description}</p>
           </div>
         </div>
+      </section>
+
+      {/* Feedback */}
+      <section className="mt-10">
+        <FeedbackWidget
+          pageUrl={`/arcology/${domain}/${slugStr}`}
+          entryTitle={entry.title}
+          domain={domain}
+        />
+      </section>
+
+      {/* Contribute CTA */}
+      <section className="mt-6">
+        <ContributeBanner domain={domain} domainName={domainMeta?.name} variant="inline" />
       </section>
     </div>
   );

@@ -7,6 +7,7 @@ import { DOMAINS, KEDL_INFO, CONFIDENCE_INFO } from '@/lib/types';
 import { DOMAIN_COLORS, DOMAIN_NAMES } from '@/lib/constants';
 import { searchEntries } from '@/lib/search';
 import type { SearchFilters } from '@/lib/search';
+import ContributeBanner from '@/components/ContributeBanner';
 
 export default function SearchPage() {
   const [index, setIndex] = useState<ContentIndex | null>(null);
@@ -128,6 +129,11 @@ export default function SearchPage() {
           )}
         </>
       )}
+
+      {/* Contribute CTA */}
+      <section className="mt-12">
+        <ContributeBanner variant="inline" />
+      </section>
     </div>
   );
 }

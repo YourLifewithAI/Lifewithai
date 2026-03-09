@@ -1,0 +1,56 @@
+{
+  "type": "briefing",
+  "title": "Research Briefing: Elevators, HVAC, Data Centers + 8 more \u2014 Mar 01, 2026",
+  "date": "2026-03-01",
+  "description": "Daily research digest covering 11 sessions: Elevators, HVAC, Data Centers, Phasing, Economics, Energy vs Compute, Structural vs Space Allocation, Water vs Plumbing vs HVAC, Waste vs Food vs Energy, Construction vs Materials vs Workforce, Population Assumptions Audit.",
+  "topics": [
+    {
+      "domain": "Mechanical & Electrical",
+      "subdomain": "Elevators"
+    },
+    {
+      "domain": "Environmental Systems",
+      "subdomain": "HVAC"
+    },
+    {
+      "domain": "AI & Compute Infrastructure",
+      "subdomain": "Data Centers"
+    },
+    {
+      "domain": "Construction & Logistics",
+      "subdomain": "Phasing"
+    },
+    {
+      "domain": "Institutional Design",
+      "subdomain": "Economics"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Energy vs Compute"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Structural vs Space Allocation"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Water vs Plumbing vs HVAC"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Waste vs Food vs Energy"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Construction vs Materials vs Workforce"
+    },
+    {
+      "domain": "Cross-Domain",
+      "subdomain": "Population Assumptions Audit"
+    }
+  ],
+  "session_count": 11,
+  "experts_found": 0,
+  "ai_systems_found": 0,
+  "word_count": 897
+}

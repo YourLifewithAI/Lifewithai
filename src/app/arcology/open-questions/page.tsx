@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getAllKnowledgeEntries, getAllDomainMeta } from '@/lib/content';
 import { DOMAIN_COLORS, DOMAIN_NAMES } from '@/lib/constants';
 import type { Domain } from '@/lib/types';
+import ContributeBanner from '@/components/ContributeBanner';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
@@ -91,6 +92,11 @@ export default function OpenQuestionsPage() {
           })}
         </div>
       )}
+
+      {/* Contribute CTA */}
+      <section className="mt-12">
+        <ContributeBanner variant="full" />
+      </section>
     </div>
   );
 }

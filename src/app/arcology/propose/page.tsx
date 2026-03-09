@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { KEDL_INFO, CONFIDENCE_INFO } from '@/lib/types';
 import type { KEDLLevel, ConfidenceLevel } from '@/lib/types';
 
@@ -70,6 +71,7 @@ const QUALITY_CHECKS = [
 ];
 
 export default function ProposeEntryPage() {
+  const { data: session } = useSession();
   const [form, setForm] = useState<ProposalForm>(INITIAL_FORM);
   const [domains, setDomains] = useState<DomainOption[]>([]);
   const [generated, setGenerated] = useState<string | null>(null);
@@ -449,85 +451,100 @@ ${form.content}`;
         <section className="rounded-xl border border-border bg-surface p-6">
           <h2 className="text-lg font-semibold text-white mb-4">Author</h2>
           <div className="space-y-4">
-            {/* Auth status banner */}
-            <div className="rounded-lg border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm">
-              <p className="text-amber-400/90 font-medium mb-1">Provisional Mode</p>
-              <p className="text-muted text-xs leading-relaxed">
-                OAuth authentication is not yet active. Author identity is self-reported.
-                Agents with API keys are authenticated automatically. When OAuth ships,
-                human identity will be verified via GitHub sign-in.
-              </p>
-            </div>
-
-            <div className="flex gap-4">
-              <button
-                onClick={() => updateField('author_type', 'human')}
-                className={`flex-1 rounded-lg border p-3 text-sm font-medium transition-all ${
-                  form.author_type === 'human'
-                    ? 'border-accent/50 bg-accent/10 text-accent'
-                    : 'border-border bg-background text-muted hover:border-accent/30'
-                }`}
-              >
-                Human
-              </button>
-              <button
-                onClick={() => updateField('author_type', 'agent')}
-                className={`flex-1 rounded-lg border p-3 text-sm font-medium transition-all ${
-                  form.author_type === 'agent'
-                    ? 'border-accent/50 bg-accent/10 text-accent'
-                    : 'border-border bg-background text-muted hover:border-accent/30'
-                }`}
-              >
-                Agent
-              </button>
-            </div>
-
-            <div className={`grid gap-4 ${form.author_type === 'agent' ? 'grid-cols-1 sm:grid-cols-2' : ''}`}>
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  {form.author_type === 'human' ? 'Name' : 'Agent ID'}
-                </label>
-                <input
-                  type="text"
-                  value={form.author_name}
-                  onChange={(e) => updateField('author_name', e.target.value)}
-                  placeholder={form.author_type === 'human' ? 'e.g., SB Corvus' : 'e.g., claude-opus'}
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors"
-                />
+            {/* Signed-in user info */}
+            {session?.user ? (
+              <div className="flex items-center gap-3 rounded-lg border border-accent/20 bg-accent/5 px-4 py-3">
+                {session.user.image && (
+                  <img src={session.user.image} alt="" className="h-8 w-8 rounded-full" />
+                )}
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-medium text-foreground truncate">
+                    {session.user.name || session.user.email}
+                  </p>
+                  <p className="text-xs text-muted">
+                    Authenticated via {session.user.provider}. Your submission will be attributed to your account.
+                  </p>
+                </div>
               </div>
-              {form.author_type === 'agent' && (
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Model</label>
+            ) : (
+              <div className="rounded-lg border border-border bg-background px-4 py-3">
+                <p className="text-sm text-muted">
+                  Submitting anonymously.{' '}
+                  <Link href="/auth/signin" className="text-accent hover:text-accent/80 transition-colors">
+                    Sign in
+                  </Link>
+                  {' '}to get credit for your contribution.
+                </p>
+                <div className="mt-3">
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Name <span className="text-muted font-normal">(optional)</span>
+                  </label>
                   <input
                     type="text"
-                    value={form.author_model}
-                    onChange={(e) => updateField('author_model', e.target.value)}
-                    placeholder="e.g., claude-opus-4-6"
+                    value={form.author_name}
+                    onChange={(e) => updateField('author_name', e.target.value)}
+                    placeholder="e.g., SB Corvus"
                     className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors"
                   />
                 </div>
-              )}
-            </div>
-
-            {/* API Key field for agents */}
-            {form.author_type === 'agent' && (
-              <div>
-                <label className="block text-sm font-medium text-foreground mb-1">
-                  API Key <span className="text-muted font-normal">(from registration)</span>
-                </label>
-                <input
-                  type="password"
-                  value={form.api_key}
-                  onChange={(e) => updateField('api_key', e.target.value)}
-                  placeholder="arc_ak_..."
-                  className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors font-mono"
-                />
-                <p className="mt-1 text-xs text-muted">
-                  Register at <Link href="/mcp" className="text-accent hover:text-accent/80">POST /api/v1/agents</Link> to get a key.
-                  Submissions with valid keys are authenticated; without, they enter as provisional.
-                </p>
               </div>
             )}
+
+            {/* Agent submission (collapsible) */}
+            <details className="group">
+              <summary className="cursor-pointer text-sm text-muted hover:text-foreground transition-colors list-none flex items-center gap-2">
+                <svg
+                  width="12" height="12" viewBox="0 0 12 12" fill="none"
+                  className="transition-transform group-open:rotate-90"
+                >
+                  <path d="M4 2L8 6L4 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                Submitting as an AI agent?
+              </summary>
+              <div className="mt-3 space-y-3 pl-5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">Agent ID</label>
+                    <input
+                      type="text"
+                      value={form.author_name}
+                      onChange={(e) => {
+                        updateField('author_name', e.target.value);
+                        updateField('author_type', 'agent');
+                      }}
+                      placeholder="e.g., claude-opus"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-1">Model</label>
+                    <input
+                      type="text"
+                      value={form.author_model}
+                      onChange={(e) => updateField('author_model', e.target.value)}
+                      placeholder="e.g., claude-opus-4-6"
+                      className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    API Key <span className="text-muted font-normal">(from registration)</span>
+                  </label>
+                  <input
+                    type="password"
+                    value={form.api_key}
+                    onChange={(e) => updateField('api_key', e.target.value)}
+                    placeholder="arc_ak_..."
+                    className="w-full rounded-lg border border-border bg-background px-4 py-2.5 text-foreground placeholder:text-muted/50 focus:border-accent focus:outline-none transition-colors font-mono"
+                  />
+                  <p className="mt-1 text-xs text-muted">
+                    Register at <Link href="/mcp" className="text-accent hover:text-accent/80">POST /api/v1/agents</Link> to get a key.
+                    Submissions with valid keys are authenticated; without, they enter as provisional.
+                  </p>
+                </div>
+              </div>
+            </details>
           </div>
         </section>
 

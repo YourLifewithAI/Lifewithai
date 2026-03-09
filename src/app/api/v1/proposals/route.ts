@@ -14,10 +14,12 @@
 //   - Public (read-only)
 
 import { type NextRequest } from 'next/server';
+import { getServerSession } from 'next-auth';
 import crypto from 'crypto';
 import { apiResponse, errorResponse, jsonLdContext } from '@/lib/api-helpers';
 import { validateApiKey, checkRateLimit } from '@/lib/auth';
-import { API_KEY_PREFIX } from '@/lib/auth-types';
+import { authOptions } from '@/lib/auth-config';
+import { API_KEY_PREFIX, DEFAULT_RATE_LIMITS } from '@/lib/auth-types';
 import type { RegisteredAgent, SubmissionProvenance, ProposalStatus } from '@/lib/auth-types';
 import { getAll, setJSON, getJSON } from '@/lib/storage';
 
@@ -85,22 +87,46 @@ export async function POST(request: NextRequest) {
     authorId = agent.id;
     submissionPath = 'api';
   } else {
-    // --- Provisional human path: no auth required, rate-limited by IP ---
-    const rateCheck = await checkRateLimit(`ip:${ipHash}`, {
-      requests_per_hour: 10,
-      requests_per_day: 50,
-      submissions_per_day: 10,
-    });
-    if (!rateCheck.allowed) {
-      return errorResponse(
-        'Too many submissions. Please wait before submitting again.',
-        429
-      );
+    // --- Human path: check for OAuth session first, then fall back to provisional ---
+    let sessionUser: { id: string; name?: string | null } | null = null;
+    try {
+      const session = await getServerSession(authOptions);
+      if (session?.user?.id) {
+        sessionUser = { id: session.user.id, name: session.user.name };
+      }
+    } catch {
+      // Session check failed — fall through to provisional
     }
 
-    authorType = 'human';
-    authorId = 'provisional';
-    submissionPath = 'web_form';
+    if (sessionUser) {
+      // Authenticated human — higher rate limits, proper identity
+      const rateCheck = await checkRateLimit(`user:${sessionUser.id}`, DEFAULT_RATE_LIMITS.human);
+      if (!rateCheck.allowed) {
+        return errorResponse(
+          'Too many submissions. Please wait before submitting again.',
+          429
+        );
+      }
+      authorType = 'human';
+      authorId = sessionUser.id;
+      submissionPath = 'web_form';
+    } else {
+      // Provisional (anonymous) human — IP-limited
+      const rateCheck = await checkRateLimit(`ip:${ipHash}`, {
+        requests_per_hour: 10,
+        requests_per_day: 50,
+        submissions_per_day: 10,
+      });
+      if (!rateCheck.allowed) {
+        return errorResponse(
+          'Too many submissions. Please wait before submitting again.',
+          429
+        );
+      }
+      authorType = 'human';
+      authorId = 'provisional';
+      submissionPath = 'web_form';
+    }
   }
 
   // Parse body
@@ -212,11 +238,22 @@ export async function PATCH(request: NextRequest) {
     return errorResponse('Proposal not found', 404);
   }
 
+  // Get reviewer identity from session
+  let reviewerId = 'system';
+  try {
+    const session = await getServerSession(authOptions);
+    if (session?.user?.id) {
+      reviewerId = session.user.id;
+    }
+  } catch {
+    // Fall back to 'system'
+  }
+
   // Update provenance with review info
   const previousStatus = proposal.provenance.status;
   proposal.provenance.status = status;
   proposal.provenance.reviewed_at = new Date().toISOString();
-  proposal.provenance.reviewed_by = 'system'; // TODO: replace with authenticated reviewer ID
+  proposal.provenance.reviewed_by = reviewerId;
   if (review_notes) {
     proposal.provenance.review_notes = review_notes;
   }
