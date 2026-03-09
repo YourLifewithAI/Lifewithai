@@ -52,7 +52,7 @@ export default function ContributeBanner({
             <Link href="/auth/signin" className="text-accent hover:text-accent/80 transition-colors">
               Sign in
             </Link>
-            {' '}for attribution, or contribute anonymously.
+            {' '}to receive recognition for your contributions, or contribute anonymously.
           </p>
         )}
       </section>
@@ -80,7 +80,7 @@ export default function ContributeBanner({
             href="/auth/signin"
             className="text-xs text-muted hover:text-accent transition-colors"
           >
-            Sign in for credit
+            Sign in for recognition
           </Link>
         )}
       </div>
