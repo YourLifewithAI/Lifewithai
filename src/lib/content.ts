@@ -10,6 +10,7 @@ import matter from 'gray-matter';
 import type {
   KnowledgeEntry,
   KnowledgeEntryFrontmatter,
+  StructuredAssumption,
   DomainMeta,
   Story,
   StoryFrontmatter,
@@ -99,6 +100,12 @@ function parseKnowledgeEntry(filePath: string, domain: Domain): KnowledgeEntry |
     const relativePath = path.relative(domainDir, filePath);
     const slug = relativePath.replace(/\.md$/, '').replace(/\\/g, '/');
 
+    // Normalize assumptions: accept both string[] and StructuredAssumption[]
+    const rawAssumptions = (fm as unknown as { assumptions?: (string | StructuredAssumption)[] }).assumptions || [];
+    const assumptions: StructuredAssumption[] = rawAssumptions.map((a) =>
+      typeof a === 'string' ? { text: a } : a
+    );
+
     return {
       ...fm,
       domain,
@@ -109,7 +116,7 @@ function parseKnowledgeEntry(filePath: string, domain: Domain): KnowledgeEntry |
       citations: fm.citations || [],
       cross_references: fm.cross_references || [],
       open_questions: fm.open_questions || [],
-      assumptions: fm.assumptions || [],
+      assumptions,
       parameters: fm.parameters || [],
       authors: fm.authors || [],
     };

@@ -73,7 +73,7 @@ function buildSearchText(entry: KnowledgeEntry): string {
     entry.content,
     entry.tags.join(' '),
     entry.open_questions.join(' '),
-    entry.assumptions.join(' '),
+    entry.assumptions.map((a) => typeof a === 'string' ? a : a.text).join(' '),
     entry.parameters.map((p) => p.name).join(' '),
   ]
     .join(' ')

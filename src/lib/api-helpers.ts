@@ -19,6 +19,11 @@ export function getContentIndex(): ContentIndex {
   return cachedIndex;
 }
 
+export function getKnowledgeBaseVersion(): string {
+  const index = getContentIndex();
+  return index.knowledge_base_version;
+}
+
 export function jsonLdContext() {
   return {
     '@context': {
@@ -33,7 +38,11 @@ export function jsonLdContext() {
 
 export function apiResponse(data: unknown, status = 200): Response {
   return Response.json(
-    { ...jsonLdContext(), ...data as object },
+    {
+      ...jsonLdContext(),
+      knowledge_base_version: getKnowledgeBaseVersion(),
+      ...data as object,
+    },
     {
       status,
       headers: {

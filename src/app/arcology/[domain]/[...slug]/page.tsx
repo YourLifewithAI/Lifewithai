@@ -157,7 +157,19 @@ export default async function KnowledgeEntryPage({ params }: PageProps) {
             {entry.assumptions.map((a, i) => (
               <li key={i} className="text-sm text-muted flex items-start gap-2">
                 <span className="text-accent mt-1 flex-shrink-0">&bull;</span>
-                {a}
+                <span>
+                  {a.text}
+                  {a.category && (
+                    <span className="ml-2 text-xs px-1.5 py-0.5 rounded bg-surface border border-border text-muted">
+                      {a.category}
+                    </span>
+                  )}
+                  {a.context_dependent && (
+                    <span className="ml-1 text-xs text-amber-400" title={`Varies by: ${a.varies_by || 'context'}`}>
+                      ⚠ context-dependent
+                    </span>
+                  )}
+                </span>
               </li>
             ))}
           </ul>

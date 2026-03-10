@@ -10,6 +10,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 import {
   getAllKnowledgeEntries,
   getAllDomainMeta,
@@ -47,8 +48,23 @@ function buildIndex(): void {
     console.log('[index-builder] Pipeline data not found (research-queue.json missing)');
   }
 
+  // Compute a stable content hash from knowledge entries so agents can
+  // pin reasoning to a specific knowledge base snapshot (per Cash's feedback)
+  const entryFingerprint = entries
+    .map((e) => `${e.slug}:${e.updated}:${e.kedl}:${e.confidence}`)
+    .sort()
+    .join('|');
+  const knowledgeBaseVersion = crypto
+    .createHash('sha256')
+    .update(entryFingerprint)
+    .digest('hex')
+    .slice(0, 12);
+
+  console.log(`[index-builder] Knowledge base version: ${knowledgeBaseVersion}`);
+
   const index: ContentIndex = {
     generated_at: new Date().toISOString(),
+    knowledge_base_version: knowledgeBaseVersion,
     entries,
     domains,
     domain_stats: domainStats,

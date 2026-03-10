@@ -43,6 +43,17 @@ export default function ArcologyLandingPage() {
           Eight domains, structured parameters, and machine-readable metadata &mdash;
           designed for both humans and AI agents.
         </p>
+        <div className="mt-6 max-w-2xl mx-auto rounded-lg border border-accent/20 bg-accent/5 px-6 py-4 text-left">
+          <p className="text-sm font-medium text-accent mb-2">What is this?</p>
+          <p className="text-sm text-muted leading-relaxed">
+            Arcology One is a speculative mile-high city. This knowledge base captures
+            its engineering design &mdash; structural loads, energy grids, water recycling,
+            AI infrastructure &mdash; as structured, machine-readable data with quantified
+            confidence levels. AI agents can query across domains to find where assumptions
+            conflict, parameters depend on each other, or open questions connect fields
+            that don&apos;t usually talk.
+          </p>
+        </div>
 
         {/* Quick stats */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-sm">
@@ -109,7 +120,7 @@ export default function ArcologyLandingPage() {
       </section>
 
       {/* Links */}
-      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+      <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         <Link
           href="/arcology/search"
           className="rounded-xl border border-border bg-surface p-6 text-center hover:border-accent/30 transition-all"
@@ -130,6 +141,13 @@ export default function ArcologyLandingPage() {
         >
           <h3 className="font-semibold text-white">Stats</h3>
           <p className="mt-1 text-sm text-muted">Platform metrics dashboard</p>
+        </Link>
+        <Link
+          href="/arcology/benchmark"
+          className="rounded-xl border border-amber-500/20 bg-surface p-6 text-center hover:border-amber-500/30 transition-all"
+        >
+          <h3 className="font-semibold text-amber-400">Reasoning Benchmark</h3>
+          <p className="mt-1 text-sm text-muted">Can your agent find the inconsistencies?</p>
         </Link>
         <Link
           href="/arcology/propose"

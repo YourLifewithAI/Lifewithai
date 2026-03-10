@@ -45,7 +45,7 @@ export async function GET() {
 
     interfaces: {
       mcp: {
-        description: 'Model Context Protocol server with 6 read-only tools',
+        description: 'Model Context Protocol server with 7 read-only tools',
         endpoint: 'https://arcology-mcp.fly.dev/mcp',
         transport: 'Streamable HTTP',
         tools: [
@@ -55,6 +55,7 @@ export async function GET() {
           'get_open_questions',
           'get_entry_parameters',
           'get_domain_stats',
+          'get_cross_references',
         ],
         auth: 'none',
       },

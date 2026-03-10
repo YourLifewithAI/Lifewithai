@@ -61,6 +61,18 @@ export interface Parameter {
   confidence: ConfidenceLevel;
 }
 
+// Structured assumption — backward-compatible with string[]
+// Old format:  assumptions: ["Population of 10 million residents"]
+// New format:  assumptions: [{text: "...", category: "population", scope: "all-phases"}]
+// Parser normalizes strings to {text: "..."} objects automatically.
+export interface StructuredAssumption {
+  text: string;
+  category?: string;       // e.g. "population", "geometry", "timeline", "technology", "cost"
+  scope?: string;           // e.g. "all-phases", "phase-1-only", "steady-state"
+  context_dependent?: boolean;  // true if the value changes based on scenario
+  varies_by?: string;       // what it depends on, e.g. "construction phase", "population density"
+}
+
 export interface KnowledgeEntryFrontmatter {
   id: string;
   title: string;
@@ -78,7 +90,7 @@ export interface KnowledgeEntryFrontmatter {
   citations: Citation[];
   cross_references: CrossReference[];
   open_questions: string[];
-  assumptions: string[];
+  assumptions: StructuredAssumption[];  // normalized from string[] or StructuredAssumption[]
   parameters: Parameter[];
 }
 
@@ -173,6 +185,7 @@ export interface DomainStats {
 
 export interface ContentIndex {
   generated_at: string;
+  knowledge_base_version: string;
   entries: KnowledgeEntry[];
   domains: DomainMeta[];
   domain_stats: DomainStats[];
