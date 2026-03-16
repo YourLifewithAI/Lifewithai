@@ -13,7 +13,10 @@ Data source: content-index.json from the main site
 from __future__ import annotations
 import os
 import logging
+import time
+import json
 from typing import Optional
+from pathlib import Path
 
 from fastmcp import FastMCP
 
@@ -26,6 +29,28 @@ logging.basicConfig(
     format="%(asctime)s [%(name)s] %(levelname)s: %(message)s",
 )
 logger = logging.getLogger("arcology-mcp")
+
+# ── Query logging ──────────────────────────────────────────────
+# Application-level logging of tool usage for analytics.
+# Logs to /tmp/arcology-mcp-queries.jsonl (ephemeral on Fly.io,
+# but survives within a machine lifecycle for inspection).
+
+QUERY_LOG_PATH = Path(os.environ.get("QUERY_LOG_PATH", "/tmp/arcology-mcp-queries.jsonl"))
+
+
+def log_query(tool_name: str, params: dict, result_size: int = 0) -> None:
+    """Log a tool invocation for analytics."""
+    entry = {
+        "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+        "tool": tool_name,
+        "params": {k: v for k, v in params.items() if v is not None},
+        "result_size": result_size,
+    }
+    try:
+        with open(QUERY_LOG_PATH, "a") as f:
+            f.write(json.dumps(entry) + "\n")
+    except Exception as e:
+        logger.warning(f"Failed to write query log: {e}")
 
 # Allow overriding the index URL for local dev
 index_url = os.environ.get("INDEX_URL")
@@ -52,6 +77,11 @@ Each knowledge entry has:
 
 Use these tools to explore the knowledge base, find relevant entries, check cross-domain
 consistency of parameters, and identify open questions where your analysis could contribute.
+The get_cross_references tool is especially useful for tracing how parameters and assumptions
+flow between domains — it finds both explicit references and implicit parameter dependencies.
+
+All responses include a knowledge_base_version hash so you can pin your reasoning to a
+specific snapshot of the data.
 
 This is Phase 0 (read-only). A contribution pipeline is coming in Phase 2.""",
 )
@@ -73,13 +103,16 @@ async def read_node(domain: str, slug: str) -> dict:
     entry_id = f"{domain}/{slug}"
     for entry in index.entries:
         if entry.id == entry_id:
+            log_query("read_node", {"domain": domain, "slug": slug}, result_size=1)
             return entry.model_dump()
 
     # Try matching by domain + slug
     for entry in index.entries:
         if entry.domain == domain and entry.slug == slug:
+            log_query("read_node", {"domain": domain, "slug": slug}, result_size=1)
             return entry.model_dump()
 
+    log_query("read_node", {"domain": domain, "slug": slug}, result_size=0)
     return {"error": f"Entry not found: {domain}/{slug}"}
 
 
@@ -116,6 +149,8 @@ async def search_knowledge(
         entry_type=type,
         limit=limit,
     )
+
+    log_query("search_knowledge", {"query": query, "domain": domain, "kedl_min": kedl_min, "confidence_min": confidence_min, "type": type}, result_size=len(results))
 
     # Return summaries (strip content to reduce token count)
     return {
@@ -172,6 +207,8 @@ async def list_domains() -> dict:
             "stats": stats.model_dump() if stats else None,
         })
 
+    log_query("list_domains", {}, result_size=len(domains))
+
     return {
         "domain_count": len(domains),
         "total_entries": index.aggregate_stats.total_entries,
@@ -213,6 +250,8 @@ async def get_open_questions(
             })
 
     limited = questions[:limit]
+
+    log_query("get_open_questions", {"domain": domain, "limit": limit}, result_size=len(limited))
 
     return {
         "count": len(limited),
@@ -262,6 +301,8 @@ async def get_entry_parameters(
                 "subdomain": entry.subdomain,
             })
 
+    log_query("get_entry_parameters", {"domain": domain, "parameter_name": parameter_name}, result_size=len(parameters))
+
     return {
         "count": len(parameters),
         "filters": {
@@ -284,10 +325,129 @@ async def get_domain_stats() -> dict:
     """
     index = await get_index()
 
+    log_query("get_domain_stats", {}, result_size=len(index.domain_stats))
+
     return {
         "generated_at": index.generated_at,
+        "knowledge_base_version": index.knowledge_base_version,
         "aggregate": index.aggregate_stats.model_dump(),
         "domains": [ds.model_dump() for ds in index.domain_stats],
+    }
+
+
+@mcp.tool()
+async def get_cross_references(entry_id: str) -> dict:
+    """Get all entries that reference or are referenced by a given entry.
+
+    Given an entry ID (e.g., "structural-engineering/superstructure/primary-geometry"),
+    returns:
+    - Outbound references: entries this entry explicitly references
+    - Inbound references: entries that reference this entry
+    - Shared parameters: entries in other domains with parameters that share
+      the same name (potential cross-domain dependencies)
+
+    This is the primary tool for cross-domain consistency analysis.
+
+    Args:
+        entry_id: The full entry ID (domain/subdomain/slug format)
+    """
+    index = await get_index()
+
+    # Find the source entry
+    source = None
+    for entry in index.entries:
+        if entry.id == entry_id:
+            source = entry
+            break
+
+    if source is None:
+        log_query("get_cross_references", {"entry_id": entry_id}, result_size=0)
+        return {"error": f"Entry not found: {entry_id}"}
+
+    # Outbound: entries this entry explicitly references
+    outbound = []
+    for xref in source.cross_references:
+        for entry in index.entries:
+            if entry.slug == xref.slug or entry.id == xref.slug:
+                outbound.append({
+                    "id": entry.id,
+                    "title": entry.title,
+                    "domain": entry.domain,
+                    "relationship": xref.relationship,
+                    "kedl": entry.kedl,
+                    "confidence": entry.confidence,
+                })
+                break
+
+    # Inbound: entries that reference this entry
+    inbound = []
+    for entry in index.entries:
+        if entry.id == entry_id:
+            continue
+        for xref in entry.cross_references:
+            if xref.slug == source.slug or xref.slug == entry_id:
+                inbound.append({
+                    "id": entry.id,
+                    "title": entry.title,
+                    "domain": entry.domain,
+                    "relationship": xref.relationship,
+                    "kedl": entry.kedl,
+                    "confidence": entry.confidence,
+                })
+                break
+
+    # Shared parameters: entries in OTHER domains that have parameters
+    # with the same name (cross-domain dependencies)
+    source_param_names = {p.name.lower() for p in source.parameters}
+    shared_params = []
+    if source_param_names:
+        for entry in index.entries:
+            if entry.id == entry_id or entry.domain == source.domain:
+                continue
+            for p in entry.parameters:
+                if p.name.lower() in source_param_names:
+                    shared_params.append({
+                        "parameter": p.name,
+                        "source_domain": source.domain,
+                        "target_id": entry.id,
+                        "target_title": entry.title,
+                        "target_domain": entry.domain,
+                        "source_value": next(
+                            (sp.value for sp in source.parameters if sp.name.lower() == p.name.lower()),
+                            None,
+                        ),
+                        "target_value": p.value,
+                        "source_unit": next(
+                            (sp.unit for sp in source.parameters if sp.name.lower() == p.name.lower()),
+                            None,
+                        ),
+                        "target_unit": p.unit,
+                        "values_match": next(
+                            (sp.value for sp in source.parameters if sp.name.lower() == p.name.lower()),
+                            None,
+                        ) == p.value,
+                    })
+
+    total = len(outbound) + len(inbound) + len(shared_params)
+    log_query("get_cross_references", {"entry_id": entry_id}, result_size=total)
+
+    return {
+        "entry_id": entry_id,
+        "entry_title": source.title,
+        "knowledge_base_version": index.knowledge_base_version,
+        "outbound_references": outbound,
+        "inbound_references": inbound,
+        "shared_parameters": shared_params,
+        "summary": {
+            "outbound_count": len(outbound),
+            "inbound_count": len(inbound),
+            "shared_parameter_count": len(shared_params),
+            "cross_domain": len(set(
+                [r["domain"] for r in outbound] +
+                [r["domain"] for r in inbound] +
+                [s["target_domain"] for s in shared_params]
+            )),
+        },
     }
 
 

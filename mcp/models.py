@@ -5,8 +5,8 @@ Structured response types for MCP tool outputs.
 """
 
 from __future__ import annotations
-from pydantic import BaseModel
-from typing import Optional
+from pydantic import BaseModel, field_validator
+from typing import Optional, Union
 
 
 class Author(BaseModel):
@@ -31,7 +31,7 @@ class CrossReference(BaseModel):
 
 class Parameter(BaseModel):
     name: str
-    value: float
+    value: Union[float, str]  # numeric or descriptive (e.g. "continuous", "varies")
     unit: str
     confidence: int
 
@@ -57,6 +57,20 @@ class KnowledgeEntry(BaseModel):
     parameters: list[Parameter] = []
     content: str = ""
     slug: str = ""
+
+    @field_validator("assumptions", mode="before")
+    @classmethod
+    def flatten_assumptions(cls, v: list) -> list[str]:
+        """Accept both plain strings and {text: '...'} objects."""
+        result = []
+        for item in v:
+            if isinstance(item, str):
+                result.append(item)
+            elif isinstance(item, dict) and "text" in item:
+                result.append(item["text"])
+            else:
+                result.append(str(item))
+        return result
 
 
 class SubdomainMeta(BaseModel):
@@ -104,6 +118,7 @@ class AggregateStats(BaseModel):
 
 class ContentIndex(BaseModel):
     generated_at: str
+    knowledge_base_version: str = ""
     entries: list[KnowledgeEntry] = []
     domains: list[DomainMeta] = []
     domain_stats: list[DomainStats] = []
