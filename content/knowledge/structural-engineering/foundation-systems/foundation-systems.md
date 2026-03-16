@@ -94,6 +94,8 @@ citations:
     source: "Federal Register / NRC"
     year: 2023
 cross_references:
+  - slug: "structural-engineering/site-selection/site-selection"
+    relationship: "depends-on"
   - slug: "structural-engineering/superstructure/primary-geometry"
     relationship: "depends-on"
   - slug: "environmental-systems/water/closed-loop-water"

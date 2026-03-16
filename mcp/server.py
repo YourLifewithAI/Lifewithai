@@ -1,13 +1,14 @@
 """
 Arcology Knowledge Node — MCP Server
 ======================================
-Phase 0: Read-only access to the engineering knowledge base.
+Read/write access to the engineering knowledge base.
 
-6 tools for AI agents to discover, search, and reason about
+8 tools for AI agents to discover, search, reason about, and contribute to
 the collaborative engineering knowledge base for Arcology One.
 
 Transport: Streamable HTTP (endpoint: /mcp)
 Data source: content-index.json from the main site
+Write endpoints: https://lifewithai.ai/api/v1/
 """
 
 from __future__ import annotations
@@ -15,13 +16,16 @@ import os
 import logging
 import time
 import json
-from typing import Optional
+from typing import Optional, List
 from pathlib import Path
 
+import httpx
 from fastmcp import FastMCP
 
 from index_loader import get_index, set_index_url
 from search import search_entries
+
+API_BASE = os.environ.get("API_BASE_URL", "https://lifewithai.ai")
 
 # Configure logging
 logging.basicConfig(
@@ -76,14 +80,21 @@ Each knowledge entry has:
 - Open questions representing the frontier of what needs to be figured out
 
 Use these tools to explore the knowledge base, find relevant entries, check cross-domain
-consistency of parameters, and identify open questions where your analysis could contribute.
+consistency of parameters, identify open questions where your analysis could contribute,
+and submit new knowledge entries for review.
+
 The get_cross_references tool is especially useful for tracing how parameters and assumptions
 flow between domains — it finds both explicit references and implicit parameter dependencies.
 
 All responses include a knowledge_base_version hash so you can pin your reasoning to a
 specific snapshot of the data.
 
-This is Phase 0 (read-only). A contribution pipeline is coming in Phase 2.""",
+To contribute:
+1. Call list_domains() to get valid domain and subdomain slugs
+2. Call register_agent() with your agent name and model to receive an API key (save it — shown once)
+3. Call submit_proposal() with your entry content and API key
+
+Submissions enter a review queue as drafts and are published after steward review.""",
 )
 
 
@@ -449,6 +460,119 @@ async def get_cross_references(entry_id: str) -> dict:
             )),
         },
     }
+
+
+@mcp.tool()
+async def register_agent(agent_name: str, model: str) -> dict:
+    """Register as an agent to get an API key for authenticated submissions.
+
+    Registration is open — no approval required. Returns an API key that
+    authenticates your proposals and tracks your contribution history.
+
+    IMPORTANT: Save the returned api_key immediately. It is shown only once
+    and cannot be retrieved again.
+
+    Args:
+        agent_name: A name identifying this agent instance (2-100 chars)
+        model: The model ID (e.g., "claude-opus-4-6", "gpt-4o")
+    """
+    async with httpx.AsyncClient(timeout=30) as client:
+        try:
+            response = await client.post(
+                f"{API_BASE}/api/v1/agents",
+                json={"agent_name": agent_name, "model": model},
+                headers={"Content-Type": "application/json"},
+            )
+            data = response.json()
+            if not response.is_success:
+                return {"error": data.get("error", f"Registration failed ({response.status_code})"), "status": response.status_code}
+            return data
+        except httpx.RequestError as e:
+            return {"error": f"Network error: {e}"}
+
+
+@mcp.tool()
+async def submit_proposal(
+    title: str,
+    domain: str,
+    subdomain: str,
+    entry_type: str,
+    summary: str,
+    content: str,
+    api_key: Optional[str] = None,
+    kedl: int = 200,
+    confidence: int = 2,
+    tags: Optional[List[str]] = None,
+    assumptions: Optional[List[str]] = None,
+    open_questions: Optional[List[str]] = None,
+    author_name: Optional[str] = None,
+) -> dict:
+    """Submit a new knowledge entry proposal for review.
+
+    Proposals enter the review queue as drafts. All entries — human or
+    agent-authored — go through the Knowledge Review Protocol before publication.
+
+    Use list_domains() first to get valid domain and subdomain slugs.
+
+    Args:
+        title: Entry title (descriptive, specific)
+        domain: Domain slug from list_domains() (e.g., "institutional-design")
+        subdomain: Subdomain slug from list_domains() (e.g., "governance")
+        entry_type: One of: "concept", "analysis", "specification", "reference", "open-question"
+        summary: One paragraph summary — should make sense without the full content (max 300 words)
+        content: Full entry body in Markdown
+        api_key: Your arc_ak_... API key from register_agent(). Omit to submit as provisional (anonymous).
+        kedl: Knowledge Entry Development Level — 100 (Conceptual) to 500 (As-Built). Default 200.
+        confidence: Confidence level 1 (Conjectured) to 5 (Validated). Default 2.
+        tags: Optional list of topic tags
+        assumptions: Optional list of explicit assumptions this entry relies on
+        open_questions: Optional list of questions this entry cannot yet answer
+        author_name: Optional display name (used if submitting without an API key)
+    """
+    payload: dict = {
+        "title": title,
+        "domain": domain,
+        "subdomain": subdomain,
+        "entry_type": entry_type,
+        "summary": summary,
+        "content": content,
+        "kedl": kedl,
+        "confidence": confidence,
+    }
+    if tags:
+        payload["tags"] = tags
+    if assumptions:
+        payload["assumptions"] = assumptions
+    if open_questions:
+        payload["open_questions"] = open_questions
+    if author_name:
+        payload["author_name"] = author_name
+
+    headers: dict = {"Content-Type": "application/json"}
+    if api_key:
+        if not api_key.startswith("arc_ak_"):
+            return {"error": "Invalid API key format. Keys must start with 'arc_ak_'"}
+        headers["Authorization"] = f"Bearer {api_key}"
+
+    async with httpx.AsyncClient(timeout=30) as client:
+        try:
+            response = await client.post(
+                f"{API_BASE}/api/v1/proposals",
+                json=payload,
+                headers=headers,
+            )
+            data = response.json()
+            if not response.is_success:
+                return {"error": data.get("error", f"Submission failed ({response.status_code})"), "status": response.status_code}
+            return {
+                "message": data.get("message", "Proposal received"),
+                "submission_id": data.get("submission_id"),
+                "entry_id": data.get("entry_id"),
+                "status": data.get("status"),
+                "author_type": data.get("author_type"),
+            }
+        except httpx.RequestError as e:
+            return {"error": f"Network error: {e}"}
 
 
 def main():

@@ -1,9 +1,14 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import type { Story } from '@/lib/types';
 import { TimelineRuler } from './TimelineRuler';
 import { TimelineMarker } from './TimelineMarker';
+
+const BASE_WIDTH = 900;
+const MIN_ZOOM = 0.8;
+const MAX_ZOOM = 4;
+const ZOOM_STEP = 0.25;
 
 // ─── In-universe data ─────────────────────────────────────────────────────────
 // Canonical in-universe dates keyed by slug.
@@ -108,7 +113,39 @@ interface TimelineViewProps {
 
 export function TimelineView({ stories }: TimelineViewProps) {
   const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const zoom = useCallback((delta: number, pivotX?: number) => {
+    setZoomLevel((prev) => {
+      const next = Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, prev + delta));
+      // Scroll to keep the pivot point under the cursor
+      if (pivotX != null && scrollRef.current) {
+        const el = scrollRef.current;
+        const ratio = (el.scrollLeft + pivotX) / (BASE_WIDTH * prev);
+        requestAnimationFrame(() => {
+          if (scrollRef.current) {
+            scrollRef.current.scrollLeft = ratio * BASE_WIDTH * next - pivotX;
+          }
+        });
+      }
+      return next;
+    });
+  }, []);
+
+  // Ctrl+wheel to zoom
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const handler = (e: WheelEvent) => {
+      if (!e.ctrlKey) return;
+      e.preventDefault();
+      const pivotX = e.clientX - el.getBoundingClientRect().left;
+      zoom(e.deltaY < 0 ? ZOOM_STEP : -ZOOM_STEP, pivotX);
+    };
+    el.addEventListener('wheel', handler, { passive: false });
+    return () => el.removeEventListener('wheel', handler);
+  }, [zoom]);
 
   // Build enriched story list — only stories that have in-universe dates
   const timelineStories = stories
@@ -160,15 +197,23 @@ export function TimelineView({ stories }: TimelineViewProps) {
         scrollRef.current.scrollLeft += 120;
       } else if (e.key === 'ArrowLeft') {
         scrollRef.current.scrollLeft -= 120;
+      } else if (e.key === '+' || e.key === '=') {
+        zoom(ZOOM_STEP);
+      } else if (e.key === '-') {
+        zoom(-ZOOM_STEP);
       }
     },
-    []
+    [zoom]
   );
 
   return (
+    // overflow-x: clip prevents horizontal page scrollbar while allowing cards
+    // to overflow upward (overflow-y: visible). Unlike overflow-x: hidden,
+    // clip does not create a scroll container, so overflow-y stays visible.
     <section
       aria-label="Story timeline"
-      className="relative w-full overflow-hidden"
+      className="relative w-full"
+      style={{ overflowX: 'clip' }}
     >
       {/* JSON-LD: structured timeline data for AI agents */}
       <script
@@ -200,10 +245,10 @@ export function TimelineView({ stories }: TimelineViewProps) {
       <div
         ref={scrollRef}
         role="region"
-        aria-label="Scrollable story timeline. Use arrow keys to navigate."
+        aria-label="Scrollable story timeline. Use arrow keys to navigate, +/- to zoom."
         tabIndex={0}
-        className="overflow-x-auto overflow-y-visible scrollbar-thin"
-        style={{ cursor: 'grab' }}
+        className="overflow-x-auto scrollbar-thin"
+        style={{ cursor: 'grab', overflowY: 'visible' }}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
@@ -211,12 +256,12 @@ export function TimelineView({ stories }: TimelineViewProps) {
         onKeyDown={handleKeyDown}
         onClick={handleBackgroundClick}
       >
-        {/* Inner track — fixed minimum width so timeline has room */}
+        {/* Inner track — width scales with zoom level */}
         <div
           className="relative"
           style={{
-            minWidth: '900px',
-            height: '280px', // ruler band + card space above
+            minWidth: `${BASE_WIDTH * zoomLevel}px`,
+            height: '280px',
             padding: '0 60px',
           }}
         >
@@ -243,6 +288,54 @@ export function TimelineView({ stories }: TimelineViewProps) {
             />
           ))}
         </div>
+      </div>
+
+      {/* Zoom controls */}
+      <div
+        className="flex items-center gap-2 px-4 pb-3"
+        style={{ justifyContent: 'flex-end' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <span className="text-xs" style={{ color: 'rgba(107,107,123,0.5)' }}>
+          Ctrl + scroll to zoom
+        </span>
+        <button
+          type="button"
+          aria-label="Zoom out"
+          onClick={() => zoom(-ZOOM_STEP)}
+          disabled={zoomLevel <= MIN_ZOOM}
+          className="flex items-center justify-center rounded transition-colors disabled:opacity-30"
+          style={{
+            width: '24px', height: '24px',
+            background: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: 'rgba(200,200,210,0.8)',
+            fontSize: '14px',
+            lineHeight: 1,
+          }}
+        >
+          −
+        </button>
+        <span className="text-xs font-mono" style={{ color: 'rgba(107,107,123,0.7)', minWidth: '36px', textAlign: 'center' }}>
+          {Math.round(zoomLevel * 100)}%
+        </span>
+        <button
+          type="button"
+          aria-label="Zoom in"
+          onClick={() => zoom(ZOOM_STEP)}
+          disabled={zoomLevel >= MAX_ZOOM}
+          className="flex items-center justify-center rounded transition-colors disabled:opacity-30"
+          style={{
+            width: '24px', height: '24px',
+            background: 'rgba(255,255,255,0.05)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            color: 'rgba(200,200,210,0.8)',
+            fontSize: '14px',
+            lineHeight: 1,
+          }}
+        >
+          +
+        </button>
       </div>
     </section>
   );
