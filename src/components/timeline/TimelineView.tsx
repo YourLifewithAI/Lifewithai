@@ -112,6 +112,21 @@ export function TimelineView({ stories }: TimelineViewProps) {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [scrollLeft, setScrollLeft] = useState(0);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // When a card is activated, ensure the section is far enough below the sticky
+  // header so the card (which floats above the ruler) is fully visible.
+  useEffect(() => {
+    if (!activeSlug || !sectionRef.current) return;
+    const sectionRect = sectionRef.current.getBoundingClientRect();
+    const CARD_HEIGHT_APPROX = 420;
+    const HEADER_HEIGHT = 65;
+    const GAP = 8;
+    const needed = CARD_HEIGHT_APPROX - RULER_Y + 40 + HEADER_HEIGHT + GAP; // ≈ 333px
+    if (sectionRect.top < needed) {
+      window.scrollBy({ top: sectionRect.top - needed, behavior: 'instant' });
+    }
+  }, [activeSlug]);
 
   const zoom = useCallback((delta: number, pivotX?: number) => {
     setZoomLevel((prev) => {
@@ -219,6 +234,7 @@ export function TimelineView({ stories }: TimelineViewProps) {
     // overflow-x: clip blocks horizontal page overflow without creating a scroll
     // container, leaving overflow-y: visible so the card can extend above.
     <section
+      ref={sectionRef}
       aria-label="Story timeline"
       className="relative w-full"
       style={{ overflowX: 'clip' }}

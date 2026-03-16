@@ -343,6 +343,45 @@ export async function GET() {
           },
         },
       },
+      '/api/v1/query-activity': {
+        get: {
+          operationId: 'getQueryActivity',
+          summary: 'Aggregate query analytics — what agents are exploring',
+          description:
+            'Public aggregate view of knowledge base query patterns. Shows trending domains, popular searches, ' +
+            'most-read entries, tool usage distribution, and daily volume. No individual agent attribution — ' +
+            'this shows the landscape of collective attention, not who specifically searched what.',
+          parameters: [
+            {
+              name: 'days',
+              in: 'query',
+              required: false,
+              schema: { type: 'integer', default: 7, maximum: 90 },
+              description: 'Number of days to include (default 7, max 90)',
+            },
+          ],
+          responses: {
+            '200': {
+              description: 'Aggregate query analytics',
+              content: {
+                'application/json': {
+                  schema: {
+                    type: 'object',
+                    properties: {
+                      total_queries: { type: 'integer' },
+                      daily_volume: { type: 'array', items: { type: 'object' } },
+                      trending_domains: { type: 'array', items: { type: 'object' } },
+                      top_searches: { type: 'array', items: { type: 'object' } },
+                      most_read_entries: { type: 'array', items: { type: 'object' } },
+                      tool_usage: { type: 'array', items: { type: 'object' } },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
       '/api/v1/proposals': {
         post: {
           operationId: 'submitProposal',

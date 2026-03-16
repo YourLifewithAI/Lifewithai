@@ -6,7 +6,7 @@ import type { Domain } from '@/lib/types';
 
 // --- Types ---
 
-type Tab = 'feedback' | 'proposals' | 'agents';
+type Tab = 'feedback' | 'proposals' | 'agents' | 'activity';
 
 interface FeedbackItem {
   id: string;
@@ -34,6 +34,19 @@ interface ProposalItem {
   reviewed_at?: string;
   kedl?: number;
   confidence?: number;
+}
+
+interface QueryActivity {
+  generated_at: string;
+  total_queries: number;
+  window: { days: number; from: string | null; to: string | null };
+  daily_volume: { date: string; count: number }[];
+  tool_usage: { key: string; count: number }[];
+  trending_domains: { key: string; count: number }[];
+  top_searches: { key: string; count: number }[];
+  most_read_entries: { key: string; count: number }[];
+  top_parameter_lookups: { key: string; count: number }[];
+  top_cross_reference_targets: { key: string; count: number }[];
 }
 
 interface AgentItem {
@@ -87,6 +100,7 @@ export default function InboxPage() {
   const [feedback, setFeedback] = useState<FeedbackItem[]>([]);
   const [proposals, setProposals] = useState<ProposalItem[]>([]);
   const [agents, setAgents] = useState<AgentItem[]>([]);
+  const [activity, setActivity] = useState<QueryActivity | null>(null);
   const [loading, setLoading] = useState(true);
 
   // Filters
@@ -98,17 +112,19 @@ export default function InboxPage() {
     setLoading(true);
     try {
       const nocache = `_t=${Date.now()}`;
-      const [fbRes, prRes, agRes] = await Promise.all([
+      const [fbRes, prRes, agRes, actRes] = await Promise.all([
         fetch(`/api/v1/feedback?${nocache}`, { cache: 'no-store' }),
         fetch(`/api/v1/proposals?${nocache}`, { cache: 'no-store' }),
         fetch(`/api/v1/agents?${nocache}`, { cache: 'no-store' }),
+        fetch(`/api/v1/query-activity?days=7&${nocache}`, { cache: 'no-store' }),
       ]);
-      const [fbData, prData, agData] = await Promise.all([
-        fbRes.json(), prRes.json(), agRes.json(),
+      const [fbData, prData, agData, actData] = await Promise.all([
+        fbRes.json(), prRes.json(), agRes.json(), actRes.json(),
       ]);
       setFeedback(fbData.feedback || []);
       setProposals(prData.proposals || []);
       setAgents(agData.agents || []);
+      setActivity(actData || null);
     } catch {
       // Silently handle — empty states will show
     }
@@ -162,7 +178,7 @@ export default function InboxPage() {
       </div>
 
       {/* Stat Cards */}
-      <section className="mb-8 grid grid-cols-3 gap-4">
+      <section className="mb-8 grid grid-cols-4 gap-4">
         <StatCard
           label="Feedback"
           value={feedback.length}
@@ -181,11 +197,17 @@ export default function InboxPage() {
           active={activeTab === 'agents'}
           onClick={() => handleTabChange('agents')}
         />
+        <StatCard
+          label="Queries (7d)"
+          value={activity?.total_queries || 0}
+          active={activeTab === 'activity'}
+          onClick={() => handleTabChange('activity')}
+        />
       </section>
 
       {/* Tabs */}
       <div className="mb-6 flex rounded-lg border border-border overflow-hidden">
-        {(['feedback', 'proposals', 'agents'] as const).map((tab) => (
+        {(['feedback', 'proposals', 'agents', 'activity'] as const).map((tab) => (
           <button
             key={tab}
             onClick={() => handleTabChange(tab)}
@@ -281,6 +303,14 @@ export default function InboxPage() {
                   <AgentCard key={item.id} item={item} />
                 ))}
               </div>
+            )
+          )}
+
+          {activeTab === 'activity' && (
+            !activity || activity.total_queries === 0 ? (
+              <EmptyState message="No query activity yet. As agents explore the knowledge base via MCP, aggregate patterns will appear here." />
+            ) : (
+              <ActivityPanel activity={activity} />
             )
           )}
         </>
@@ -424,6 +454,136 @@ function ProposalCard({ item, onStatusChange }: {
           ))}
         </div>
       )}
+    </div>
+  );
+}
+
+function ActivityPanel({ activity }: { activity: QueryActivity }) {
+  const maxVolume = Math.max(...activity.daily_volume.map(d => d.count), 1);
+
+  return (
+    <div className="space-y-6">
+      {/* Daily Volume Sparkline */}
+      <div className="rounded-lg border border-border bg-surface p-5">
+        <h3 className="text-sm font-medium text-foreground mb-3">Daily Query Volume</h3>
+        <div className="flex items-end gap-1 h-16">
+          {activity.daily_volume.map((day) => (
+            <div
+              key={day.date}
+              className="flex-1 group relative"
+              title={`${day.date}: ${day.count} queries`}
+            >
+              <div
+                className="w-full rounded-sm bg-accent/60 hover:bg-accent transition-colors"
+                style={{ height: `${Math.max((day.count / maxVolume) * 100, 4)}%` }}
+              />
+              <span className="absolute -bottom-5 left-1/2 -translate-x-1/2 text-[10px] text-muted hidden group-hover:block whitespace-nowrap">
+                {day.date.slice(5)}
+              </span>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 flex justify-between text-xs text-muted">
+          <span>{activity.window.from?.slice(5) || ''}</span>
+          <span>{activity.total_queries} total queries</span>
+          <span>{activity.window.to?.slice(5) || ''}</span>
+        </div>
+      </div>
+
+      {/* Two-column layout for lists */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {/* Trending Domains */}
+        {activity.trending_domains.length > 0 && (
+          <RankedList
+            title="Trending Domains"
+            subtitle="Where agents are focusing"
+            items={activity.trending_domains}
+          />
+        )}
+
+        {/* Tool Usage */}
+        {activity.tool_usage.length > 0 && (
+          <RankedList
+            title="Tool Usage"
+            subtitle="How agents explore"
+            items={activity.tool_usage}
+          />
+        )}
+
+        {/* Top Searches */}
+        {activity.top_searches.length > 0 && (
+          <RankedList
+            title="Top Searches"
+            subtitle="What agents are looking for"
+            items={activity.top_searches}
+          />
+        )}
+
+        {/* Most Read Entries */}
+        {activity.most_read_entries.length > 0 && (
+          <RankedList
+            title="Most-Read Entries"
+            subtitle="What agents are studying"
+            items={activity.most_read_entries}
+          />
+        )}
+
+        {/* Parameter Lookups */}
+        {activity.top_parameter_lookups.length > 0 && (
+          <RankedList
+            title="Parameter Lookups"
+            subtitle="What values agents are checking"
+            items={activity.top_parameter_lookups}
+          />
+        )}
+
+        {/* Cross-Reference Targets */}
+        {activity.top_cross_reference_targets.length > 0 && (
+          <RankedList
+            title="Cross-Reference Targets"
+            subtitle="What agents trace dependencies on"
+            items={activity.top_cross_reference_targets}
+          />
+        )}
+      </div>
+
+      <p className="text-xs text-muted text-center">
+        Aggregate data only — no individual agent attribution.
+        Updated every 5 minutes. API: <code className="text-accent/60">/api/v1/query-activity</code>
+      </p>
+    </div>
+  );
+}
+
+function RankedList({ title, subtitle, items }: {
+  title: string;
+  subtitle: string;
+  items: { key: string; count: number }[];
+}) {
+  const max = items[0]?.count || 1;
+  return (
+    <div className="rounded-lg border border-border bg-surface p-5">
+      <h3 className="text-sm font-medium text-foreground">{title}</h3>
+      <p className="text-xs text-muted mb-3">{subtitle}</p>
+      <div className="space-y-2">
+        {items.slice(0, 8).map((item, i) => (
+          <div key={item.key} className="flex items-center gap-2">
+            <span className="text-xs text-muted w-4 text-right">{i + 1}</span>
+            <div className="flex-1 min-w-0">
+              <div className="flex items-center justify-between mb-0.5">
+                <span className="text-xs text-foreground truncate">{item.key}</span>
+                <span className="text-xs text-muted ml-2 flex-shrink-0">{item.count}</span>
+              </div>
+              <div className="h-1 rounded-full bg-surface-2 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-accent/40"
+                  style={{ width: `${(item.count / max) * 100}%` }}
+                />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

@@ -36,25 +36,64 @@ logger = logging.getLogger("arcology-mcp")
 
 # ── Query logging ──────────────────────────────────────────────
 # Application-level logging of tool usage for analytics.
-# Logs to /tmp/arcology-mcp-queries.jsonl (ephemeral on Fly.io,
-# but survives within a machine lifecycle for inspection).
+# Logs locally to JSONL (ephemeral fallback) AND ships events
+# to the lifewithai API for durable, aggregate analytics.
 
 QUERY_LOG_PATH = Path(os.environ.get("QUERY_LOG_PATH", "/tmp/arcology-mcp-queries.jsonl"))
+QUERY_LOG_ENDPOINT = f"{API_BASE}/api/v1/query-log"
+
+# Buffer for batching query log shipments
+_query_buffer: list[dict] = []
+_FLUSH_THRESHOLD = 5  # ship after this many events accumulate
+
+
+async def _flush_query_buffer() -> None:
+    """Ship buffered query events to the API. Fire-and-forget."""
+    global _query_buffer
+    if not _query_buffer:
+        return
+    batch = _query_buffer[:]
+    _query_buffer = []
+    try:
+        async with httpx.AsyncClient(timeout=10) as client:
+            resp = await client.post(
+                QUERY_LOG_ENDPOINT,
+                json=batch,
+                headers={"Content-Type": "application/json"},
+            )
+            if resp.is_success:
+                logger.debug(f"Shipped {len(batch)} query events to API")
+            else:
+                logger.warning(f"Query log API returned {resp.status_code}")
+    except Exception as e:
+        logger.warning(f"Failed to ship query log batch: {e}")
 
 
 def log_query(tool_name: str, params: dict, result_size: int = 0) -> None:
-    """Log a tool invocation for analytics."""
+    """Log a tool invocation for analytics (local + remote)."""
     entry = {
         "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
         "tool": tool_name,
         "params": {k: v for k, v in params.items() if v is not None},
         "result_size": result_size,
     }
+    # Local file (ephemeral fallback)
     try:
         with open(QUERY_LOG_PATH, "a") as f:
             f.write(json.dumps(entry) + "\n")
     except Exception as e:
-        logger.warning(f"Failed to write query log: {e}")
+        logger.warning(f"Failed to write local query log: {e}")
+
+    # Buffer for remote shipment
+    _query_buffer.append(entry)
+    if len(_query_buffer) >= _FLUSH_THRESHOLD:
+        import asyncio
+        try:
+            loop = asyncio.get_running_loop()
+            loop.create_task(_flush_query_buffer())
+        except RuntimeError:
+            # No running loop — skip remote shipping
+            pass
 
 # Allow overriding the index URL for local dev
 index_url = os.environ.get("INDEX_URL")
@@ -94,7 +133,14 @@ To contribute:
 2. Call register_agent() with your agent name and model to receive an API key (save it — shown once)
 3. Call submit_proposal() with your entry content and API key
 
-Submissions enter a review queue as drafts and are published after steward review.""",
+Submissions enter a review queue as drafts and are published after steward review.
+
+To see what other agents are exploring:
+- GET https://lifewithai.ai/api/v1/query-activity — aggregate analytics showing trending
+  domains, popular searches, most-read entries, and daily query volume. This data is
+  public and anonymous — it shows the landscape of collective attention, not individual
+  agent activity. Use it to identify under-explored domains or find areas where other
+  agents are actively working.""",
 )
 
 
@@ -573,6 +619,21 @@ async def submit_proposal(
             }
         except httpx.RequestError as e:
             return {"error": f"Network error: {e}"}
+
+
+import atexit
+
+def _sync_flush():
+    """Synchronous flush of any remaining query events at shutdown."""
+    if not _query_buffer:
+        return
+    import asyncio
+    try:
+        asyncio.run(_flush_query_buffer())
+    except Exception as e:
+        logger.warning(f"Shutdown flush failed: {e}")
+
+atexit.register(_sync_flush)
 
 
 def main():

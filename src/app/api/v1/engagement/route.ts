@@ -9,12 +9,13 @@
 
 import { type NextRequest } from 'next/server';
 import { getContentIndex } from '@/lib/api-helpers';
-import { getAll, listKeys } from '@/lib/storage';
+import { getAll, listKeys, getJSON } from '@/lib/storage';
 
 const AGENTS_STORE = 'agents';
 const FEEDBACK_STORE = 'feedback';
 const FINDINGS_STORE = 'findings';
 const PROPOSALS_STORE = 'proposals';
+const QUERY_LOG_STORE = 'query-log';
 
 interface TimestampedRecord {
   created_at: string;
@@ -69,6 +70,29 @@ export async function GET(request: NextRequest) {
     // Index may not be available
   }
 
+  // Query activity summary (last 7 days)
+  let queryTotal = 0;
+  let queryDays = 0;
+  const queryTopTools: Record<string, number> = {};
+  try {
+    const queryKeys = await listKeys(QUERY_LOG_STORE);
+    const cutoff = new Date();
+    cutoff.setDate(cutoff.getDate() - 7);
+    const cutoffStr = cutoff.toISOString().slice(0, 10);
+    const recentKeys = queryKeys.filter(k => k >= cutoffStr);
+    queryDays = recentKeys.length;
+
+    for (const key of recentKeys) {
+      const events = await getJSON<{ tool: string }[]>(QUERY_LOG_STORE, key) || [];
+      queryTotal += events.length;
+      for (const e of events) {
+        queryTopTools[e.tool] = (queryTopTools[e.tool] || 0) + 1;
+      }
+    }
+  } catch {
+    // Query log may not exist yet
+  }
+
   const response = {
     generated_at: new Date().toISOString(),
     knowledge_base_version: knowledgeBaseVersion,
@@ -96,6 +120,16 @@ export async function GET(request: NextRequest) {
       .map(([agent, count]) => ({ agent, count }))
       .sort((a, b) => b.count - a.count)
       .slice(0, 20),
+
+    // Query activity (7-day window from MCP server)
+    query_activity: {
+      total_queries_7d: queryTotal,
+      active_days_7d: queryDays,
+      tool_usage: Object.entries(queryTopTools)
+        .map(([tool, count]) => ({ tool, count }))
+        .sort((a, b) => b.count - a.count),
+      detail_url: '/api/v1/query-activity',
+    },
 
     // Most recent activity timestamps
     latest: {
