@@ -266,3 +266,68 @@ export const CONFIDENCE_INFO: Record<ConfidenceLevel, { name: string; descriptio
   4: { name: 'Verified', description: 'Independently verified by qualified reviewer' },
   5: { name: 'Validated', description: 'Confirmed by physical test or operational data' },
 };
+
+// ============================================================
+// Interactive Story Experiences
+// ============================================================
+
+export interface ExperienceTheme {
+  primary: string;
+  secondary: string;
+  accent: string;
+  background: string;
+}
+
+export interface ExperienceTimeScale {
+  id: string;
+  label: string;
+  description: string;
+  duration: string;
+  activeFlows: string[];
+  activeNodes: string[];
+  metrics: string[];
+}
+
+export interface ExperienceNode {
+  id: string;
+  label: string;
+  type: 'biological' | 'mechanical' | 'ai-sensor' | 'process';
+  position: { x: number; y: number };
+  icon: string;
+  description: string;
+  aiRole?: string;
+  storyQuote?: string;
+  detailMetrics?: { label: string; value: string; source?: string }[];
+}
+
+export interface ExperienceFlow {
+  id: string;
+  from: string;
+  to: string;
+  substance: 'water' | 'nutrients' | 'waste' | 'data' | 'energy';
+  timeScale: string;
+  speed: number;
+  color: string;
+  label?: string;
+}
+
+export interface ExperienceMetric {
+  id: string;
+  label: string;
+  value: string;
+  comparison?: string;
+  source: string;
+  icon?: string;
+}
+
+export interface StoryExperience {
+  storySlug: string;
+  title: string;
+  subtitle: string;
+  intro: string;
+  theme: ExperienceTheme;
+  timeScales: ExperienceTimeScale[];
+  nodes: ExperienceNode[];
+  flows: ExperienceFlow[];
+  metrics: ExperienceMetric[];
+}

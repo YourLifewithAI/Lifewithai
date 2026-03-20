@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllStories, getStory } from '@/lib/content';
+import { getAllStories, getStory, getExperience } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 import SubscribeForm from '@/components/SubscribeForm';
 import type { Metadata } from 'next';
@@ -124,6 +124,32 @@ export default async function StoryPage({ params }: PageProps) {
           </div>
         )}
       </header>
+
+      {/* Interactive experience banner */}
+      {getExperience(slug) && (
+        <Link
+          href={`/stories/${slug}/experience`}
+          className="group mb-10 flex items-center gap-4 rounded-xl border border-environmental/20 bg-environmental/5 p-5 hover:border-environmental/40 transition-all"
+        >
+          <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-environmental/10 flex items-center justify-center">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="7" stroke="#2A9D8F" strokeWidth="1.5" />
+              <path d="M10 6v4l2.5 2.5" stroke="#2A9D8F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-white group-hover:text-environmental transition-colors">
+              Explore the interactive experience
+            </p>
+            <p className="text-xs text-muted mt-0.5">
+              The science behind this story — real data, interactive diagrams
+            </p>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-muted group-hover:text-environmental transition-colors">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
 
       {/* Story content */}
       <div

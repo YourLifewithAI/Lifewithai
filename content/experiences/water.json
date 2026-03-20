@@ -1,0 +1,312 @@
+{
+  "storySlug": "water",
+  "title": "The Living Loop",
+  "subtitle": "How Floor 318 feeds thousands from fish, plants, and compost",
+  "intro": "Beneath Mel's hands-in-the-dirt intuition runs a closed-loop aquaponics system — three nested cycles operating at different time scales, monitored by AI, feeding an entire floor of Arcology One.",
+  "theme": {
+    "primary": "#2A9D8F",
+    "secondary": "#48CAE4",
+    "accent": "#F4A261",
+    "background": "#0a0f0a"
+  },
+  "timeScales": [
+    {
+      "id": "water-cycle",
+      "label": "Minutes",
+      "description": "The water cycle: fish excrete ammonia, bacteria convert it to nitrate, water recirculates through grow beds and back.",
+      "duration": "Minutes to hours",
+      "activeFlows": ["fish-to-biofilter", "biofilter-to-growbeds", "growbeds-to-fishtank", "fishtank-to-solidfilter", "solidfilter-to-biofilter"],
+      "activeNodes": ["fish-tank", "solid-filter", "biofilter", "grow-beds"],
+      "metrics": ["water-savings", "ph-range", "ammonia-level"]
+    },
+    {
+      "id": "plant-growth",
+      "label": "Weeks",
+      "description": "The growth cycle: plants uptake nutrients over 30-35 days. Lettuce, herbs, tomatoes — each on their own schedule, optimized by light and feeding rate.",
+      "duration": "30-35 days per harvest",
+      "activeFlows": ["biofilter-to-growbeds", "growbeds-to-fishtank", "light-to-growbeds"],
+      "activeNodes": ["grow-beds", "ai-monitor", "led-array"],
+      "metrics": ["yield-per-sqm", "energy-reduction", "feed-rate"]
+    },
+    {
+      "id": "compost-cycle",
+      "label": "Months",
+      "description": "The waste cycle: fish sludge is separated, composted or digested, and nutrients are returned to the water. Biogas offsets energy costs.",
+      "duration": "Weeks to months",
+      "activeFlows": ["solidfilter-to-digester", "digester-to-biofilter", "digester-to-energy"],
+      "activeNodes": ["solid-filter", "digester", "ai-monitor"],
+      "metrics": ["nitrogen-recovery", "phosphorus-recovery", "vertical-multiplier"]
+    }
+  ],
+  "nodes": [
+    {
+      "id": "fish-tank",
+      "label": "Fish Tank",
+      "type": "biological",
+      "position": { "x": 50, "y": 15 },
+      "icon": "fish",
+      "description": "Tilapia at 80 fish/m\u00b3 produce ammonia as their primary waste product. Less than 30% of nitrogen in fish feed is assimilated into fish bodies \u2014 the rest drives the entire nutrient cycle.",
+      "aiRole": "AI classifies fish health state (Healthy / Stress / Mortality) from pH, dissolved oxygen, and temperature data with 99.3% accuracy using Random Forest models.",
+      "storyQuote": "Mel's hands were wrist-deep in the planter bed, feeling the quality of the soil between their thumb and forefinger.",
+      "detailMetrics": [
+        { "label": "Stocking density", "value": "80 fish/m\u00b3" },
+        { "label": "Final weight", "value": "768g per fish" },
+        { "label": "Feed conversion ratio", "value": "1.67 kg feed per kg fish", "source": "Frontiers, 2025" },
+        { "label": "AI health accuracy", "value": "99.3%", "source": "PMC, 2025" }
+      ]
+    },
+    {
+      "id": "solid-filter",
+      "label": "Solid Filter",
+      "type": "mechanical",
+      "position": { "x": 80, "y": 35 },
+      "icon": "filter",
+      "description": "Separates fish sludge from water. The sludge contains 4.47% nitrogen and 2.35% phosphorus \u2014 too valuable to discard. Most systems waste this; Arcology One doesn't.",
+      "detailMetrics": [
+        { "label": "Sludge nitrogen", "value": "4.47%" },
+        { "label": "Sludge phosphorus", "value": "2.35%", "source": "Aquaculture International, 2025" },
+        { "label": "Nutrient in sludge", "value": "40% of feed input", "source": "Frontiers, 2025" }
+      ]
+    },
+    {
+      "id": "biofilter",
+      "label": "Biofilter",
+      "type": "biological",
+      "position": { "x": 80, "y": 65 },
+      "icon": "bacteria",
+      "description": "Nitrifying bacteria perform a two-step conversion: Nitrosomonas oxidize ammonia to nitrite, then Nitrospira oxidize nitrite to nitrate \u2014 the form plants can absorb. Recently discovered comammox Nitrospira can do both steps alone.",
+      "aiRole": "AI monitors total ammonia nitrogen (TAN) levels. Safe threshold: <1 mg/L. Functional limit: <3.2 mg/L. Above that, fish stress cascades through the entire system.",
+      "detailMetrics": [
+        { "label": "Safe TAN", "value": "<1 mg/L" },
+        { "label": "Functional limit", "value": "<3.2 mg/L" },
+        { "label": "pH sweet spot", "value": "6.8\u20137.2" },
+        { "label": "Min dissolved O\u2082", "value": ">5 mg/L" }
+      ]
+    },
+    {
+      "id": "grow-beds",
+      "label": "Grow Beds",
+      "type": "biological",
+      "position": { "x": 20, "y": 65 },
+      "icon": "plant",
+      "description": "Plants uptake nitrogen, phosphorus, potassium, and trace minerals from the nitrate-rich water. Optimal ratio: 60g of fish feed per day per m\u00b2 of growing area. At this ratio, lettuce yields reach 14.51 kg/m\u00b2.",
+      "storyQuote": "Every corridor, public space, and residential unit on 318 was overgrown with vegetation.",
+      "detailMetrics": [
+        { "label": "Lettuce yield", "value": "14.51 kg/m\u00b2", "source": "Frontiers, 2025" },
+        { "label": "Optimal feed rate", "value": "60g/day/m\u00b2", "source": "UVI, confirmed 2025" },
+        { "label": "Harvest cycle", "value": "30\u201335 days (lettuce)" },
+        { "label": "Basil vs. field", "value": "3\u00d7 yield", "source": "USDA ARS" }
+      ]
+    },
+    {
+      "id": "digester",
+      "label": "Compost Digester",
+      "type": "process",
+      "position": { "x": 50, "y": 85 },
+      "icon": "compost",
+      "description": "Anaerobic digestion breaks down fish sludge and plant waste, recovering 76% of nitrogen and 80% of phosphorus. The process also produces biogas, partially offsetting the system's energy needs.",
+      "detailMetrics": [
+        { "label": "Nitrogen recovery", "value": "76%", "source": "ScienceDirect, 2024" },
+        { "label": "Phosphorus recovery", "value": "80%", "source": "ScienceDirect, 2024" },
+        { "label": "vs. conventional", "value": "~35% recovery without digestion" },
+        { "label": "Byproduct", "value": "Biogas (energy offset)" }
+      ]
+    },
+    {
+      "id": "led-array",
+      "label": "LED Grow Lights",
+      "type": "mechanical",
+      "position": { "x": 20, "y": 35 },
+      "icon": "light",
+      "description": "LED arrays provide 50,000\u201370,000 lux for photosynthesis. Lighting is 60\u201370% of total energy use in vertical farms \u2014 the single biggest lever for AI optimization.",
+      "aiRole": "AI optimizes LED spectrum, intensity, and scheduling per growth stage. Research shows 82.1% energy reduction through intelligent light management alone.",
+      "detailMetrics": [
+        { "label": "Light range", "value": "50,000\u201370,000 lux" },
+        { "label": "Energy share", "value": "60\u201370% of total" },
+        { "label": "AI energy savings", "value": "82.1%", "source": "PMC, 2024" },
+        { "label": "Power per m\u00b2", "value": "0.56 kWh/day", "source": "Israel study, 2024" }
+      ]
+    },
+    {
+      "id": "ai-monitor",
+      "label": "AI Monitoring",
+      "type": "ai-sensor",
+      "position": { "x": 50, "y": 50 },
+      "icon": "brain",
+      "description": "Sensors throughout the system feed real-time data to ML models running on edge hardware (Raspberry Pi / ESP32). Eight parameters monitored continuously. The AI sees what Mel feels.",
+      "aiRole": "Monitors pH, dissolved oxygen, TAN, electrical conductivity, water temperature, light intensity, humidity, and feed rate. Predicts yield with >95% accuracy. Fish health classification at 99.3%.",
+      "storyQuote": "They touched every plant within reach. A pinch of basil rolled and brought to the nose, a thumbnail drawn across a tomato stem. Touch, check, move on.",
+      "detailMetrics": [
+        { "label": "Parameters tracked", "value": "8 continuous" },
+        { "label": "Yield prediction", "value": ">95% accuracy", "source": "PMC, 2024" },
+        { "label": "Fish health model", "value": "Random Forest, 99.3%" },
+        { "label": "Hardware", "value": "Raspberry Pi / ESP32" }
+      ]
+    }
+  ],
+  "flows": [
+    {
+      "id": "fish-to-biofilter",
+      "from": "fish-tank",
+      "to": "solid-filter",
+      "substance": "water",
+      "timeScale": "water-cycle",
+      "speed": 2,
+      "color": "#48CAE4",
+      "label": "Ammonia-rich water"
+    },
+    {
+      "id": "solidfilter-to-biofilter",
+      "from": "solid-filter",
+      "to": "biofilter",
+      "substance": "water",
+      "timeScale": "water-cycle",
+      "speed": 2,
+      "color": "#48CAE4",
+      "label": "Filtered water"
+    },
+    {
+      "id": "biofilter-to-growbeds",
+      "from": "biofilter",
+      "to": "grow-beds",
+      "substance": "nutrients",
+      "timeScale": "water-cycle",
+      "speed": 2.5,
+      "color": "#2A9D8F",
+      "label": "Nitrate-rich water"
+    },
+    {
+      "id": "growbeds-to-fishtank",
+      "from": "grow-beds",
+      "to": "fish-tank",
+      "substance": "water",
+      "timeScale": "water-cycle",
+      "speed": 2,
+      "color": "#48CAE4",
+      "label": "Clean water returns"
+    },
+    {
+      "id": "fishtank-to-solidfilter",
+      "from": "fish-tank",
+      "to": "solid-filter",
+      "substance": "waste",
+      "timeScale": "water-cycle",
+      "speed": 3,
+      "color": "#8B6914"
+    },
+    {
+      "id": "light-to-growbeds",
+      "from": "led-array",
+      "to": "grow-beds",
+      "substance": "energy",
+      "timeScale": "plant-growth",
+      "speed": 1,
+      "color": "#F4A261",
+      "label": "Optimized light spectrum"
+    },
+    {
+      "id": "solidfilter-to-digester",
+      "from": "solid-filter",
+      "to": "digester",
+      "substance": "waste",
+      "timeScale": "compost-cycle",
+      "speed": 5,
+      "color": "#8B6914",
+      "label": "Fish sludge + plant waste"
+    },
+    {
+      "id": "digester-to-biofilter",
+      "from": "digester",
+      "to": "biofilter",
+      "substance": "nutrients",
+      "timeScale": "compost-cycle",
+      "speed": 6,
+      "color": "#2A9D8F",
+      "label": "Recovered nutrients"
+    },
+    {
+      "id": "digester-to-energy",
+      "from": "digester",
+      "to": "led-array",
+      "substance": "energy",
+      "timeScale": "compost-cycle",
+      "speed": 4,
+      "color": "#F4A261",
+      "label": "Biogas \u2192 energy"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "water-savings",
+      "label": "Water Savings",
+      "value": "90%",
+      "comparison": "vs. traditional farming (3 L/kg vs 250 L/kg lettuce)",
+      "source": "Arizona State University; FriendlyAquaponics",
+      "icon": "droplet"
+    },
+    {
+      "id": "yield-per-sqm",
+      "label": "Lettuce Yield",
+      "value": "14.51 kg/m\u00b2",
+      "comparison": "at optimal 60g feed/m\u00b2/day",
+      "source": "Frontiers in Sustainable Food Systems, 2025",
+      "icon": "leaf"
+    },
+    {
+      "id": "energy-reduction",
+      "label": "AI Energy Savings",
+      "value": "82.1%",
+      "comparison": "through intelligent light management",
+      "source": "PMC IoT/AI in Vertical Farming, 2024",
+      "icon": "zap"
+    },
+    {
+      "id": "vertical-multiplier",
+      "label": "Space Efficiency",
+      "value": "40\u00d7",
+      "comparison": "1 acre vertical = 40 acres traditional",
+      "source": "Intelligent Growth Solutions",
+      "icon": "layers"
+    },
+    {
+      "id": "nitrogen-recovery",
+      "label": "Nitrogen Recovery",
+      "value": "76%",
+      "comparison": "with anaerobic digestion (vs. ~35% without)",
+      "source": "ScienceDirect, 2024",
+      "icon": "recycle"
+    },
+    {
+      "id": "phosphorus-recovery",
+      "label": "Phosphorus Recovery",
+      "value": "80%",
+      "comparison": "closed-loop with digester",
+      "source": "ScienceDirect, 2024",
+      "icon": "recycle"
+    },
+    {
+      "id": "ph-range",
+      "label": "pH Sweet Spot",
+      "value": "6.8\u20137.2",
+      "comparison": "bacteriological optimum; too low kills nitrifiers, too high precipitates phosphorus",
+      "source": "Multiple peer-reviewed studies, 2024-2025",
+      "icon": "gauge"
+    },
+    {
+      "id": "ammonia-level",
+      "label": "Safe Ammonia",
+      "value": "<1 mg/L",
+      "comparison": "functional limit 3.2 mg/L before fish stress",
+      "source": "Frontiers, 2025",
+      "icon": "alert"
+    },
+    {
+      "id": "feed-rate",
+      "label": "Optimal Feed Rate",
+      "value": "60g/day/m\u00b2",
+      "comparison": "established UVI 1988, confirmed 2025",
+      "source": "Frontiers in Sustainable Food Systems, 2025",
+      "icon": "fish"
+    }
+  ]
+}

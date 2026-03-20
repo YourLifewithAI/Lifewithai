@@ -21,6 +21,7 @@ import type {
   Domain,
   PipelineData,
   MissionControlData,
+  StoryExperience,
 } from './types';
 import { DOMAINS } from './types';
 
@@ -29,6 +30,7 @@ const KNOWLEDGE_DIR = path.join(CONTENT_DIR, 'knowledge');
 const STORIES_DIR = path.join(CONTENT_DIR, 'stories');
 const BLOG_DIR = path.join(CONTENT_DIR, 'blog');
 const PAGES_DIR = path.join(CONTENT_DIR, 'pages');
+const EXPERIENCES_DIR = path.join(CONTENT_DIR, 'experiences');
 
 // --- Utility: recursively find all .md files in a directory ---
 
@@ -281,6 +283,27 @@ function parsePage(filePath: string): Page | null {
     console.error(`Error parsing page ${filePath}:`, err);
     return null;
   }
+}
+
+// --- Interactive Story Experiences ---
+
+export function getExperience(slug: string): StoryExperience | null {
+  const filePath = path.join(EXPERIENCES_DIR, slug + '.json');
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8').replace(/^\uFEFF/, '');
+    return JSON.parse(raw) as StoryExperience;
+  } catch (err) {
+    console.error(`Error parsing experience ${filePath}:`, err);
+    return null;
+  }
+}
+
+export function getAllExperienceSlugs(): string[] {
+  if (!fs.existsSync(EXPERIENCES_DIR)) return [];
+  return fs.readdirSync(EXPERIENCES_DIR)
+    .filter((f) => f.endsWith('.json'))
+    .map((f) => f.replace(/\.json$/, ''));
 }
 
 // --- Mission Control Pipeline Data ---
