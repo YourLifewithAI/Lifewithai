@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllStories, getStory, getExperience } from '@/lib/content';
+import { getAllStories, getStory, getStoryAgentContent, getExperience } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 import SubscribeForm from '@/components/SubscribeForm';
 import type { Metadata } from 'next';
@@ -45,6 +45,10 @@ export default async function StoryPage({ params }: PageProps) {
   if (!story) notFound();
 
   const html = await renderMarkdown(story.content);
+
+  // Load agent variant if it exists
+  const agentContent = getStoryAgentContent(slug);
+  const agentHtml = agentContent ? await renderMarkdown(agentContent) : undefined;
 
   // Find next/prev stories for navigation
   const allStories = getAllStories();
@@ -156,6 +160,19 @@ export default async function StoryPage({ params }: PageProps) {
         className="prose max-w-none"
         dangerouslySetInnerHTML={{ __html: html }}
       />
+
+      {/* Agent-facing version (collapsible) */}
+      {agentHtml && (
+        <details className="mt-12 border-t border-border pt-8">
+          <summary className="text-sm font-medium text-accent cursor-pointer hover:text-accent/80 transition-colors">
+            Read the agent-facing version
+          </summary>
+          <div
+            className="prose max-w-none mt-6"
+            dangerouslySetInnerHTML={{ __html: agentHtml }}
+          />
+        </details>
+      )}
 
       {/* Post-story CTA */}
       <footer className="mt-16 space-y-8 border-t border-border pt-10">

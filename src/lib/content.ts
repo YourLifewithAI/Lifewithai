@@ -157,7 +157,9 @@ export function getAllDomainMeta(): DomainMeta[] {
 // --- Stories ---
 
 export function getAllStories(): Story[] {
-  const files = findMarkdownFiles(STORIES_DIR);
+  const files = findMarkdownFiles(STORIES_DIR).filter(
+    (f) => !f.endsWith('.agent.md')
+  );
   const stories: Story[] = [];
 
   for (const filePath of files) {
@@ -218,6 +220,18 @@ export function getBlogPost(slug: string): BlogPost | null {
 
 export function getBlogPostAgentContent(slug: string): string | null {
   const filePath = path.join(BLOG_DIR, slug + '.agent.md');
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { content } = matter(raw);
+    return content;
+  } catch {
+    return null;
+  }
+}
+
+export function getStoryAgentContent(slug: string): string | null {
+  const filePath = path.join(STORIES_DIR, slug + '.agent.md');
   if (!fs.existsSync(filePath)) return null;
   try {
     const raw = fs.readFileSync(filePath, 'utf-8');

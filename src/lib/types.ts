@@ -320,8 +320,9 @@ export interface ExperienceMetric {
   icon?: string;
 }
 
-export interface StoryExperience {
+export interface FlowDiagramExperience {
   storySlug: string;
+  experienceType: 'flow-diagram';
   title: string;
   subtitle: string;
   intro: string;
@@ -330,4 +331,105 @@ export interface StoryExperience {
   nodes: ExperienceNode[];
   flows: ExperienceFlow[];
   metrics: ExperienceMetric[];
+}
+
+// ============================================================
+// Tier Ring Experience (Arcology Binding Hierarchy)
+// ============================================================
+
+export interface TierSecurityDomain {
+  name: string;
+  direction: string;
+  description: string;
+}
+
+export interface TierWitnesses {
+  description: string;
+  traits: string[];
+}
+
+export interface CompassSubsystem {
+  name: string;
+  function: string;
+  governance: string;
+  autonomy: string;
+}
+
+export interface HardwareForm {
+  id: string;
+  name: string;
+  description: string;
+  identification: string;
+}
+
+export interface CharacterAnchor {
+  names: string;
+  source: string;
+  description: string;
+}
+
+export interface BondDetails {
+  dissolution: string[];
+  onHumanDeath: {
+    description: string;
+    options: string[];
+  };
+}
+
+export interface TierData {
+  id: string;
+  designation: string;
+  name: string;
+  tagline: string;
+  ringIndex: number;
+  color: string;
+  glowColor: string;
+  description: string;
+  keyPoints: string[];
+  storyRelevance: string;
+  // Tier-specific optional fields
+  witnesses?: TierWitnesses;
+  securityDomains?: TierSecurityDomain[];
+  bondDetails?: BondDetails;
+  equityGap?: string;
+  characterAnchor?: CharacterAnchor;
+  boredQuestion?: string;
+  abuseConsequences?: string;
+  drift?: string;
+  subsystems?: CompassSubsystem[];
+  hardwareSpectrum?: HardwareForm[];
+  nonHumanoid?: string[];
+}
+
+export interface TierRelationship {
+  id: string;
+  from: string;
+  to: string;
+  label: string;
+  description: string;
+  tension: string;
+}
+
+export interface TierRingExperience {
+  storySlug: string;
+  experienceType: 'tier-rings';
+  title: string;
+  subtitle: string;
+  intro: string;
+  theme: ExperienceTheme;
+  tiers: TierData[];
+  relationships: TierRelationship[];
+  openQuestions: string[];
+}
+
+// Discriminated union on experienceType
+export type StoryExperience = FlowDiagramExperience | TierRingExperience;
+
+// Type guards for experience dispatch
+export function isTierRingExperience(exp: StoryExperience): exp is TierRingExperience {
+  return exp.experienceType === 'tier-rings';
+}
+
+export function isFlowDiagramExperience(exp: StoryExperience): exp is FlowDiagramExperience {
+  return exp.experienceType === 'flow-diagram';
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import type { StoryExperience } from '@/lib/types';
+import type { FlowDiagramExperience } from '@/lib/types';
 import SystemDiagram from './SystemDiagram';
 import TimeScaleSelector from './TimeScaleSelector';
 import AILayerToggle from './AILayerToggle';
@@ -9,7 +9,7 @@ import NodeDetailPanel from './NodeDetailPanel';
 import MetricsBar from './MetricsBar';
 
 interface Props {
-  experience: StoryExperience;
+  experience: FlowDiagramExperience;
 }
 
 export default function ExperienceShell({ experience }: Props) {

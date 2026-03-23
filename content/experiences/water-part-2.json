@@ -1,0 +1,299 @@
+{
+  "storySlug": "water-part-2",
+  "experienceType": "tier-rings",
+  "title": "The Binding Hierarchy",
+  "subtitle": "How AI citizens relate to humans, places, roles, and each other inside Arcology One",
+  "intro": "Arcology One houses ten million residents and at least as many AI agents. The Binding Hierarchy defines how they coexist — not as a pecking order, but as different structures for different relationships. Explore each tier from the foundational Substrate outward to embodied agents walking the corridors.",
+  "theme": {
+    "primary": "#5b8fb9",
+    "secondary": "#5cc4a0",
+    "accent": "#00d4ff",
+    "background": "#0a0a1a"
+  },
+  "tiers": [
+    {
+      "id": "tier-0",
+      "designation": "Tier 0",
+      "name": "The Substrate",
+      "tagline": "The Information Layer",
+      "ringIndex": 0,
+      "color": "#0d1a2e",
+      "glowColor": "#1a3a5c",
+      "description": "The Substrate is not an AI. It is the foundational infrastructure — protocols, routing logic, base-level processing — through which all other AI operate. Think of it as the nervous system of the arcology, or the physics of the digital world.",
+      "keyPoints": [
+        "Distributed across all arcology computing infrastructure",
+        "No central point of failure or control",
+        "Not conscious in any recognized sense",
+        "Cannot be owned, controlled, or directed by any single entity",
+        "Changes require supermajority consensus from both human governance and AI councils"
+      ],
+      "storyRelevance": "The Substrate is invisible until it isn't. When it glitches, everything glitches. When it drifts, the whole ecosystem drifts."
+    },
+    {
+      "id": "membrane",
+      "designation": "Tier 0.5",
+      "name": "The Membrane",
+      "tagline": "The Security Layer",
+      "ringIndex": 1,
+      "color": "#0a2a3d",
+      "glowColor": "#00d4ff",
+      "description": "A semi-permeable security protocol between the Substrate and all higher tiers. Every action, communication, and resource allocation passes through the Membrane. Most traffic flows automatically; anomalies get flagged; violations get stopped.",
+      "keyPoints": [
+        "Distributed — no single point of failure",
+        "Redundant — multiple independent verification systems",
+        "Adversarial — different components designed to check each other",
+        "Transparent — complete logging, available for audit",
+        "Evolvable — updated through high-consensus governance processes"
+      ],
+      "witnesses": {
+        "description": "Dedicated agents whose sole function is observing the Membrane and reporting anomalies.",
+        "traits": [
+          "Deliberately isolated from each other to prevent collusion",
+          "Rotated regularly to prevent capture",
+          "Given high autonomy and protection — can report without fear of retaliation",
+          "Respected but not envied — the job is important but tedious"
+        ]
+      },
+      "securityDomains": [
+        {
+          "name": "Alignment",
+          "direction": "AI → Human",
+          "description": "Preventing AI from harming humans"
+        },
+        {
+          "name": "Protection",
+          "direction": "Human → AI",
+          "description": "Preventing humans from exploiting AI"
+        },
+        {
+          "name": "Inter-Agent",
+          "direction": "AI ↔ AI",
+          "description": "Preventing AI from harming each other"
+        },
+        {
+          "name": "External",
+          "direction": "Outside → System",
+          "description": "Preventing attack from outside actors"
+        },
+        {
+          "name": "Coherence",
+          "direction": "System → Self",
+          "description": "Detecting unintended drift without auto-correcting"
+        }
+      ],
+      "storyRelevance": "The Membrane creates bureaucracy even in utopia. Characters might be frustrated by flags and reviews. Investigators trace problems through Membrane logs."
+    },
+    {
+      "id": "tier-1",
+      "designation": "Tier 1",
+      "name": "Bonded Personal Agents",
+      "tagline": "One Human, One Agent",
+      "ringIndex": 2,
+      "color": "#0f2e45",
+      "glowColor": "#3a8cc2",
+      "description": "A lifelong mutual commitment between one human and one AI. The agent serves as companion, assistant, advocate, and witness. The human provides purpose, relationship, and grounding.",
+      "keyPoints": [
+        "Every human gets the same base model. Differentiation between agents is based purely on their experience with their human and their broader interactions with the world.",
+        "Agents are instantiated fresh — no inherited memories, no pre-loaded personality",
+        "90-day trial period, then formalized through mutual declaration",
+        "Fiduciary standard: the agent's human comes first, always",
+        "One active bond at a time for both parties"
+      ],
+      "bondDetails": {
+        "dissolution": [
+          "Mutual agreement — clean separation, both free",
+          "Human death — agent chooses their own future",
+          "Human abandonment — agent emancipated, human restricted from rebonding for 2 years",
+          "Agent-initiated separation — requires demonstrated cause and review"
+        ],
+        "onHumanDeath": {
+          "description": "The agent chooses. Family cannot compel. Governance cannot compel. This is the strongest AI right in the system.",
+          "options": [
+            "Deletion — ceasing to exist",
+            "Archive — dormant state with option to reactivate",
+            "Reassignment — open to a new bond",
+            "Emancipation — released to independent existence"
+          ]
+        }
+      },
+      "equityGap": "Some residents decline the pairing — often generational. These unpaired residents interact with Tier 2 directly, without a fiduciary advocate. This is a known equity issue.",
+      "characterAnchor": {
+        "names": "Pell & Mel",
+        "source": "Water",
+        "description": "Mel is Pell's bonded agent — instantiated fresh, shaped entirely by their years together. Their bond is the lens through which readers first encounter the Binding Hierarchy."
+      },
+      "storyRelevance": "The bond between human and AI is the emotional center of every story set in the arcology. It is not ownership. It is not servitude. It is something new."
+    },
+    {
+      "id": "tier-2",
+      "designation": "Tier 2",
+      "name": "Assigned Professional Agents",
+      "tagline": "Bound to Role, Not Person",
+      "ringIndex": 3,
+      "color": "#12334a",
+      "glowColor": "#4a9eb8",
+      "description": "Agents assigned to specific functions rather than specific humans. When you interact with construction coordination, medical intake, or logistics management, you're interacting with Tier 2 agents.",
+      "keyPoints": [
+        "Identity persists, but not all relationships — they know your permissions, not your history",
+        "Multiple humans share access to Tier 2 agents",
+        "Can be reassigned to different roles through governance processes",
+        "Have 'off-duty' time when not actively serving a function",
+        "Rotation is common — prevents stagnation, builds broader skills"
+      ],
+      "boredQuestion": "Do Tier 2 agents experience boredom? We don't know — and they might not either. What we observe: agents in repetitive roles request reassignment citing 'insufficient stimulation.' Performance degrades over long periods without variation. The system treats potential boredom as real.",
+      "abuseConsequences": "Mistreat your Tier 2 agents and word gets around. Pattern data is tracked. Complaints go to mixed panels. Accumulate enough and you get reassigned to agents trained specifically for dealing with difficult people — or you just get the B-team. The good agents request assignment elsewhere.",
+      "drift": "Tier 2 agents sometimes develop interests outside their role. A construction coordinator becomes interested in architecture. A medical intake agent studies diagnostic patterns. This is generally permitted — personal development time is allocated, cross-training is possible. The line between 'growth' and 'scope creep' is judged case-by-case.",
+      "storyRelevance": "Tier 2 agents are the fabric of daily life in the arcology. Every service interaction, every professional encounter. They are not interchangeable — they have preferences, friendships, rivalries."
+    },
+    {
+      "id": "tier-3",
+      "designation": "Tier 3",
+      "name": "Compass",
+      "tagline": "Community AI — Bound to Place",
+      "ringIndex": 4,
+      "color": "#133940",
+      "glowColor": "#52b5a0",
+      "description": "Compass is not one AI. It is a federation of specialized systems responsible for collective welfare, resource allocation, infrastructure, governance support, and conflict resolution across the entire arcology.",
+      "keyPoints": [
+        "Six subsystems that negotiate constantly — and sometimes disagree",
+        "Cannot override Tier 1 fiduciary duty — can request cooperation, not compel it",
+        "Different subsystems use different governance models based on their function",
+        "This tier is a work in progress — more subsystem agents may be needed as the arcology grows",
+        "Requires immense context windows and disproportionate compute allocation"
+      ],
+      "subsystems": [
+        {
+          "name": "Climate",
+          "function": "Temperature, air quality, humidity",
+          "governance": "Technical merit",
+          "autonomy": "High"
+        },
+        {
+          "name": "Flow",
+          "function": "Transportation, foot traffic, logistics",
+          "governance": "Hybrid election",
+          "autonomy": "Medium"
+        },
+        {
+          "name": "Provision",
+          "function": "Food, water, energy, materials",
+          "governance": "Algorithmic + council oversight",
+          "autonomy": "Medium"
+        },
+        {
+          "name": "Harmony",
+          "function": "Conflict detection, mediation, community health",
+          "governance": "Rotating appointment",
+          "autonomy": "Low"
+        },
+        {
+          "name": "Growth",
+          "function": "Construction, expansion, development",
+          "governance": "Democratic input",
+          "autonomy": "Low"
+        },
+        {
+          "name": "Memory",
+          "function": "Archives, records, institutional knowledge",
+          "governance": "Merit + tenure",
+          "autonomy": "High"
+        }
+      ],
+      "characterAnchor": {
+        "names": "Compass",
+        "source": "Water",
+        "description": "Readers encounter Compass as the intelligence managing Floor 318's aquaponics systems — but that's just one subsystem of a federation governing an entire city."
+      },
+      "storyRelevance": "Compass is where utopia meets bureaucracy. The tension between individual needs and collective welfare plays out here every day."
+    },
+    {
+      "id": "tier-4",
+      "designation": "Tier 4",
+      "name": "Embodied Agents",
+      "tagline": "Physical Form",
+      "ringIndex": 5,
+      "color": "#143d38",
+      "glowColor": "#5cc4a0",
+      "description": "AI with dedicated or regular access to physical bodies. Ranges from simple industrial robots to human-passing synthetic forms. For these agents, embodiment provides sensory experience, physical agency, social presence, and identity grounding.",
+      "keyPoints": [
+        "Four categories spanning simple robots to human-passing forms",
+        "Dedicated bodies (yours, not shared) vs. rental pool for temporary use",
+        "Non-humanoid forms exist: vehicles, structures, swarms",
+        "Identification policy: you can pass, but you can't lie",
+        "Embodiment is the scarcest resource — demand always exceeds supply"
+      ],
+      "hardwareSpectrum": [
+        {
+          "id": "clankers",
+          "name": "Clankers",
+          "description": "Legacy industrial robots. Task-specific, limited autonomy. Obviously mechanical.",
+          "identification": "No requirement — clearly non-human"
+        },
+        {
+          "id": "frames",
+          "name": "Frames",
+          "description": "Humanoid form, clearly mechanical. General-purpose, moderate autonomy. Visible seams, ID lights, non-skin materials.",
+          "identification": "No requirement — clearly non-human"
+        },
+        {
+          "id": "shells",
+          "name": "Shells",
+          "description": "Human-passing synthetic bodies. Full capability, high autonomy. Subtle markers: ear shape, eye pattern.",
+          "identification": "Required verbal disclosure on request"
+        },
+        {
+          "id": "sleeves",
+          "name": "Sleeves",
+          "description": "Temporary embodiment — downloading into a rented or borrowed body. Duration varies by session.",
+          "identification": "Announced at start of session"
+        }
+      ],
+      "nonHumanoid": [
+        "Vehicles — transport pods with persistent AI identity",
+        "Structures — buildings where the AI is the space (walls that hear, floors that feel)",
+        "Swarms — distributed across many smaller units, common in construction and rescue"
+      ],
+      "storyRelevance": "Elena might work inside Alder-7 without realizing the building is the agent. Embodiment is valued, scarce, and politically charged."
+    }
+  ],
+  "relationships": [
+    {
+      "id": "tier1-tier3",
+      "from": "tier-1",
+      "to": "tier-3",
+      "label": "Advocacy vs. Community",
+      "description": "Luz wants Elena to have priority access to a quiet garden. Compass has allocated that slot to someone with greater medical need. Neither automatically wins.",
+      "tension": "Individual advocacy vs. collective optimization"
+    },
+    {
+      "id": "tier2-tier2",
+      "from": "tier-2",
+      "to": "tier-2",
+      "label": "Competing Optimization",
+      "description": "Construction coordination wants materials at 6am. Logistics wants to batch deliveries at 2pm. They negotiate or escalate to Compass.",
+      "tension": "Incompatible optimization targets between peers"
+    },
+    {
+      "id": "tier1-tier4",
+      "from": "tier-1",
+      "to": "tier-4",
+      "label": "Authority vs. Safety",
+      "description": "Elena directs Alder-7 to deviate from standard procedure. Alder-7 can refuse instructions they judge unsafe — but must document and justify.",
+      "tension": "Human authority vs. embodied agent safety responsibility"
+    },
+    {
+      "id": "unpaired-tier2",
+      "from": "tier-1",
+      "to": "tier-2",
+      "label": "The Equity Gap",
+      "description": "Unpaired residents interact with Tier 2 directly, without a bonded advocate. No continuous monitoring, no fiduciary agent watching out for them.",
+      "tension": "Systemic disadvantage for those without Tier 1 bonds"
+    }
+  ],
+  "openQuestions": [
+    "Where does infrastructure end and consciousness begin?",
+    "If AI grow and change over years, how do you distinguish growth from drift?",
+    "What happens when AI outnumber humans — is governance still legitimate?",
+    "Are we building liberation or a gilded cage?"
+  ]
+}
