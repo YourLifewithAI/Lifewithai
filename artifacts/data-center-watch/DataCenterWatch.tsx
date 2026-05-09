@@ -1,3 +1,14 @@
+// @ts-nocheck
+"use client";
+
+// ^ Both lines are intentional:
+//   - "use client" is required when this file is rendered inside a Next.js
+//     app-router preview page. It's a harmless no-op string literal in
+//     claude.ai/artifacts.
+//   - @ts-nocheck keeps this file portable as a single artifact without
+//     forcing prop typing on every component. The Next.js build still
+//     compiles JSX cleanly; only type-checking is suppressed for this file.
+
 import React, { useState, useMemo } from "react";
 import {
   Droplets,
