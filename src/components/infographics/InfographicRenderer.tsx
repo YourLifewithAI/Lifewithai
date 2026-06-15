@@ -5,10 +5,13 @@ import type { GenesisInfographicData, InfographicMeta } from '@/lib/types';
 
 // Lazy-load chart-heavy components to avoid SSR issues with Chart.js
 const GenesisMission = dynamic(() => import('./GenesisMission'), { ssr: false });
+// Iframe embed of the standalone World Energy dashboard.
+const WorldEnergyEmbed = dynamic(() => import('./WorldEnergyEmbed'), { ssr: false });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const COMPONENT_MAP: Record<string, React.ComponentType<{ data: any }>> = {
   'genesis-mission': GenesisMission as React.ComponentType<{ data: GenesisInfographicData }>,
+  'world-energy': WorldEnergyEmbed,
 };
 
 interface InfographicRendererProps {

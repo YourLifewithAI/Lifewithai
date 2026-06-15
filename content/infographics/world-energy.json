@@ -1,0 +1,16 @@
+{
+  "meta": {
+    "slug": "world-energy",
+    "title": "World Energy: Capacity & Generation by Country",
+    "summary": "Explore installed electricity capacity (GW) and actual generation (TWh) for every country, broken down by fuel — solar, wind, hydro, nuclear, gas, coal and more. Filter to the top producers or a single region, drill into any country, and compare continents at a glance. Backed by Ember's open dataset and refreshed monthly.",
+    "lastUpdated": "2026-06-15",
+    "updateFrequency": "monthly",
+    "componentId": "world-energy",
+    "tags": ["energy", "electricity", "climate", "data"]
+  },
+  "embedUrl": "https://yourlifewithai.github.io/energy-dashboard/",
+  "source": {
+    "label": "Ember — Yearly Electricity Data (CC BY 4.0)",
+    "url": "https://ember-energy.org/data/yearly-electricity-data/"
+  }
+}
