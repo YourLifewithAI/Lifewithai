@@ -131,11 +131,89 @@ export interface StoryFrontmatter {
   parts: number;
   summary: string;
   viktor_intro: boolean;
+  /** Arcology One floor this story is set on (links to /city/floors/<n>) */
+  floor?: number;
 }
 
 export interface Story extends StoryFrontmatter {
   content: string;
   slug: string;
+}
+
+// --- City / Floor Types ---
+// A floor is the unit of visual exploration. Everything on a floor plan
+// comes from the stories set there; the JSON in content/floors/ is the record.
+
+export type FloorPlaceKind = 'commons' | 'growing' | 'home' | 'edge' | 'transit';
+
+export interface FloorPassage {
+  /** Story slug the passage comes from */
+  story: string;
+  /** Short attribution shown with the excerpt, e.g. "Water, Part 1 · sunrise" */
+  label: string;
+  excerpt: string;
+}
+
+export interface FloorPlace {
+  id: string;
+  label: string;
+  kind: FloorPlaceKind;
+  /** Plan coordinates in the 520x520 plan viewBox */
+  x: number;
+  y: number;
+  blurb: string;
+  passages: FloorPassage[];
+  /** Optional id of a FloorSystem this place opens onto */
+  system?: string;
+}
+
+export type FloorFeature =
+  | { type: 'bay'; x: number; y: number; w: number; h: number; rows?: number }
+  | { type: 'room'; x: number; y: number; w: number; h: number }
+  | { type: 'hill'; x: number; y: number; rx: number; ry: number }
+  | { type: 'label'; x: number; y: number; text: string; color?: 'ink' | 'glass' | 'leaf' };
+
+export interface FloorPlanSpec {
+  /** Radial corridors from the atrium to the glass wall */
+  spokes: number;
+  atriumRadius: number;
+  columnRadius: number;
+  /** Inset of the ring corridor from the plan edge */
+  ringInset: number;
+  features: FloorFeature[];
+}
+
+export interface FloorResident {
+  name: string;
+  kind: 'human' | 'bonded agent' | 'assigned agent' | 'community AI' | 'shells';
+  note: string;
+}
+
+export interface FloorSystem {
+  id: string;
+  label: string;
+  href: string;
+  blurb: string;
+}
+
+export interface FloorBasis {
+  /** Knowledge entry id: domain/subdomain/slug */
+  id: string;
+  title: string;
+}
+
+export interface FloorData {
+  number: number;
+  name: string;
+  tier: number;
+  elevation_ft: number;
+  tagline: string;
+  intro: string;
+  plan: FloorPlanSpec;
+  places: FloorPlace[];
+  residents: FloorResident[];
+  systems: FloorSystem[];
+  basis: FloorBasis[];
 }
 
 // --- Blog Types ---

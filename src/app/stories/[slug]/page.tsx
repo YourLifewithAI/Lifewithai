@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getAllStories, getStory, getStoryAgentContent, getExperience } from '@/lib/content';
+import { getAllStories, getStory, getStoryAgentContent, getExperience, getFloor } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 import SubscribeForm from '@/components/SubscribeForm';
 import type { Metadata } from 'next';
@@ -45,6 +45,9 @@ export default async function StoryPage({ params }: PageProps) {
   if (!story) notFound();
 
   const html = await renderMarkdown(story.content);
+
+  // The floor this story is set on, if it has been drawn
+  const floor = story.floor ? getFloor(story.floor) : null;
 
   // Load agent variant if it exists
   const agentContent = getStoryAgentContent(slug);
@@ -150,6 +153,34 @@ export default async function StoryPage({ params }: PageProps) {
             </p>
           </div>
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-muted group-hover:text-environmental transition-colors">
+            <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </Link>
+      )}
+
+      {/* Explore the floor */}
+      {floor && (
+        <Link
+          href={`/city/floors/${floor.number}`}
+          className="group mb-10 flex items-center gap-4 rounded-xl border p-5 transition-all"
+          style={{ borderColor: 'rgba(94,143,90,0.25)', background: 'rgba(94,143,90,0.06)' }}
+        >
+          <div className="flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center" style={{ background: 'rgba(94,143,90,0.12)' }}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+              <rect x="3" y="3" width="14" height="14" rx="4" stroke="#7FB07A" strokeWidth="1.5" />
+              <circle cx="10" cy="10" r="3" stroke="#7FB07A" strokeWidth="1.5" />
+              <circle cx="10" cy="10" r="1" fill="#7FB07A" />
+            </svg>
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-sm font-medium text-white transition-colors group-hover:text-[#7FB07A]">
+              Explore Floor {floor.number}
+            </p>
+            <p className="text-xs text-muted mt-0.5">
+              {floor.name}. Every place in this story, on the plan.
+            </p>
+          </div>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="flex-shrink-0 text-muted transition-colors" aria-hidden="true">
             <path d="M6 4l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
         </Link>

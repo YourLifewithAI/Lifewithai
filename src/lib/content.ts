@@ -23,6 +23,7 @@ import type {
   MissionControlData,
   StoryExperience,
   InfographicMeta,
+  FloorData,
 } from './types';
 import { DOMAINS } from './types';
 
@@ -33,6 +34,7 @@ const BLOG_DIR = path.join(CONTENT_DIR, 'blog');
 const PAGES_DIR = path.join(CONTENT_DIR, 'pages');
 const EXPERIENCES_DIR = path.join(CONTENT_DIR, 'experiences');
 const INFOGRAPHICS_DIR = path.join(CONTENT_DIR, 'infographics');
+const FLOORS_DIR = path.join(CONTENT_DIR, 'floors');
 
 // --- Utility: recursively find all .md files in a directory ---
 
@@ -320,6 +322,33 @@ export function getAllExperienceSlugs(): string[] {
   return fs.readdirSync(EXPERIENCES_DIR)
     .filter((f) => f.endsWith('.json'))
     .map((f) => f.replace(/\.json$/, ''));
+}
+
+// --- City / Floors ---
+
+export function getFloor(number: number | string): FloorData | null {
+  const n = String(number).replace(/[^0-9]/g, '');
+  if (!n) return null;
+  const filePath = path.join(FLOORS_DIR, n + '.json');
+  if (!fs.existsSync(filePath)) return null;
+  try {
+    const raw = fs.readFileSync(filePath, 'utf-8').replace(/^﻿/, '');
+    return JSON.parse(raw) as FloorData;
+  } catch (err) {
+    console.error(`Error parsing floor ${filePath}:`, err);
+    return null;
+  }
+}
+
+export function getAllFloors(): FloorData[] {
+  if (!fs.existsSync(FLOORS_DIR)) return [];
+  const floors: FloorData[] = [];
+  for (const file of fs.readdirSync(FLOORS_DIR)) {
+    if (!file.endsWith('.json')) continue;
+    const floor = getFloor(file.replace(/\.json$/, ''));
+    if (floor) floors.push(floor);
+  }
+  return floors.sort((a, b) => b.number - a.number);
 }
 
 // --- Infographics ---

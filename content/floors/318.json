@@ -1,0 +1,401 @@
+{
+  "number": 318,
+  "name": "The garden floor",
+  "tier": 9,
+  "elevation_ft": 4452,
+  "tagline": "Not quite a mile up. Close enough that the air is thinner, cooler, and smells like basil.",
+  "intro": "Floor 318 grows food for thousands and flowers for anyone who wants them. Every corridor, public space, and residential unit is overgrown on purpose. The atrium wraps a central column that has been a mural for years. Outside the glass, a park wraps the whole floor. Everything on this plan comes from the stories set here; nothing is invented for the map.",
+  "plan": {
+    "spokes": 8,
+    "atriumRadius": 84,
+    "columnRadius": 24,
+    "ringInset": 128,
+    "features": [
+      {
+        "type": "hill",
+        "x": 418,
+        "y": 98,
+        "rx": 30,
+        "ry": 16
+      },
+      {
+        "type": "bay",
+        "x": 404,
+        "y": 150,
+        "w": 46,
+        "h": 220,
+        "rows": 6
+      },
+      {
+        "type": "bay",
+        "x": 462,
+        "y": 220,
+        "w": 18,
+        "h": 80
+      },
+      {
+        "type": "room",
+        "x": 188,
+        "y": 316,
+        "w": 30,
+        "h": 20
+      },
+      {
+        "type": "room",
+        "x": 222,
+        "y": 330,
+        "w": 30,
+        "h": 18
+      },
+      {
+        "type": "room",
+        "x": 238,
+        "y": 168,
+        "w": 44,
+        "h": 18
+      },
+      {
+        "type": "room",
+        "x": 210,
+        "y": 252,
+        "w": 16,
+        "h": 16
+      },
+      {
+        "type": "room",
+        "x": 292,
+        "y": 272,
+        "w": 22,
+        "h": 12
+      },
+      {
+        "type": "label",
+        "x": 40,
+        "y": 52,
+        "text": "RIMPARK · OPEN AIR · 4,452 FT"
+      },
+      {
+        "type": "label",
+        "x": 72,
+        "y": 82,
+        "text": "glass wall",
+        "color": "glass"
+      },
+      {
+        "type": "label",
+        "x": 96,
+        "y": 238,
+        "text": "residential"
+      },
+      {
+        "type": "label",
+        "x": 96,
+        "y": 300,
+        "text": "blocks"
+      },
+      {
+        "type": "label",
+        "x": 140,
+        "y": 120,
+        "text": "residential blocks"
+      },
+      {
+        "type": "label",
+        "x": 300,
+        "y": 120,
+        "text": "residential blocks"
+      },
+      {
+        "type": "label",
+        "x": 140,
+        "y": 432,
+        "text": "residential blocks"
+      },
+      {
+        "type": "label",
+        "x": 300,
+        "y": 432,
+        "text": "residential blocks"
+      },
+      {
+        "type": "label",
+        "x": 226,
+        "y": 164,
+        "text": "elevator lobby"
+      },
+      {
+        "type": "label",
+        "x": 176,
+        "y": 360,
+        "text": "restaurants"
+      },
+      {
+        "type": "label",
+        "x": 384,
+        "y": 384,
+        "text": "hydroponic bays",
+        "color": "leaf"
+      },
+      {
+        "type": "label",
+        "x": 392,
+        "y": 132,
+        "text": "the hill"
+      },
+      {
+        "type": "label",
+        "x": 336,
+        "y": 486,
+        "text": "railing · 100 ft to 310"
+      }
+    ]
+  },
+  "places": [
+    {
+      "id": "atrium-column",
+      "label": "The central column and its mural",
+      "kind": "commons",
+      "x": 260,
+      "y": 232,
+      "blurb": "Floor 318's connection to the rest of the arcology, wrapped in a mural that has been growing for years. Marigolds go on the east side, where the blues are. After the flood, the high-water mark stayed and became a sunrise.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · the opening",
+          "excerpt": "The mural, and the wall it was painted upon, rose fourteen feet to meet the Floor above. The mural was a constant work-in-progress with years of additions folding one year into the next."
+        },
+        {
+          "story": "water-part-2",
+          "label": "Water, Part 2 · the ending",
+          "excerpt": "One of Pell's lobsters took to painting over the high water mark but didn't cover it. Instead, Pell incorporated it. They painted along the stain's contour, rough at the edges where the old mural used to be, in streaks of yellow, red, and pink. A sunrise."
+        }
+      ]
+    },
+    {
+      "id": "elevator-lobby",
+      "label": "Elevator lobby",
+      "kind": "transit",
+      "x": 282,
+      "y": 176,
+      "blurb": "The elevators open onto the atrium. The mural is the first thing you see, and on festival nights Davi hangs the lights to make sure of it.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · festival prep",
+          "excerpt": "They need to go from the central column to the far wall. Keep them up high so they illuminate the mural. That way they'll draw everyone's eyes first thing when they get out of the elevator."
+        }
+      ]
+    },
+    {
+      "id": "hydroponic-bays",
+      "label": "Hydroponic bays",
+      "kind": "growing",
+      "x": 427,
+      "y": 200,
+      "blurb": "Behind the glass wall: fish in the catchment tanks, spinach and bok choi in white grow trays, and dosing valves that still need a human arm. This is where the water budget went.",
+      "system": "water",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · the daily update",
+          "excerpt": "The humid air was thick with the smell of algae, fresh greens, and fertilizer, and the sun was pouring in through the glass walls and roof. Mel's arm was wrapped around a dosing valve that was elbow-deep in a nutrient vat."
+        }
+      ]
+    },
+    {
+      "id": "rimpark-hill",
+      "label": "The hill on the rimpark",
+      "kind": "edge",
+      "x": 418,
+      "y": 96,
+      "blurb": "Mel's bench. Every floor has a park that wraps its whole length; 318's has a little hill, and from it the sunrise takes every pane of glass at once.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · sunrise",
+          "excerpt": "Mel gazed down at the little vial until that first sliver of the sun flashed over the hills below. Every pane of glass across the miles of the arcology lit up at once, sparking into pink fire."
+        }
+      ]
+    },
+    {
+      "id": "junction-planter",
+      "label": "A junction planter, butterfly mural",
+      "kind": "growing",
+      "x": 166,
+      "y": 354,
+      "blurb": "Where the residential blocks meet, there is a planter and a mural. Root rot found by hand, and a favor asked that Mel immediately regrets saying yes to.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · Raquel asks",
+          "excerpt": "Raquel found Mel at one of the corridor junction planters. The mural there was of butterflies and other colorful insects. Mel was carefully digging out the soil around the root system of a diseased pepper plant by hand."
+        }
+      ]
+    },
+    {
+      "id": "cornucopia-slab",
+      "label": "The cornucopia slab",
+      "kind": "commons",
+      "x": 303,
+      "y": 278,
+      "blurb": "A square white marble bench most days. On festival night, a month of harvest arranged in a color gradient from yellow to purple, and two tomatoes swapped because the difference was bugging Pell.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · festival prep",
+          "excerpt": "\"Well, can you rearrange those two tomatoes, Mel?\" Pell asked. \"The ones you're looking at. Just switch them. One's a few millimeters bigger than the other, and it's bugging me.\""
+        }
+      ]
+    },
+    {
+      "id": "service-elevator",
+      "label": "Service elevator",
+      "kind": "transit",
+      "x": 218,
+      "y": 260,
+      "blurb": "How the lobsters arrive. Each pod is six, each the size of a small donkey, and they grip both sides of the corridor on the way in.",
+      "passages": [
+        {
+          "story": "water-part-2",
+          "label": "Water, Part 2 · after the flood",
+          "excerpt": "The first pod of lobsters arrived via the service elevator just minutes later, gripping both sides of the corridor walls. Each pod had six lobsters, and each was the size of a small donkey."
+        }
+      ]
+    },
+    {
+      "id": "mels-unit",
+      "label": "Mel's unit",
+      "kind": "home",
+      "x": 110,
+      "y": 200,
+      "blurb": "Plants hung from the ceiling, seed catalogs and botanical drawings on the desk, a photo of the farm in Illinois. After the flood, off-white composite that smells like nothing.",
+      "passages": [
+        {
+          "story": "water-part-2",
+          "label": "Water, Part 2 · the empty room",
+          "excerpt": "Nothing was left save the dirty off-white composite floors, walls, and ceiling. Mel huddled in one of the corners, sitting on the floor with their back against the wall, their knees up and tucked in tight."
+        }
+      ]
+    },
+    {
+      "id": "raquels-unit",
+      "label": "Raquel's unit",
+      "kind": "home",
+      "x": 330,
+      "y": 410,
+      "blurb": "Closed during the festival, so still dry. Six in the room for the after-action review, two of them in the walls, and a governance liaison who does not sit down.",
+      "system": "governance",
+      "passages": [
+        {
+          "story": "water-part-2",
+          "label": "Water, Part 2 · the review",
+          "excerpt": "\"Floor 318's aggregate water utilization,\" Gota was talking from the wall speaker. \"Total allocation in the current quarter: 134% of standard allotment. The trailing four-quarter average was 127%.\""
+        }
+      ]
+    },
+    {
+      "id": "balcony-greenhouse",
+      "label": "Balcony greenhouse",
+      "kind": "growing",
+      "x": 471,
+      "y": 260,
+      "blurb": "Out on the rimpark, the overflow. When the eggplant runs low at the festival, this is where the second batch comes from.",
+      "passages": [
+        {
+          "story": "water",
+          "label": "Water, Part 1 · the festival",
+          "excerpt": "\"The eggplant's almost gone. Should I flag the balcony greenhouse for a second batch?\""
+        }
+      ]
+    },
+    {
+      "id": "the-railing",
+      "label": "The railing",
+      "kind": "edge",
+      "x": 300,
+      "y": 470,
+      "blurb": "A hundred-foot drop to the rimpark on 310. Where the water went, and where the quadbots locked arm to arm to make the railing longer than it was.",
+      "passages": [
+        {
+          "story": "water-part-2",
+          "label": "Water, Part 2 · the flood",
+          "excerpt": "But the quadbots were there, too. A wall of them clasped arm to arm, extending the railing and bracing it against the torrent as it spilled over the edge in a brown waterfall."
+        }
+      ]
+    }
+  ],
+  "residents": [
+    {
+      "name": "Mel",
+      "kind": "human",
+      "note": "Gardener. Two years on 318, from a three-generation farm in Macomb, Illinois. Bonded to Pell."
+    },
+    {
+      "name": "Pell",
+      "kind": "bonded agent",
+      "note": "Mel's agent. Earpiece, corridor speakers, the camera in the corner. After the flood, six lobsters at once."
+    },
+    {
+      "name": "Raquel",
+      "kind": "human",
+      "note": "Floor Captain. Reads data mid-sentence without breaking rhythm. Bonded to Gota."
+    },
+    {
+      "name": "Gota",
+      "kind": "bonded agent",
+      "note": "Raquel's agent. Left Compass's flag out of the executive highlights, and said so."
+    },
+    {
+      "name": "Davi",
+      "kind": "human",
+      "note": "Nineteen, eighth month on the floor. Counts tomatoes twice. Hangs the lights."
+    },
+    {
+      "name": "Compass",
+      "kind": "community AI",
+      "note": "Pre-emptive maintenance and the arcology's immune system. Flagged the irrigation anomaly in Q3 2037."
+    },
+    {
+      "name": "Amos",
+      "kind": "human",
+      "note": "Human lead for the Emergency Response System. Submits Pell's shell request without ceremony."
+    },
+    {
+      "name": "Quadbots, lobsters, one old clanker",
+      "kind": "shells",
+      "note": "Cat-sized utility bots that raft when the water comes; donkey-sized ERS pods of six; a clanker on tracks that hands you a towel."
+    }
+  ],
+  "systems": [
+    {
+      "id": "water",
+      "label": "Water · The Living Loop",
+      "href": "/stories/water/experience",
+      "blurb": "How the floor feeds thousands from fish, plants, and compost, across three time scales."
+    },
+    {
+      "id": "governance",
+      "label": "Governance · The Binding Hierarchy",
+      "href": "/stories/water-part-2/experience",
+      "blurb": "How agents relate to humans, places, roles, and each other, from the Substrate outward."
+    }
+  ],
+  "basis": [
+    {
+      "id": "environmental-systems/water/closed-loop-water",
+      "title": "Closed-Loop Water Systems"
+    },
+    {
+      "id": "environmental-systems/food-production/food-systems",
+      "title": "Food Production at Arcology Scale"
+    },
+    {
+      "id": "urban-design-livability/residential/space-allocation",
+      "title": "Space Allocation and Population Density"
+    },
+    {
+      "id": "urban-design-livability/public-space/public-space-design",
+      "title": "Public Space and Sky Gardens"
+    }
+  ]
+}
