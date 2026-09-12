@@ -229,3 +229,228 @@ body {
     animation: none;
   }
 }
+
+/* ============================================================
+   The City — daylight surface
+   Grounded solarpunk, light-first, scoped to /city pages.
+   The ground is the off-white composite the residents fight;
+   everything they added to the floor is in color.
+   ============================================================ */
+.daylight {
+  --dl-paper: #F4EFE4;
+  --dl-composite: #ECE7DA;
+  --dl-sheet: #FBF8F1;
+  --dl-ink: #2A2C29;
+  --dl-ink-2: #6B6A60;
+  --dl-rule: rgba(42, 44, 41, 0.16);
+  --dl-rule-strong: rgba(42, 44, 41, 0.42);
+  --dl-leaf: #5E8F5A;
+  --dl-moss: #3F6B3C;
+  --dl-leaf-tint: rgba(94, 143, 90, 0.18);
+  --dl-sunrise: #DE6F63;
+  --dl-sunrise-tint: rgba(222, 111, 99, 0.16);
+  --dl-amber: #E9AE5A;
+  --dl-amber-tint: rgba(233, 174, 90, 0.2);
+  --dl-glass: #5F93B8;
+  --dl-substrate: #24476B;
+  --dl-substrate-tint: rgba(36, 71, 107, 0.12);
+  background: var(--dl-paper);
+  color: var(--dl-ink);
+  color-scheme: light;
+}
+.daylight ::selection { background: rgba(94, 143, 90, 0.28); color: var(--dl-ink); }
+.daylight :focus-visible { outline: 2px solid var(--dl-sunrise); outline-offset: 3px; }
+
+.dl-eyebrow {
+  font-family: var(--font-mono), monospace;
+  font-size: 11.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dl-ink-2);
+}
+.dl-floor-number {
+  font-family: var(--font-mono), monospace;
+  font-weight: 500;
+  font-size: 0.5em;
+  letter-spacing: 0.02em;
+  color: var(--dl-sunrise);
+  margin-bottom: 0.25em;
+}
+.dl-link {
+  color: var(--dl-moss);
+  text-decoration: underline;
+  text-decoration-color: rgba(94, 143, 90, 0.5);
+  text-underline-offset: 3px;
+}
+.dl-link:hover { color: var(--dl-ink); text-decoration-color: var(--dl-sunrise); }
+.dl-sheet {
+  background: var(--dl-sheet);
+  border: 1px solid var(--dl-rule-strong);
+  box-shadow: 0 1px 0 rgba(42, 44, 41, 0.05), 0 12px 32px -20px rgba(42, 44, 41, 0.35);
+}
+.dl-rule-top { border-top: 1px solid var(--dl-rule); }
+.dl-card {
+  background: var(--dl-sheet);
+  border: 1px solid var(--dl-rule);
+  padding: 14px 16px;
+  transition: border-color 0.15s ease;
+}
+.dl-card:hover { border-color: var(--dl-moss); }
+
+/* Plan drawing */
+.dl-plate { fill: var(--dl-leaf-tint); stroke: var(--dl-ink); stroke-width: 1.1; }
+.dl-hill { fill: var(--dl-leaf); opacity: 0.5; }
+.dl-interior { fill: var(--dl-composite); stroke: var(--dl-glass); stroke-width: 1; stroke-dasharray: 4 3; }
+.dl-corridor { stroke: var(--dl-ink); stroke-width: 0.9; opacity: 0.5; }
+.dl-bay { fill: var(--dl-leaf-tint); stroke: var(--dl-moss); stroke-width: 0.9; }
+.dl-bay-row { stroke: var(--dl-moss); stroke-width: 0.6; opacity: 0.7; }
+.dl-room { fill: var(--dl-sheet); stroke: var(--dl-ink); stroke-width: 0.8; }
+.dl-atrium { fill: var(--dl-amber-tint); stroke: var(--dl-ink); stroke-width: 0.9; }
+.dl-column { fill: var(--dl-composite); stroke: var(--dl-ink); stroke-width: 1; }
+.dl-mural { fill: none; stroke: var(--dl-sunrise); stroke-width: 1.6; stroke-dasharray: 3 2; }
+.dl-planter { fill: var(--dl-leaf); }
+.dl-label { font-family: var(--font-mono), monospace; font-size: 9.5px; fill: var(--dl-ink-2); letter-spacing: 0.02em; }
+.dl-label-glass { fill: var(--dl-glass); }
+.dl-label-leaf { fill: var(--dl-moss); }
+.dl-halo { fill: var(--dl-sunrise-tint); stroke: var(--dl-sunrise); stroke-width: 0.8; stroke-dasharray: 2 2; }
+.dl-pin { cursor: pointer; transition: transform 0.15s ease; }
+.dl-pin:hover, .dl-pin:focus-visible { transform: scale(1.18); outline: none; }
+.dl-pin-dot { fill: var(--dl-sunrise); stroke: var(--dl-sheet); stroke-width: 1.6; }
+.dl-pin.is-selected .dl-pin-dot { fill: var(--dl-ink); }
+.dl-pin:focus-visible .dl-pin-dot { stroke: var(--dl-ink); stroke-width: 2.4; }
+.dl-pin-num {
+  font-family: var(--font-sans), sans-serif;
+  font-weight: 700;
+  font-size: 9px;
+  fill: var(--dl-sheet);
+  text-anchor: middle;
+  pointer-events: none;
+}
+.dl-titleblock {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dl-ink-2);
+  background: var(--dl-sheet);
+  border-top: 1px solid var(--dl-rule-strong);
+  border-left: 1px solid var(--dl-rule-strong);
+}
+.dl-titleblock > span { padding: 6px 12px; border-right: 1px solid var(--dl-rule); white-space: nowrap; }
+.dl-titleblock > span:last-child { border-right: 0; }
+.dl-titleblock-strong { color: var(--dl-ink); font-weight: 500; }
+@media (max-width: 520px) {
+  .dl-titleblock { position: static; border-left: 0; flex-wrap: wrap; }
+}
+
+/* Place panel and legend */
+.dl-pin-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--dl-sunrise);
+  color: var(--dl-sheet);
+  font-weight: 700;
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.dl-legend-btn.is-selected .dl-pin-badge { background: var(--dl-ink); }
+.dl-kind {
+  display: inline-block;
+  font-family: var(--font-mono), monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border: 1px solid var(--dl-rule-strong);
+  border-radius: 2px;
+  color: var(--dl-ink-2);
+  vertical-align: middle;
+}
+.dl-kind-growing { color: var(--dl-moss); border-color: var(--dl-moss); }
+.dl-kind-commons { color: #9A6A1E; border-color: #C9962F; }
+.dl-kind-edge { color: var(--dl-glass); border-color: var(--dl-glass); }
+.dl-kind-transit { color: var(--dl-substrate); border-color: var(--dl-substrate); }
+.dl-quote {
+  margin: 16px 0 0;
+  padding: 2px 0 0 14px;
+  border-left: 2px solid var(--dl-leaf);
+  font-style: italic;
+  color: var(--dl-ink);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.dl-quote p { margin: 0; }
+.dl-quote footer { margin-top: 6px; font-style: normal; font-size: 12.5px; }
+.dl-system-link {
+  display: grid;
+  gap: 2px;
+  margin-top: 18px;
+  padding: 12px 14px;
+  border: 1px solid var(--dl-rule-strong);
+  background: var(--dl-paper);
+  transition: border-color 0.15s ease;
+}
+.dl-system-link:hover { border-color: var(--dl-moss); }
+.dl-legend {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  border-top: 1px solid var(--dl-rule);
+}
+.dl-legend-btn {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+  text-align: left;
+  padding: 9px 6px;
+  border: 0;
+  border-bottom: 1px solid var(--dl-rule);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+.dl-legend-btn:hover, .dl-legend-btn.is-selected { background: var(--dl-sheet); }
+@media (min-width: 640px) {
+  .dl-legend { grid-template-columns: 1fr 1fr; column-gap: 16px; }
+}
+
+/* Residents */
+.dl-resident-mark {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dl-leaf);
+  margin-top: 7px;
+  flex-shrink: 0;
+}
+.dl-resident-bonded-agent, .dl-resident-assigned-agent { border-radius: 2px; background: var(--dl-substrate); }
+.dl-resident-community-AI { background: var(--dl-sheet); border: 2px solid var(--dl-substrate); }
+.dl-resident-shells { background: var(--dl-ink-2); border-radius: 1px; transform: rotate(45deg); }
+
+/* Elevation strip */
+.dl-elev-core { fill: var(--dl-substrate-tint); stroke: var(--dl-substrate); stroke-width: 0.7; stroke-dasharray: 2 3; }
+.dl-elev-tier { fill: var(--dl-sheet); stroke: var(--dl-ink); stroke-width: 0.9; }
+.dl-elev-terrace { fill: var(--dl-leaf); }
+.dl-elev-sub { fill: var(--dl-composite); stroke: var(--dl-ink); stroke-width: 0.8; }
+.dl-elev-ground { stroke: var(--dl-ink); stroke-width: 1.2; }
+.dl-elev-floorline { stroke: var(--dl-sunrise); stroke-width: 1.4; }
+.dl-elev-pin { fill: var(--dl-sunrise); stroke: var(--dl-sheet); stroke-width: 1.2; }
+.dl-elev-leader { stroke: var(--dl-ink-2); stroke-width: 0.6; }
+.dl-elev-label { font-family: var(--font-mono), monospace; font-size: 9.5px; fill: var(--dl-ink-2); }
+.dl-elev-label-strong { fill: var(--dl-sunrise); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dl-pin, .dl-card, .dl-legend-btn, .dl-system-link { transition: none; }
+}

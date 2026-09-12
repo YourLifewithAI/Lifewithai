@@ -1,7 +1,28 @@
 # Floor by Floor — Site Design Direction
 
 *Created: September 12, 2026*
-*Status: Proposal — decisions awaiting Ben's call (see §9)*
+*Status: Direction confirmed; first slice shipped (see "Direction confirmed" below and §9)*
+
+---
+
+## Direction confirmed (2026-09-12)
+
+Ben's brief, in his words: **a grounded, solarpunk aesthetic**, and **readers should be able to visually explore each floor that is the focus of each story.**
+
+What that settles:
+
+- **Call A (light city / dark workshop) is answered:** light. Solarpunk is daylight on glass and living green; the sketches are on cream paper. The Workshop stays dark.
+- **The floor explorer is the centerpiece, not one plate among six.** Every Arcology One story carries a `floor`, and every floor with a story gets a plan. Plate B (the plan) and a compact Plate A (the elevation strip) ship first; the residents index, day ribbon, and systems section hang off the floor page.
+- **"Grounded" means the materials are real.** The ground of every city page is the off-white composite the residents fight; everything they added to the floor is in color. Hand-drawn linework, one wash green, a sunrise for the "you are here" mark, substrate blue for whatever belongs to the agents. No glow, no gradients, no dashboard chrome.
+
+**Shipped in this PR (Phase B, slice 1):**
+
+- `content/floors/318.json` — the floor as a record: plan features, eleven places with passages from *Water*, residents, systems, engineering basis.
+- `/city/floors/318` — the floor page: elevation strip with 318 lit, interactive plan (pins and legend select a place; the panel shows its passage and links to the story and to the system it opens onto), stories set here, how the floor works, who lives here.
+- Story pages show an "Explore Floor N" banner when `floor` is set; `water` and `water-part-2` carry `floor: 318`.
+- Daylight styles scoped to `.daylight` in `globals.css`; sitemap includes floor pages.
+
+**A note on access:** the sandbox this was built in could not reach lifewithai.ai or Substack. The proxy log shows the same policy denial for google.com, so it is the sandbox's egress allowlist, not the site. Nothing on the site blocks agents.
 
 ---
 

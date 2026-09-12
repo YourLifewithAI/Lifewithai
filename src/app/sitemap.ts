@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { getAllStories, getAllBlogPosts, getAllKnowledgeEntries, getAllInfographics } from '@/lib/content';
+import { getAllStories, getAllBlogPosts, getAllKnowledgeEntries, getAllInfographics, getAllFloors } from '@/lib/content';
 import { DOMAINS } from '@/lib/types';
 
 const BASE_URL = 'https://lifewithai.ai';
@@ -64,5 +64,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...storyPages, ...blogPages, ...infographicPages, ...domainPages, ...entryPages];
+  // City floors
+  const floorPages: MetadataRoute.Sitemap = getAllFloors().map((floor) => ({
+    url: `${BASE_URL}/city/floors/${floor.number}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...storyPages, ...floorPages, ...blogPages, ...infographicPages, ...domainPages, ...entryPages];
 }
