@@ -11,6 +11,7 @@ word_count: 3734
 parts: 2
 summary: "The flood hits Floor 318. In the aftermath, Mel faces the consequences of ignoring every warning — and Pell makes a choice that changes everything."
 viktor_intro: false
+floor: 318
 ---
 
 The sound came first. A groan, deep in the walls. Mel felt it through the soles of their shoes before the air carried it. The air came down the tunnel like a dragon's breath, almost pushing Mel over as they hooked an arm around Davi.

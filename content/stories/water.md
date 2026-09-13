@@ -11,6 +11,7 @@ word_count: 5200
 parts: 2
 summary: "A gardener on Floor 318 of Arcology One grows food for thousands — and ignores every warning that the water budget is about to break."
 viktor_intro: false
+floor: 318
 ---
 
 Floor 318, Arcology One. Summer 2038.
