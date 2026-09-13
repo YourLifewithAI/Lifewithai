@@ -15,8 +15,8 @@ export default function CityOverview() {
         </div>
         <div className="city-map">
           <Image
-            src="/images/arcology/overview.webp"
-            alt="An imagined mile-high Arcology: a vast stepped city of planted terraces rising above the surrounding landscape."
+            src="/images/arcology/overview-storybook.webp"
+            alt="Storybook illustration of Arcology One, a vast stepped city crowned by a flat rooftop park. Three visible three-tier extensions project from its sides, with planted terraces, blue windows, and a river winding through the hill country to the left."
             width={1536}
             height={1024}
             priority
@@ -37,7 +37,7 @@ export default function CityOverview() {
             <span className="city-pin-dot" />
             <span>
               <strong>Tessera</strong>
-              <small>Where a city might begin</small>
+              <small>Where Arcology One begins</small>
             </span>
           </Link>
           <p className="city-map-caption">
@@ -50,8 +50,7 @@ export default function CityOverview() {
           <p className="city-location">Your first visit · Floor 318</p>
           <h2>Start with the marigolds.</h2>
           <p>
-            Mel is planting. Pell has an opinion. Beyond the mural, an entire city is keeping the
-            garden alive.
+            Join Mel and Pell in their community garden.
           </p>
           <Link className="city-button" href="/arcology/floors/318/mel">
             Enter the atrium
@@ -62,7 +61,7 @@ export default function CityOverview() {
         </div>
         <Link href="/arcology/floors/318/mel" aria-label="Visit Mel in the Floor 318 atrium">
           <Image
-            src="/images/arcology/318-garden.webp"
+            src="/images/arcology/318-garden-storybook.webp"
             alt="A resident tending plants beneath a shared mural."
             width={1536}
             height={1024}

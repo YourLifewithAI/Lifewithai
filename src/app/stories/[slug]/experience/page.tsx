@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getExperience, getAllExperienceSlugs, getStory } from '@/lib/content';
 import ExperienceShell from '@/components/experience/ExperienceShell';
 import TierExperienceShell from '@/components/experience/TierExperienceShell';
+import LivingLoop from '@/components/experience/LivingLoop';
 import type { Metadata } from 'next';
 import { isTierRingExperience } from '@/lib/types';
 
@@ -23,10 +24,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${experience.title} — Interactive Experience`,
     description: experience.subtitle,
+    alternates: { canonical: `/stories/${slug}/experience` },
     openGraph: {
       title: experience.title,
       description: experience.subtitle,
       type: 'article',
+      ...(experience.experienceType === 'living-loop' ? { images: [experience.image] } : {}),
     },
   };
 }
@@ -37,6 +40,7 @@ export default async function ExperiencePage({ params }: PageProps) {
   const story = getStory(slug);
 
   if (!experience) notFound();
+  if (experience.experienceType === 'living-loop') return <LivingLoop experience={experience} />;
 
   return (
     <div className="min-h-screen" style={{ background: experience.theme.background }}>

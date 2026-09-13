@@ -10,7 +10,7 @@
     "dev": "next dev",
     "build": "npm run prebuild && npm run validate && next build",
     "start": "next start",
-    "test:arcology": "tsx --test src/lib/arcology-world.test.ts"
+    "test:arcology": "tsx --test src/lib/arcology-world.test.ts src/lib/living-loop.test.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.58",

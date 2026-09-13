@@ -1,313 +1,606 @@
 {
   "storySlug": "water",
-  "experienceType": "flow-diagram",
+  "experienceType": "living-loop",
   "title": "The Living Loop",
-  "subtitle": "How Floor 318 feeds thousands from fish, plants, and compost",
-  "intro": "Beneath Mel's hands-in-the-dirt intuition runs a closed-loop aquaponics system — three nested cycles operating at different time scales, monitored by AI, feeding an entire floor of Arcology One.",
+  "subtitle": "Follow the garden into the rooms that keep it growing.",
+  "intro": "Mel’s marigolds are one small part of a much larger exchange. Step behind the garden: meet the growers, follow the water, and discover what can become food again.",
   "theme": {
-    "primary": "#2A9D8F",
-    "secondary": "#48CAE4",
-    "accent": "#F4A261",
-    "background": "#0a0f0a"
+    "primary": "#173a36",
+    "secondary": "#247b8a",
+    "accent": "#b95d28",
+    "background": "#f5f1df"
   },
-  "timeScales": [
+  "reviewed": "2026-09-13",
+  "image": "/images/arcology/living-loop-storybook-v2.webp",
+  "proposal": "A proposed farm cluster serving the neighborhood of Floor 318. The rooms, scale and connections are an architectural study, not a confirmed floor plan or a claim of food self-sufficiency.",
+  "places": [
     {
-      "id": "water-cycle",
-      "label": "Minutes",
-      "description": "The water cycle: fish excrete ammonia, bacteria convert it to nitrate, water recirculates through grow beds and back.",
-      "duration": "Minutes to hours",
-      "activeFlows": ["fish-to-biofilter", "biofilter-to-growbeds", "growbeds-to-fishtank", "fishtank-to-solidfilter", "solidfilter-to-biofilter"],
-      "activeNodes": ["fish-tank", "solid-filter", "biofilter", "grow-beds"],
-      "metrics": ["water-savings", "ph-range", "ammonia-level"]
+      "id": "plants",
+      "label": "The growing room",
+      "shortLabel": "Plants",
+      "position": {
+        "x": 16,
+        "y": 34
+      },
+      "eyebrow": "Start with something you can taste",
+      "description": "A tomato picked for tonight’s table. Leafy greens in water-fed channels. Soil beds for the community garden. These can be neighbors without receiving the same inputs.",
+      "exchange": "Hydroponics receives measured, conditioned fish-water nutrients plus any missing minerals. Mature compost belongs in suitable soil or substrate beds; it does not circulate through the fish tanks.",
+      "care": "Proposed routine: growers inspect roots, taste harvests and check crop-specific light and nutrition. Plant-water recirculation has its own reservoir and controls.",
+      "ai": "The illustrated drone scouts leaves and fruit for visible changes. Greenhouse monitoring drones already exist; this particular body and deployment are a proposal. An AI grower could combine those observations with crop plans and irrigation data. People still assess flavor and texture.",
+      "quality": "Track marketable harvest, flavor, texture, nutrient composition and shelf life alongside water and energy per edible kilogram.",
+      "sourceIds": [
+        "decoupled",
+        "greenhouse",
+        "agricultural-drones"
+      ],
+      "companyIds": [
+        "source",
+        "corvus-drones"
+      ]
     },
     {
-      "id": "plant-growth",
-      "label": "Weeks",
-      "description": "The growth cycle: plants uptake nutrients over 30-35 days. Lettuce, herbs, tomatoes — each on their own schedule, optimized by light and feeding rate.",
-      "duration": "30-35 days per harvest",
-      "activeFlows": ["biofilter-to-growbeds", "growbeds-to-fishtank", "light-to-growbeds"],
-      "activeNodes": ["grow-beds", "ai-monitor", "led-array"],
-      "metrics": ["yield-per-sqm", "energy-reduction", "feed-rate"]
+      "id": "fish",
+      "label": "The fish room",
+      "shortLabel": "Fish",
+      "position": {
+        "x": 34,
+        "y": 59
+      },
+      "eyebrow": "Care begins before feeding",
+      "description": "Fish need a dependable life-support system of their own. Mechanical filtration removes solids; a biological filter processes dissolved nitrogen waste; aeration and circulation keep the system working.",
+      "exchange": "Feed brings nutrients into the farm. Some leave as harvested fish; some become recoverable waste. A portion of treated water can supply plants, without plant water returning to the fish.",
+      "care": "Proposed safeguards: independently isolatable tanks, backup oxygen and power, and staff who check behavior as well as instruments. Stocking depends on biomass, species and treatment capacity.",
+      "ai": "One floating monitor in each tank is our proposed way to carry cameras and water sensors. Camera-based appetite and biomass estimates can assist feeding, but the skimmer bodies are concept designs, not ReelData products. Validate sensing for the actual species, lighting and water clarity.",
+      "quality": "Measure survival, welfare, feed conversion and edible product quality, not simply the number of fish in a tank.",
+      "sourceIds": [
+        "decoupled",
+        "hydraulics"
+      ],
+      "companyIds": [
+        "reeldata",
+        "aquaai"
+      ]
     },
     {
-      "id": "compost-cycle",
-      "label": "Months",
-      "description": "The waste cycle: fish sludge is separated, composted or digested, and nutrients are returned to the water. Biogas offsets energy costs.",
-      "duration": "Weeks to months",
-      "activeFlows": ["solidfilter-to-digester", "digester-to-biofilter", "digester-to-energy"],
-      "activeNodes": ["solid-filter", "digester", "ai-monitor"],
-      "metrics": ["nitrogen-recovery", "phosphorus-recovery", "vertical-multiplier"]
+      "id": "treatment",
+      "label": "The water workshop",
+      "shortLabel": "Water care",
+      "position": {
+        "x": 54,
+        "y": 65
+      },
+      "eyebrow": "A connection worth checking",
+      "description": "This is where an exchange becomes deliberate. Solids separation, biofiltration and water-quality checks support the fish circuit. A controlled transfer supplies the independently managed plant circuit.",
+      "exchange": "Captured sludge takes a separate recovery route. Mineralization can release nutrients, but the resulting liquid needs analysis and conditioning before a crop-specific dose is considered.",
+      "care": "Proposed routine: check oxygen, temperature, pH, ammonia species, nitrite and individual nutrients. Electrical conductivity alone cannot show whether the nutrient mix is balanced.",
+      "ai": "An AI operator could flag sensor disagreement and recommend a hold on transfers. Independent alarms and local controls must still work if its model or network is unavailable.",
+      "quality": "Release batches against defined nutrient and contaminant specifications. Record where each batch came from and where it went.",
+      "sourceIds": [
+        "decoupled",
+        "mineralization",
+        "hydraulics"
+      ],
+      "companyIds": [
+        "gradiant",
+        "ostara"
+      ]
+    },
+    {
+      "id": "mushrooms",
+      "label": "The mushroom room",
+      "shortLabel": "Mushrooms",
+      "position": {
+        "x": 60,
+        "y": 41
+      },
+      "eyebrow": "Another appetite, another room",
+      "description": "Oyster mushrooms can turn suitable fibrous materials into another harvest. Prepared straw or compatible woody substrate is a more grounded starting point than a promise that every waste stream can grow mushrooms.",
+      "exchange": "Selected crop residues need a tested substrate recipe and appropriate preparation. Spent substrate can join managed composting after assessment; it is not automatically ready to spread.",
+      "care": "Proposed layout: a separate room with its own humidity, ventilation and clean handling. Species and substrate determine the cultivation method.",
+      "ai": "Our proposed ceiling arms pick mushrooms and load the container built into a small quad’s back. Current commercial harvesting robots are a useful comparison; this ceiling-mounted arrangement and its suitability for oyster mushrooms still need development.",
+      "quality": "Observe contamination, cap development, bruising, marketable harvest and storage quality.",
+      "sourceIds": [
+        "mushroom-guide",
+        "compost"
+      ],
+      "companyIds": [
+        "fourag"
+      ]
+    },
+    {
+      "id": "insects",
+      "label": "The insect nursery",
+      "shortLabel": "Insects",
+      "position": {
+        "x": 84,
+        "y": 18
+      },
+      "eyebrow": "Small lives, useful work",
+      "description": "Black soldier fly larvae can convert selected organic side streams into feed ingredients. This is animal husbandry: substrate, climate, hygiene and harvest handling all matter.",
+      "exchange": "Route suitable vegetable and food-production trimmings here. Processed larvae may replace part of a formulated fish diet after species-specific nutrition and product-quality trials.",
+      "care": "Proposed boundary: traceable, approved feedstocks only. Keep incompatible or contaminated waste out. Frass and uneaten substrate need a defined treatment route before use on crops.",
+      "ai": "Automation could track tray conditions and batches. Any model must be tested against actual larvae growth, substrate variation and harvested ingredient composition.",
+      "quality": "Check ingredient safety, protein and fat composition, digestibility and the quality of fish fed that diet.",
+      "sourceIds": [
+        "bsf",
+        "fish-quality"
+      ],
+      "companyIds": [
+        "protix"
+      ]
+    },
+    {
+      "id": "compost",
+      "label": "The return to soil",
+      "shortLabel": "Compost",
+      "position": {
+        "x": 77,
+        "y": 61
+      },
+      "eyebrow": "Finishing is part of the process",
+      "description": "Managed aerobic composting turns appropriate residues into a stable soil amendment. It needs oxygen, moisture management and time to mature. A closed vessel can contain odors without making the process anaerobic.",
+      "exchange": "Selected plant residues, spent mushroom substrate and suitable insect residues converge here. Finished, assessed compost returns to soil beds. It is not a pipe into hydroponics or fish water.",
+      "care": "Proposed layout: an enclosed service bay with separate ventilation, leachate collection and access for maintenance. Larger-volume processing may belong at a shared city utility.",
+      "ai": "A worker loads assessed compost into a dirt-hauling quad’s large back bucket. This proposed body makes the load and its destination visible. Sensors and controls could track the composting process; a completion prediction does not replace maturity and product-quality checks.",
+      "quality": "Check stability, maturity, salts, contaminants and suitability for the intended crop or landscape.",
+      "sourceIds": [
+        "compost",
+        "bsf"
+      ],
+      "companyIds": [
+        "ecs",
+        "sonnenerde"
+      ]
     }
   ],
-  "nodes": [
+  "routes": [
     {
-      "id": "fish-tank",
-      "label": "Fish Tank",
-      "type": "biological",
-      "position": { "x": 50, "y": 15 },
-      "icon": "fish",
-      "description": "Tilapia at 80 fish/m\u00b3 produce ammonia as their primary waste product. Less than 30% of nitrogen in fish feed is assimilated into fish bodies \u2014 the rest drives the entire nutrient cycle.",
-      "aiRole": "AI classifies fish health state (Healthy / Stress / Mortality) from pH, dissolved oxygen, and temperature data with 99.3% accuracy using Random Forest models.",
-      "storyQuote": "Mel's hands were wrist-deep in the planter bed, feeling the quality of the soil between their thumb and forefinger.",
-      "detailMetrics": [
-        { "label": "Stocking density", "value": "80 fish/m\u00b3" },
-        { "label": "Final weight", "value": "768g per fish" },
-        { "label": "Feed conversion ratio", "value": "1.67 kg feed per kg fish", "source": "Frontiers, 2025" },
-        { "label": "AI health accuracy", "value": "99.3%", "source": "PMC, 2025" }
+      "id": "water",
+      "label": "Follow the water",
+      "intro": "Two recirculating circuits. One controlled exchange.",
+      "boundary": "Fish life support and plant irrigation operate separately. Nutrient transfer can stop without making either circuit depend on the other’s return water.",
+      "steps": [
+        {
+          "id": "fish-filter",
+          "from": "fish",
+          "to": "treatment",
+          "label": "Fish water → water care",
+          "detail": "Separate solids, process dissolved nitrogen waste and maintain oxygen."
+        },
+        {
+          "id": "filter-fish",
+          "from": "treatment",
+          "to": "fish",
+          "label": "Water care → fish",
+          "detail": "The fish circuit recirculates locally; it does not depend on plant drainage."
+        },
+        {
+          "id": "nutrient-transfer",
+          "from": "treatment",
+          "to": "plants",
+          "label": "Tested transfer → hydroponics",
+          "detail": "A controlled amount moves one way. Adjust the plant reservoir for the crop’s needs.",
+          "canIsolate": true
+        },
+        {
+          "id": "plant-recirculation",
+          "from": "plants",
+          "to": "plants",
+          "label": "Plant reservoir → plants → reservoir",
+          "detail": "Plants have their own recirculation, replenishment and nutrient management."
+        }
       ]
     },
     {
-      "id": "solid-filter",
-      "label": "Solid Filter",
-      "type": "mechanical",
-      "position": { "x": 80, "y": 35 },
-      "icon": "filter",
-      "description": "Separates fish sludge from water. The sludge contains 4.47% nitrogen and 2.35% phosphorus \u2014 too valuable to discard. Most systems waste this; Arcology One doesn't.",
-      "detailMetrics": [
-        { "label": "Sludge nitrogen", "value": "4.47%" },
-        { "label": "Sludge phosphorus", "value": "2.35%", "source": "Aquaculture International, 2025" },
-        { "label": "Nutrient in sludge", "value": "40% of feed input", "source": "Frontiers, 2025" }
+      "id": "food",
+      "label": "Follow the harvest",
+      "intro": "Keep food in the kitchen. Give suitable leftovers another use.",
+      "boundary": "This is a branching network, not a conveyor belt through every organism. Fish are the animal module shown here. Other livestock would need their own space, feed, welfare and waste assessment.",
+      "steps": [
+        {
+          "id": "food-out",
+          "from": "plants",
+          "to": "kitchen",
+          "label": "Edible harvest → neighbors",
+          "detail": "Plants, fish and mushrooms leave the farm as food. Those nutrients do not magically return."
+        },
+        {
+          "id": "plant-fungi",
+          "from": "plants",
+          "to": "mushrooms",
+          "label": "Suitable fibrous residues → mushrooms",
+          "detail": "Use a compatible, prepared substrate recipe; additional straw or wood may be needed."
+        },
+        {
+          "id": "plant-insects",
+          "from": "plants",
+          "to": "insects",
+          "label": "Suitable trimmings → insect nursery",
+          "detail": "Sort and assess feedstock before rearing. Not every organic residue is acceptable."
+        },
+        {
+          "id": "insects-fish",
+          "from": "insects",
+          "to": "fish",
+          "label": "Processed larvae → formulated fish feed",
+          "detail": "An ingredient in a balanced diet, with safety and quality checks—not a complete feed by default."
+        }
       ]
     },
     {
-      "id": "biofilter",
-      "label": "Biofilter",
-      "type": "biological",
-      "position": { "x": 80, "y": 65 },
-      "icon": "bacteria",
-      "description": "Nitrifying bacteria perform a two-step conversion: Nitrosomonas oxidize ammonia to nitrite, then Nitrospira oxidize nitrite to nitrate \u2014 the form plants can absorb. Recently discovered comammox Nitrospira can do both steps alone.",
-      "aiRole": "AI monitors total ammonia nitrogen (TAN) levels. Safe threshold: <1 mg/L. Functional limit: <3.2 mg/L. Above that, fish stress cascades through the entire system.",
-      "detailMetrics": [
-        { "label": "Safe TAN", "value": "<1 mg/L" },
-        { "label": "Functional limit", "value": "<3.2 mg/L" },
-        { "label": "pH sweet spot", "value": "6.8\u20137.2" },
-        { "label": "Min dissolved O\u2082", "value": ">5 mg/L" }
-      ]
-    },
-    {
-      "id": "grow-beds",
-      "label": "Grow Beds",
-      "type": "biological",
-      "position": { "x": 20, "y": 65 },
-      "icon": "plant",
-      "description": "Plants uptake nitrogen, phosphorus, potassium, and trace minerals from the nitrate-rich water. Optimal ratio: 60g of fish feed per day per m\u00b2 of growing area. At this ratio, lettuce yields reach 14.51 kg/m\u00b2.",
-      "storyQuote": "Every corridor, public space, and residential unit on 318 was overgrown with vegetation.",
-      "detailMetrics": [
-        { "label": "Lettuce yield", "value": "14.51 kg/m\u00b2", "source": "Frontiers, 2025" },
-        { "label": "Optimal feed rate", "value": "60g/day/m\u00b2", "source": "UVI, confirmed 2025" },
-        { "label": "Harvest cycle", "value": "30\u201335 days (lettuce)" },
-        { "label": "Basil vs. field", "value": "3\u00d7 yield", "source": "USDA ARS" }
-      ]
-    },
-    {
-      "id": "digester",
-      "label": "Compost Digester",
-      "type": "process",
-      "position": { "x": 50, "y": 85 },
-      "icon": "compost",
-      "description": "Anaerobic digestion breaks down fish sludge and plant waste, recovering 76% of nitrogen and 80% of phosphorus. The process also produces biogas, partially offsetting the system's energy needs.",
-      "detailMetrics": [
-        { "label": "Nitrogen recovery", "value": "76%", "source": "ScienceDirect, 2024" },
-        { "label": "Phosphorus recovery", "value": "80%", "source": "ScienceDirect, 2024" },
-        { "label": "vs. conventional", "value": "~35% recovery without digestion" },
-        { "label": "Byproduct", "value": "Biogas (energy offset)" }
-      ]
-    },
-    {
-      "id": "led-array",
-      "label": "LED Grow Lights",
-      "type": "mechanical",
-      "position": { "x": 20, "y": 35 },
-      "icon": "light",
-      "description": "LED arrays provide 50,000\u201370,000 lux for photosynthesis. Lighting is 60\u201370% of total energy use in vertical farms \u2014 the single biggest lever for AI optimization.",
-      "aiRole": "AI optimizes LED spectrum, intensity, and scheduling per growth stage. Research shows 82.1% energy reduction through intelligent light management alone.",
-      "detailMetrics": [
-        { "label": "Light range", "value": "50,000\u201370,000 lux" },
-        { "label": "Energy share", "value": "60\u201370% of total" },
-        { "label": "AI energy savings", "value": "82.1%", "source": "PMC, 2024" },
-        { "label": "Power per m\u00b2", "value": "0.56 kWh/day", "source": "Israel study, 2024" }
-      ]
-    },
-    {
-      "id": "ai-monitor",
-      "label": "AI Monitoring",
-      "type": "ai-sensor",
-      "position": { "x": 50, "y": 50 },
-      "icon": "brain",
-      "description": "Sensors throughout the system feed real-time data to ML models running on edge hardware (Raspberry Pi / ESP32). Eight parameters monitored continuously. The AI sees what Mel feels.",
-      "aiRole": "Monitors pH, dissolved oxygen, TAN, electrical conductivity, water temperature, light intensity, humidity, and feed rate. Predicts yield with >95% accuracy. Fish health classification at 99.3%.",
-      "storyQuote": "They touched every plant within reach. A pinch of basil rolled and brought to the nose, a thumbnail drawn across a tomato stem. Touch, check, move on.",
-      "detailMetrics": [
-        { "label": "Parameters tracked", "value": "8 continuous" },
-        { "label": "Yield prediction", "value": ">95% accuracy", "source": "PMC, 2024" },
-        { "label": "Fish health model", "value": "Random Forest, 99.3%" },
-        { "label": "Hardware", "value": "Raspberry Pi / ESP32" }
+      "id": "soil",
+      "label": "Follow the return",
+      "intro": "The route back has several gates.",
+      "boundary": "Recovery reduces losses; it does not eliminate them. The farm still needs energy, replacement water, feed or substrates and nutrient supplementation, with outlets for rejected material.",
+      "steps": [
+        {
+          "id": "plants-compost",
+          "from": "plants",
+          "to": "compost",
+          "label": "Selected plant residues → composting",
+          "detail": "Separate material suitable for compost from contaminated or otherwise unsuitable residues."
+        },
+        {
+          "id": "fungi-compost",
+          "from": "mushrooms",
+          "to": "compost",
+          "label": "Spent mushroom substrate → composting",
+          "detail": "Assess the spent substrate and blend it with other appropriate materials."
+        },
+        {
+          "id": "insects-compost",
+          "from": "insects",
+          "to": "compost",
+          "label": "Insect residues → treatment and composting",
+          "detail": "Frass needs processing and suitability checks before crop use."
+        },
+        {
+          "id": "compost-soil",
+          "from": "compost",
+          "to": "plants",
+          "label": "Mature compost → soil beds",
+          "detail": "Return an assessed amendment to the soil garden, not the hydroponic reservoir."
+        },
+        {
+          "id": "sludge-recovery",
+          "from": "treatment",
+          "to": "recovery",
+          "label": "Captured fish solids → separate nutrient recovery",
+          "detail": "A potential mineralization process, followed by analysis and conditioning. Neither untreated sludge nor digestate goes straight to crops."
+        }
       ]
     }
   ],
-  "flows": [
+  "sources": [
     {
-      "id": "fish-to-biofilter",
-      "from": "fish-tank",
-      "to": "solid-filter",
-      "substance": "water",
-      "timeScale": "water-cycle",
-      "speed": 2,
-      "color": "#48CAE4",
-      "label": "Ammonia-rich water"
+      "id": "agricultural-drones",
+      "kind": "Research review",
+      "title": "Adel et al. · Drones-of-the-Future in Agriculture 5.0",
+      "url": "https://www.sciencedirect.com/science/article/pii/S0308521X25002835",
+      "year": "2026",
+      "scope": "Author-supplied reference. Publisher abstract and indexed text reviewed. Examines Drone-as-a-Service, including crop monitoring and integration; it is not a trial of this indoor farm or evidence that images alone establish eating quality. DOI: 10.1016/j.agsy.2025.104543."
     },
     {
-      "id": "solidfilter-to-biofilter",
-      "from": "solid-filter",
-      "to": "biofilter",
-      "substance": "water",
-      "timeScale": "water-cycle",
-      "speed": 2,
-      "color": "#48CAE4",
-      "label": "Filtered water"
+      "id": "decoupled",
+      "kind": "Research",
+      "title": "Monsees, Kloas & Wuertz · Decoupled systems on trial",
+      "url": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0183056",
+      "year": "2017",
+      "scope": "Five-month pilot comparing coupled and decoupled aquaponics with a RAS control. Supports independent water management; its crop results are not an Arcology yield forecast."
     },
     {
-      "id": "biofilter-to-growbeds",
-      "from": "biofilter",
-      "to": "grow-beds",
-      "substance": "nutrients",
-      "timeScale": "water-cycle",
-      "speed": 2.5,
-      "color": "#2A9D8F",
-      "label": "Nitrate-rich water"
+      "id": "hydraulics",
+      "kind": "Research",
+      "title": "Tetreault et al. · Parallel unit process aquaponics",
+      "url": "https://www.frontiersin.org/journals/horticulture/articles/10.3389/fhort.2023.1140998/full",
+      "year": "2023",
+      "scope": "Hypothesis-and-theory article on component-specific hydraulic retention times. Also explains costs and space tradeoffs of separate systems. Not proof that decoupling is always best."
     },
     {
-      "id": "growbeds-to-fishtank",
-      "from": "grow-beds",
-      "to": "fish-tank",
-      "substance": "water",
-      "timeScale": "water-cycle",
-      "speed": 2,
-      "color": "#48CAE4",
-      "label": "Clean water returns"
+      "id": "mineralization",
+      "kind": "Research",
+      "title": "Gerdes genannt Janßen et al. · Nutrient recovery from aquaculture sludge",
+      "url": "https://www.frontiersin.org/journals/aquaculture/articles/10.3389/faquc.2026.1842840/full",
+      "year": "2026",
+      "scope": "Treatment experiments on commercial tilapia sludge show different nutrient profiles and conditioning needs. Downstream growth tests used Arthrospira; they do not establish universal vegetable safety or yield."
     },
     {
-      "id": "fishtank-to-solidfilter",
-      "from": "fish-tank",
-      "to": "solid-filter",
-      "substance": "waste",
-      "timeScale": "water-cycle",
-      "speed": 3,
-      "color": "#8B6914"
+      "id": "mushroom-guide",
+      "kind": "Grower guidance",
+      "title": "Cornell Small Farms · Methods of commercial mushroom cultivation",
+      "url": "https://smallfarms.cornell.edu/resources/methods-of-commercial-mushroom-cultivation-in-the-northeastern-united-states/4-four-methods-of-commercial-cultivation/",
+      "year": "Living guide",
+      "scope": "Species, substrate preparation and cultivation methods. Supports a prepared oyster-mushroom substrate route, not a universal waste-to-mushrooms claim."
     },
     {
-      "id": "light-to-growbeds",
-      "from": "led-array",
-      "to": "grow-beds",
-      "substance": "energy",
-      "timeScale": "plant-growth",
-      "speed": 1,
-      "color": "#F4A261",
-      "label": "Optimized light spectrum"
+      "id": "bsf",
+      "kind": "Research institute",
+      "title": "Eawag · Black soldier fly biowaste processing",
+      "url": "https://www.eawag.ch/en/department/sandec/projects/mswm/practical-knowhow-on-black-soldier-fly-bsf-biowaste-processing/",
+      "year": "Living guide",
+      "scope": "Operational guidance and research on insect rearing, conversion and post-processing. Biological convertibility does not establish food/feed permission or safety for every substrate."
     },
     {
-      "id": "solidfilter-to-digester",
-      "from": "solid-filter",
-      "to": "digester",
-      "substance": "waste",
-      "timeScale": "compost-cycle",
-      "speed": 5,
-      "color": "#8B6914",
-      "label": "Fish sludge + plant waste"
+      "id": "fish-quality",
+      "kind": "Research",
+      "title": "Aquaculture Reports · Insect meal and salmon fillet quality",
+      "url": "https://doi.org/10.1016/j.aqrep.2024.101966",
+      "year": "2024",
+      "scope": "A full-production-cycle sea-cage salmon study examining fillet and sensory quality. Relevant questions for diet trials; not transferable performance data for indoor tilapia. Bibliographic abstract reviewed."
     },
     {
-      "id": "digester-to-biofilter",
-      "from": "digester",
-      "to": "biofilter",
-      "substance": "nutrients",
-      "timeScale": "compost-cycle",
-      "speed": 6,
-      "color": "#2A9D8F",
-      "label": "Recovered nutrients"
+      "id": "compost",
+      "kind": "Public agency",
+      "title": "US EPA · Composting",
+      "url": "https://www.epa.gov/sustainable-management-food/composting",
+      "year": "Living guide",
+      "scope": "Defines aerobic composting and stable compost, and distinguishes them from anaerobic digestion and unfinished material."
     },
     {
-      "id": "digester-to-energy",
-      "from": "digester",
-      "to": "led-array",
-      "substance": "energy",
-      "timeScale": "compost-cycle",
-      "speed": 4,
-      "color": "#F4A261",
-      "label": "Biogas \u2192 energy"
-    }
-  ],
-  "metrics": [
-    {
-      "id": "water-savings",
-      "label": "Water Savings",
-      "value": "90%",
-      "comparison": "vs. traditional farming (3 L/kg vs 250 L/kg lettuce)",
-      "source": "Arizona State University; FriendlyAquaponics",
-      "icon": "droplet"
+      "id": "greenhouse",
+      "kind": "Research institute",
+      "title": "Wageningen · Autonomous Greenhouse Challenge",
+      "url": "https://www.wur.nl/en/research/plant/autonomous-greenhouse-challenge",
+      "year": "2018–2026",
+      "scope": "Real greenhouse trials of AI crop control, with crop-specific datasets and papers linked. Demonstrates practical experimentation, not a single guaranteed savings or accuracy rate."
     },
     {
-      "id": "yield-per-sqm",
-      "label": "Lettuce Yield",
-      "value": "14.51 kg/m\u00b2",
-      "comparison": "at optimal 60g feed/m\u00b2/day",
-      "source": "Frontiers in Sustainable Food Systems, 2025",
-      "icon": "leaf"
+      "id": "source",
+      "title": "Source.ag · AI irrigation and cultivation",
+      "url": "https://www.source.ag/",
+      "year": "Current products; grower case study",
+      "scope": "A greenhouse comparison. The case describes pilot experience and grower oversight; it does not validate our mixed crops or promise better flavor or nutrition.",
+      "company": {
+        "technologies": [
+          "AI",
+          "Process automation"
+        ],
+        "status": "Grower use reported",
+        "application": "Models help growers plan cultivation, forecast harvests and control irrigation.",
+        "deployment": "Source describes Rainbow Growers Middenmeer using its irrigation control with peppers, including the growers’ experience of the pilot.",
+        "evidence": [
+          {
+            "title": "Rainbow Growers’ irrigation experience",
+            "url": "https://www.source.ag/cases/working-towards-the-future-of-irrigation-management"
+          },
+          {
+            "title": "Current solutions",
+            "url": "https://www.source.ag/"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "energy-reduction",
-      "label": "AI Energy Savings",
-      "value": "82.1%",
-      "comparison": "through intelligent light management",
-      "source": "PMC IoT/AI in Vertical Farming, 2024",
-      "icon": "zap"
+      "id": "corvus-drones",
+      "title": "Corvus Drones · Greenhouse scouting robots",
+      "url": "https://www.corvusdrones.com/en/",
+      "year": "Current company account",
+      "scope": "Supports indoor crop scouting. Images cannot establish flavor or nutritional composition.",
+      "company": {
+        "technologies": [
+          "Robotics",
+          "Image analysis"
+        ],
+        "status": "Commercial use reported",
+        "application": "Autonomous drones observe greenhouse crops and count germination.",
+        "deployment": "Corvus names Plantenkwekerij Gitzels as a user monitoring potato seedlings.",
+        "evidence": [
+          {
+            "title": "Gitzels example and drone capabilities",
+            "url": "https://www.corvusdrones.com/en/"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "vertical-multiplier",
-      "label": "Space Efficiency",
-      "value": "40\u00d7",
-      "comparison": "1 acre vertical = 40 acres traditional",
-      "source": "Intelligent Growth Solutions",
-      "icon": "layers"
+      "id": "reeldata",
+      "title": "ReelData · AI feeding for land-based fish farms",
+      "url": "https://www.reeldata.ai/reelappetite",
+      "year": "2024 agreement; current product",
+      "scope": "Relevant to land-based tanks. This is camera-and-feeder automation, not the illustrated floating robot; performance must be checked for our species and water conditions.",
+      "company": {
+        "technologies": [
+          "AI",
+          "Process automation"
+        ],
+        "status": "Commercial trial; expansion contracted",
+        "application": "ReelAppetite detects uneaten pellets in tank outflows and adjusts connected feeders.",
+        "deployment": "An October 2024 announcement describes over a year of use at Samherji’s Staður charr site, followed by an agreement covering three sites. The agreement alone does not confirm every installation was completed.",
+        "evidence": [
+          {
+            "title": "Samherji trial and expansion agreement · 2024",
+            "url": "https://www.reeldata.ai/news/samherji-and-reeldata-announce-expansion-agreement"
+          },
+          {
+            "title": "How ReelAppetite works",
+            "url": "https://www.reeldata.ai/reelappetite"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "nitrogen-recovery",
-      "label": "Nitrogen Recovery",
-      "value": "76%",
-      "comparison": "with anaerobic digestion (vs. ~35% without)",
-      "source": "ScienceDirect, 2024",
-      "icon": "recycle"
+      "id": "aquaai",
+      "title": "Aquaai · Mobile underwater sensing",
+      "url": "https://www.aquaai.com/",
+      "year": "Current product offering",
+      "scope": "Underwater fishlike robots, not surface skimmers. No named farm installation verified here.",
+      "company": {
+        "technologies": [
+          "AI",
+          "Robotics"
+        ],
+        "status": "Platform offered; deployment unverified",
+        "application": "Fishlike robots carry cameras and sensors for water monitoring.",
+        "deployment": "Aquaai offers service or demonstration access and describes autonomous navigation and computer vision.",
+        "evidence": [
+          {
+            "title": "Platform and service description",
+            "url": "https://www.aquaai.com/"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "phosphorus-recovery",
-      "label": "Phosphorus Recovery",
-      "value": "80%",
-      "comparison": "closed-loop with digester",
-      "source": "ScienceDirect, 2024",
-      "icon": "recycle"
+      "id": "gradiant",
+      "title": "Gradiant / Turing · AI water-process optimization",
+      "url": "https://gradiant.com/technologies/smartops-ai/",
+      "year": "2021 installation; current case study",
+      "scope": "Evidence for AI assisting water-plant operations. Desalination is a different process from aquaponic biofiltration or safe nutrient transfer; no savings percentage is carried into our design.",
+      "company": {
+        "technologies": [
+          "AI",
+          "Operator decision support"
+        ],
+        "status": "Commercial use reported",
+        "application": "SmartOps uses operating data to model water-treatment performance and recommend adjustments.",
+        "deployment": "Gradiant’s ENGIE case describes machine-learning recommendations at a Middle Eastern seawater desalination plant, online in 2021. Operators entered the recommended settings.",
+        "evidence": [
+          {
+            "title": "ENGIE desalination case",
+            "url": "https://gradiant.com/success-stories/smartops-ai-desal-optimization/"
+          },
+          {
+            "title": "SmartOps technology",
+            "url": "https://gradiant.com/technologies/smartops-ai/"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "ph-range",
-      "label": "pH Sweet Spot",
-      "value": "6.8\u20137.2",
-      "comparison": "bacteriological optimum; too low kills nitrifiers, too high precipitates phosphorus",
-      "source": "Multiple peer-reviewed studies, 2024-2025",
-      "icon": "gauge"
+      "id": "ostara",
+      "title": "Ostara · Recovering nutrients as fertilizer",
+      "url": "https://ostara.com/nutrient-recovery/nutrient-recovery-solutions/",
+      "year": "2016 installation; current process",
+      "scope": "A supporting recovery process, not an AI or robotics example. Municipal wastewater differs from fish solids; this does not establish direct reuse in hydroponics or recovery of every nutrient.",
+      "company": {
+        "technologies": [
+          "Nutrient-recovery engineering"
+        ],
+        "status": "Commercial installation documented",
+        "application": "Pearl reactors recover phosphorus in struvite fertilizer granules from suitable wastewater streams.",
+        "deployment": "Ostara and Chicago’s MWRD opened a nutrient-recovery facility at the Stickney plant in May 2016.",
+        "evidence": [
+          {
+            "title": "Stickney facility opening · 2016",
+            "url": "https://ostara.com/metropolitan-water-reclamation-district-greater-chicago/"
+          },
+          {
+            "title": "Pearl process brochure · Xylem / Evoqua",
+            "url": "https://www.xylem.com/siteassets/catalog-assets/documents/products/folder-0002/mu-ostarapearl-br-0222-lores.pdf"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "ammonia-level",
-      "label": "Safe Ammonia",
-      "value": "<1 mg/L",
-      "comparison": "functional limit 3.2 mg/L before fish stress",
-      "source": "Frontiers, 2025",
-      "icon": "alert"
+      "id": "fourag",
+      "title": "4AG Robotics · Mushroom picking, trimming and packing",
+      "url": "https://4ag.ai/robots-picking-mushrooms-fourth-generation-2025/",
+      "year": "2025 product and deployment accounts",
+      "scope": "The documented crop is Agaricus. Our oyster mushrooms, ceiling mounts and receiving quad are adaptations requiring development.",
+      "company": {
+        "technologies": [
+          "Robotics"
+        ],
+        "status": "Commercial use reported",
+        "application": "Robots pick, trim and pack mushrooms in existing growing racks.",
+        "deployment": "In July 2025, 4AG reported live systems in Canada, Ireland and Australia. Planned deployments elsewhere are not counted as completed.",
+        "evidence": [
+          {
+            "title": "Commercial deployment report · July 2025",
+            "url": "https://4ag.ai/4ag-robotics-raises-40m-series-b-to-power-the-future-of-autonomous-mushroom-farming/"
+          },
+          {
+            "title": "Agaricus harvesting demonstration · January 2025",
+            "url": "https://4ag.ai/robots-picking-mushrooms-fourth-generation-2025/"
+          }
+        ]
+      },
+      "kind": "Company"
     },
     {
-      "id": "feed-rate",
-      "label": "Optimal Feed Rate",
-      "value": "60g/day/m\u00b2",
-      "comparison": "established UVI 1988, confirmed 2025",
-      "source": "Frontiers in Sustainable Food Systems, 2025",
-      "icon": "fish"
+      "id": "protix",
+      "title": "Protix · Industrial insect rearing",
+      "url": "https://protix.com/",
+      "year": "Current operations and technology account",
+      "scope": "Protix explicitly reports using AI and robotics, but the reviewed pages give limited detail on their individual tasks or measured contribution. Suitable feedstocks and fish-diet formulation remain separate questions.",
+      "company": {
+        "technologies": [
+          "AI",
+          "Robotics"
+        ],
+        "status": "Commercial production; technology company-reported",
+        "application": "Black soldier fly production converts selected industrial organic side streams into feed and farming ingredients.",
+        "deployment": "Protix describes commercial production and a Dutch blueprint plant opened in 2019. Its operations page identifies AI and robotics among the technologies it uses.",
+        "evidence": [
+          {
+            "title": "Commercial production and material route",
+            "url": "https://protix.com/"
+          },
+          {
+            "title": "Operations and technology description",
+            "url": "https://protix.com/careers/operators-and-mechanics"
+          }
+        ]
+      },
+      "kind": "Company"
+    },
+    {
+      "id": "ecs",
+      "title": "Engineered Compost Systems · Controlled composting",
+      "url": "https://compostsystems.com/",
+      "year": "2020 installation; current case study",
+      "scope": "Conventional process automation, not a verified AI system. It supports managed composting and batch records, not our bucket-carrying quad or a promise of instant mature compost.",
+      "company": {
+        "technologies": [
+          "Process automation"
+        ],
+        "status": "Commercial use reported",
+        "application": "Sensors and controls regulate aeration, surface irrigation and process records during composting.",
+        "deployment": "ECS describes its CompTroller installation at Napa Recycling and Waste Services, processing yard and food waste. The case includes finished compost supplied to agriculture and community gardens.",
+        "evidence": [
+          {
+            "title": "Napa composting installation and return to growers",
+            "url": "https://compostsystems.com/case-studies/nwrs-composting/"
+          },
+          {
+            "title": "Enclosed composting comparison · Ishpeming",
+            "url": "https://compostsystems.com/case-studies/ishpeming-wwtp-composting/"
+          }
+        ]
+      },
+      "kind": "Company"
+    },
+    {
+      "id": "sonnenerde",
+      "title": "Sonnenerde · Autonomous compost-turning research",
+      "url": "https://www.sonnenerde.at/en/",
+      "year": "2021–2023 project; 2024 research",
+      "scope": "A field-tested prototype, not a verified commercial robot fleet. Outdoor satellite navigation and windrows differ from an indoor compost bay; autonomous control does not by itself establish machine learning.",
+      "company": {
+        "technologies": [
+          "Robotics"
+        ],
+        "status": "Prototype tested in an industrial setting",
+        "application": "A compost producer helped develop autonomous electric compost turning with Pusch & Schinnerl and university partners.",
+        "deployment": "The ANDREA project names Sonnenerde as coordinator. The researchers’ 2024 report describes an autonomous turner tested in three industrial-site scenarios.",
+        "evidence": [
+          {
+            "title": "ANDREA project and company partners",
+            "url": "https://austria-in-space.at/en/projects/2020/andrea.php"
+          },
+          {
+            "title": "Researchers’ prototype report · 2024 preprint",
+            "url": "https://arxiv.org/abs/2401.13493"
+          }
+        ]
+      },
+      "kind": "Company"
     }
   ]
 }

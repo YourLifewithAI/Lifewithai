@@ -16,7 +16,7 @@ export default function StoriesPage() {
         <section className="city-water-feature">
           <Link href="/arcology/floors/318/mel">
             <Image
-              src="/images/arcology/318-garden.webp"
+              src="/images/arcology/318-garden-storybook.webp"
               alt="Enter the garden atrium on Floor 318"
               width={1536}
               height={1024}

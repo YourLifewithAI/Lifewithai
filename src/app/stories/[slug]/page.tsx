@@ -17,7 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  if (slug === 'water' || slug === 'water-part-2') return {title: 'Water', description: 'A story of Mel, Pell, and their neighborhood on Floor 318.', alternates: {canonical: '/stories/water'}, openGraph: {images: ['/images/arcology/318-garden.webp']}};
+  if (slug === 'water' || slug === 'water-part-2') return {title: 'Water', description: 'A story of Mel, Pell, and their neighborhood on Floor 318.', alternates: {canonical: '/stories/water'}, openGraph: {images: ['/images/arcology/318-garden-storybook.webp']}};
   const story = getStory(slug);
   if (!story) return { title: 'Story Not Found' };
 

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { getStory } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 export default async function WaterReader() {
@@ -29,6 +30,14 @@ export default async function WaterReader() {
           <hr />
           <div dangerouslySetInnerHTML={{ __html: secondHtml }} />
         </section>
+        <figure className="city-story-recovery" id="after-water">
+          <Link href="/arcology/floors/318/mel/after-water" aria-label="Explore the atrium after Water">
+            <Image src="/images/arcology/318-after-water-storybook.webp" width={1536} height={1024}
+              sizes="(max-width: 900px) 92vw, 900px"
+              alt="Mel rests a hand on Pell’s orange lobster-shaped robot body as neighbors repaint the atrium mural. Empty damaged fish tanks, bare trellises, and two new seedlings show the work of recovery." />
+          </Link>
+          <figcaption>After Water. The neighborhood begins again.</figcaption>
+        </figure>
         <aside className="city-reading-door">
           <h2>Return to the place you know.</h2>
           <p>The story ends. The neighborhood still has more to show you.</p>

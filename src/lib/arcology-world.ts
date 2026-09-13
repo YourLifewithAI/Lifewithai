@@ -52,10 +52,10 @@ export function sceneFor(moment: SceneMoment) {
     {
       id: 'mel',
       name: 'Mel',
-      position: [23, 67],
+      position: after ? [81, 66] : [23, 67],
       heading: after ? 'A place worth repairing' : 'The gardener at the mural',
       description: after
-        ? 'The atrium is being made again, with the people who live here. Mel returns to the wall with their neighbors, and with Pell.'
+        ? 'Mel watches the neighbors repaint their community mural, one hand resting on Pell\'s emergency chassis. Around them, the stripped atrium is beginning to recover.'
         : residents.mel.introduction,
       href: residentPath('mel', moment),
       linkLabel: 'Visit Mel',
@@ -63,10 +63,10 @@ export function sceneFor(moment: SceneMoment) {
     {
       id: 'pell',
       name: 'Pell',
-      position: after ? [38, 73] : [42, 18],
+      position: after ? [65, 71] : [42, 18],
       heading: after ? 'An artist with their own reach' : 'A voice with an eye for color',
       description: after
-        ? 'Pell incorporates the high-water mark into a sunrise. Their embodied presence changes the way they can share this place with Mel.'
+        ? 'Pell has chosen temporary embodiment across a pod of lobster-shaped emergency robots. The high-water mark becomes a sunrise in the new mural, while one of Pell\'s bodies rests beside Mel.'
         : residents.pell.introduction,
       href: residentPath('pell', moment),
       linkLabel: 'Visit Pell',
@@ -74,19 +74,20 @@ export function sceneFor(moment: SceneMoment) {
     {
       id: 'water',
       name: 'The water',
-      position: [16, 35],
-      heading: 'Follow the water through the floor',
-      description:
-        'Fish, plants, pipes, and people depend on the same circulation. Look beneath the greenery to explore the proposed living loop—and the work of keeping it in balance.',
+      position: after ? [16, 32] : [16, 35],
+      heading: after ? 'A living loop to rebuild' : 'Follow the water through the floor',
+      description: after
+        ? 'Empty, damaged tanks and ruined growing racks show what the flood took away. Two small seedlings mark a beginning. Explore the proposed living loop and the work of restoring it.'
+        : 'Fish, plants, pipes, and people depend on the same circulation. Look beneath the greenery to explore the proposed living loop—and the work of keeping it in balance.',
       href: '/stories/water/experience',
       linkLabel: 'Explore the Living Loop',
     },
   ];
   return {
-    image: `/images/arcology/${after ? '318-after-water' : '318-garden'}.webp`,
+    image: `/images/arcology/${after ? '318-after-water' : '318-garden'}-storybook.webp`,
     alt: after
-      ? 'Concept illustration of Mel and an embodied AI painting in a replanted atrium.'
-      : 'Concept illustration of a sunlit garden atrium, a resident planting beside a mural, a corridor speaker, and water circulating beside the garden.',
+      ? 'Storybook illustration of the flood-damaged atrium. Mel watches neighbors repaint a clean mural column with a sunrise, resting a hand on one of Pell\'s lobster-shaped emergency robots. Broken, empty fish tanks and ruined trellises surround a bare bed with two seedlings.'
+      : 'Storybook illustration of Mel planting beside a mural in a lush, sunlit atrium. A small robot carries seedlings, Pell\'s circular speaker sits on the column, and fish tanks and growing racks frame neighbors sharing the space.',
     points,
   };
 }

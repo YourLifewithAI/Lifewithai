@@ -1,3 +1,6 @@
+.city-story-recovery { margin: 56px 0 36px; }
+.city-story-recovery img { display: block; width: 100%; height: auto; }
+.city-story-recovery figcaption { font-size: 14px; margin-top: 12px; color: #48615b; }
 .city,
 .city-header,
 .city-footer {
@@ -113,7 +116,6 @@
   display: block;
   width: 100%;
   height: auto;
-  mix-blend-mode: multiply;
 }
 .city-map-pin {
   position: absolute;
@@ -571,11 +573,6 @@
   }
   .city-map {
     padding-bottom: 90px;
-  }
-  .city-map > img {
-    min-height: 360px;
-    object-fit: cover;
-    object-position: 50% 50%;
   }
   .city-map-pin {
     padding: 9px 12px;

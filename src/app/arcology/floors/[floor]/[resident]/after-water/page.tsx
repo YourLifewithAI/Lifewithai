@@ -4,7 +4,7 @@ export const metadata: Metadata = {
   title: 'Floor 318 — After Water',
   description: 'Return to the atrium after reading Water. Contains story spoilers.',
   robots: { index: false, follow: true },
-  openGraph: { images: ['/images/arcology/318-garden.webp'] },
+  openGraph: { images: ['/images/arcology/318-garden-storybook.webp'] },
 };
 export function generateStaticParams() {
   return ['mel', 'pell'].map((resident) => ({ floor: '318', resident }));

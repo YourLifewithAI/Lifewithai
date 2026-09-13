@@ -1,15 +1,15 @@
 # Content Validation Report
-*Generated: 2026-03-10T13:19:52.899Z*
+*Generated: 2026-09-13T22:14:07.672Z*
 *Entries validated: 32*
 
 ## Status: ISSUES FOUND
-**173 error(s)**, 176 warning(s), 193 info note(s).
+**173 error(s)**, 177 warning(s), 193 info note(s).
 
 ## Summary
 
 | Check | Status |
 |-------|--------|
-| Cross-references | 183/189 valid (6 broken) |
+| Cross-references | 183/190 valid (7 broken) |
 | Orphan entries | 0 orphans |
 | Citations | 134/462 valid |
 | Parameters | 499 total, 11 consistency issues |
@@ -484,6 +484,8 @@
 - **[parameter]** `urban-design-livability/healthcare-education/healthcare-education`: Parameter "tallest_hospital_current_m" confidence (3) exceeds entry confidence (2)
 - **[parameter]** `urban-design-livability/healthcare-education/healthcare-education`: Parameter "tallest_school_current_m" confidence (3) exceeds entry confidence (2)
 - **[parameter]** `urban-design-livability/healthcare-education/healthcare-education`: Parameter "telesurgery_safe_latency_ms" confidence (3) exceeds entry confidence (2)
+- **[cross-reference]** `structural-engineering/foundation-systems/foundation-systems`: Broken cross-reference: "structural-engineering/site-selection/site-selection" does not exist
+  - Referenced from structural-engineering/foundation-systems/foundation-systems with relationship "depends-on"
 - **[cross-reference]** `structural-engineering/foundation-systems/foundation-systems`: Broken cross-reference: "construction-logistics/construction-sequence/construction-sequence" does not exist
   - Referenced from structural-engineering/foundation-systems/foundation-systems with relationship "informs"
 - **[parameter]** `structural-engineering/foundation-systems/foundation-systems`: Parameter "max_pile_depth_proven_m" confidence (3) exceeds entry confidence (2)

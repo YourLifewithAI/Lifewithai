@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `Meet ${residents[resident].name} on Floor 318`,
     description: residents[resident].introduction,
     alternates: { canonical: residentPath(resident) },
-    openGraph: { images: ['/images/arcology/318-garden.webp'] },
+    openGraph: { images: ['/images/arcology/318-garden-storybook.webp'] },
   };
 }
 export default async function Page({ params }: Props) {

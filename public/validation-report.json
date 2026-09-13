@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-03-10T13:19:52.899Z",
+  "timestamp": "2026-09-13T22:14:07.672Z",
   "total_entries": 32,
   "issues": [
     {
@@ -2448,6 +2448,13 @@
       "message": "Peer-reviewed citation \"space-isolation-depression-2023\" has no URL — consider adding for verification"
     },
     {
+      "severity": "warning",
+      "category": "cross-reference",
+      "entry_id": "structural-engineering/foundation-systems/foundation-systems",
+      "message": "Broken cross-reference: \"structural-engineering/site-selection/site-selection\" does not exist",
+      "details": "Referenced from structural-engineering/foundation-systems/foundation-systems with relationship \"depends-on\""
+    },
+    {
       "severity": "error",
       "category": "cross-reference",
       "entry_id": "structural-engineering/foundation-systems/foundation-systems",
@@ -3446,13 +3453,13 @@
     }
   ],
   "errors": 173,
-  "warnings": 176,
+  "warnings": 177,
   "info": 193,
   "summary": {
     "cross_references": {
       "valid": 183,
-      "broken": 6,
-      "total": 189
+      "broken": 7,
+      "total": 190
     },
     "orphans": {
       "count": 0,

@@ -423,7 +423,62 @@ export interface TierRingExperience {
 }
 
 // Discriminated union on experienceType
-export type StoryExperience = FlowDiagramExperience | TierRingExperience;
+export interface LivingLoopSource {
+  id: string;
+  kind: string;
+  title: string;
+  url: string;
+  year: string;
+  scope: string;
+  company?: {
+    technologies: string[];
+    status: string;
+    application: string;
+    deployment: string;
+    evidence: { title: string; url: string }[];
+  };
+}
+
+export interface LivingLoopPlace {
+  id: string;
+  label: string;
+  shortLabel: string;
+  position: { x: number; y: number };
+  eyebrow: string;
+  description: string;
+  exchange: string;
+  care: string;
+  ai: string;
+  quality: string;
+  sourceIds: string[];
+  companyIds: string[];
+}
+
+export interface LivingLoopStep {
+  id: string;
+  from: string;
+  to: string;
+  label: string;
+  detail: string;
+  canIsolate?: boolean;
+}
+
+export interface LivingLoopExperience {
+  storySlug: string;
+  experienceType: 'living-loop';
+  title: string;
+  subtitle: string;
+  intro: string;
+  theme: ExperienceTheme;
+  reviewed: string;
+  image: string;
+  proposal: string;
+  places: LivingLoopPlace[];
+  routes: { id: string; label: string; intro: string; boundary: string; steps: LivingLoopStep[] }[];
+  sources: LivingLoopSource[];
+}
+
+export type StoryExperience = FlowDiagramExperience | TierRingExperience | LivingLoopExperience;
 
 // ============================================================
 // Infographics
