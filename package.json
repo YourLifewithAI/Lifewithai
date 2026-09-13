@@ -9,7 +9,8 @@
     "validate:save": "tsx src/lib/validate-runner.ts --save",
     "dev": "next dev",
     "build": "npm run prebuild && npm run validate && next build",
-    "start": "next start"
+    "start": "next start",
+    "test:arcology": "tsx --test src/lib/arcology-world.test.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.58",

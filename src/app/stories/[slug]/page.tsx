@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
+import WaterReader from '@/components/arcology/WaterReader';
 import { getAllStories, getStory, getStoryAgentContent, getExperience } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 import SubscribeForm from '@/components/SubscribeForm';
@@ -16,6 +17,7 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params;
+  if (slug === 'water' || slug === 'water-part-2') return {title: 'Water', description: 'A story of Mel, Pell, and their neighborhood on Floor 318.', alternates: {canonical: '/stories/water'}, openGraph: {images: ['/images/arcology/318-garden.webp']}};
   const story = getStory(slug);
   if (!story) return { title: 'Story Not Found' };
 
@@ -40,6 +42,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function StoryPage({ params }: PageProps) {
   const { slug } = await params;
+  if (slug === 'water-part-2') permanentRedirect('/stories/water#part-2');
+  if (slug === 'water') return <WaterReader />;
   const story = getStory(slug);
 
   if (!story) notFound();
@@ -51,7 +55,7 @@ export default async function StoryPage({ params }: PageProps) {
   const agentHtml = agentContent ? await renderMarkdown(agentContent) : undefined;
 
   // Find next/prev stories for navigation
-  const allStories = getAllStories();
+  const allStories = getAllStories().filter(s => s.slug !== 'water-part-2');
   const currentIndex = allStories.findIndex(s => s.slug === slug);
   const nextStory = currentIndex >= 0 && currentIndex < allStories.length - 1
     ? allStories[currentIndex + 1] : null;
@@ -179,7 +183,7 @@ export default async function StoryPage({ params }: PageProps) {
         {/* Subscribe */}
         <div className="rounded-xl border border-accent/20 bg-accent/5 p-6 sm:p-8">
           <p className="text-lg font-semibold text-white mb-1">
-            New stories every Saturday
+            New stories as they are ready
           </p>
           <p className="text-sm text-muted mb-4">
             Near-future fiction about humans and AI figuring it out together. No spam.

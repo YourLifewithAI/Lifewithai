@@ -40,6 +40,7 @@ export default async function ExperiencePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen" style={{ background: experience.theme.background }}>
+      <div className="mx-auto max-w-6xl px-4 pt-6 text-sm text-white/80"><Link href={slug === 'water-part-2' ? '/arcology/floors/318/mel/after-water' : '/arcology/floors/318/mel'}>↖ Return to Floor 318</Link>{slug === 'water-part-2' && <p className="mt-3">After Water · This experience contains story spoilers.</p>}</div>
       {/* Header */}
       <header className={`mx-auto max-w-6xl px-4 pt-12 pb-8 sm:px-6 ${isTierRingExperience(experience) ? 'text-center' : ''}`}>
         <Link

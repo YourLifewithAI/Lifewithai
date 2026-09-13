@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 
-// /arcology/domains redirects to /arcology (which has the domain grid)
+// Preserve the engineering-domain entry link after the visual city launch.
 export default function DomainsPage() {
-  redirect('/arcology');
+  redirect('/arcology/research');
 }

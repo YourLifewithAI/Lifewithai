@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useSession, signOut } from 'next-auth/react';
 
+import { isReaderPath, ReaderHeader } from '@/components/arcology/ReaderChrome';
+
 const NAV_ITEMS = [
   { href: '/stories', label: 'Stories' },
   { href: '/blog', label: 'Blog' },
@@ -18,6 +20,11 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  return isReaderPath(pathname) ? <ReaderHeader /> : <LegacyHeader />;
+}
+
+function LegacyHeader() {
   const pathname = usePathname();
   const { data: session, status } = useSession();
 

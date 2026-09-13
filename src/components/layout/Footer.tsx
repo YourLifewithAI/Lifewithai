@@ -1,7 +1,15 @@
+'use client';
+import { usePathname } from 'next/navigation';
+import { isReaderPath, ReaderFooter } from '@/components/arcology/ReaderChrome';
 import Link from 'next/link';
 import SubscribeForm from '@/components/SubscribeForm';
 
 export default function Footer() {
+  const pathname = usePathname();
+  return isReaderPath(pathname) ? <ReaderFooter /> : <LegacyFooter />;
+}
+
+function LegacyFooter() {
   return (
     <footer className="border-t border-border bg-background">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
@@ -32,7 +40,7 @@ export default function Footer() {
             <h3 className="text-sm font-semibold text-foreground">Explore</h3>
             <ul className="mt-2 space-y-1.5">
               <li><Link href="/stories" className="text-sm text-muted hover:text-accent transition-colors">Stories</Link></li>
-              <li><Link href="/arcology" className="text-sm text-muted hover:text-accent transition-colors">Arcology Knowledge Node</Link></li>
+              <li><Link href="/arcology/research" className="text-sm text-muted hover:text-accent transition-colors">Arcology Knowledge Node</Link></li>
               <li><Link href="/arcology/domains" className="text-sm text-muted hover:text-accent transition-colors">Engineering Domains</Link></li>
               <li><Link href="/arcology/open-questions" className="text-sm text-muted hover:text-accent transition-colors">Open Questions</Link></li>
             </ul>

@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   ];
 
   // Stories
-  const stories = getAllStories();
+  const stories = getAllStories().filter(s => s.slug !== 'water-part-2');
   const storyPages: MetadataRoute.Sitemap = stories.map((story) => ({
     url: `${BASE_URL}/stories/${story.slug}`,
     lastModified: story.published || now,
@@ -64,5 +64,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...storyPages, ...blogPages, ...infographicPages, ...domainPages, ...entryPages];
+  const readerPages: MetadataRoute.Sitemap = ['/arcology/floors/318/mel', '/arcology/floors/318/pell', '/arcology/tessera', '/arcology/research', '/workshop'].map(route => ({url: BASE_URL + route, changeFrequency: 'monthly', priority: 0.7}));
+  return [...readerPages, ...staticPages, ...storyPages, ...blogPages, ...infographicPages, ...domainPages, ...entryPages];
 }
