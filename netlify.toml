@@ -2,5 +2,9 @@
   command = "npm run prebuild && next build"
   publish = ".next"
 
+[context.production.environment]
+  # Public GA4 web-stream identifier; previews never send analytics.
+  NEXT_PUBLIC_GA_MEASUREMENT_ID = "G-0FEVY5TS8J"
+
 [[plugins]]
   package = "@netlify/plugin-nextjs"

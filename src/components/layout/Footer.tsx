@@ -3,6 +3,7 @@ import { usePathname } from 'next/navigation';
 import { isReaderPath, ReaderFooter } from '@/components/arcology/ReaderChrome';
 import Link from 'next/link';
 import SubscribeForm from '@/components/SubscribeForm';
+import { AnalyticsSettingsButton } from '@/components/GoogleAnalytics';
 
 export default function Footer() {
   const pathname = usePathname();
@@ -53,6 +54,8 @@ function LegacyFooter() {
               <li><Link href="/mcp" className="text-sm text-muted hover:text-accent transition-colors">For AI Agents</Link></li>
               <li><Link href="/api/v1/domains" className="text-sm text-muted hover:text-accent transition-colors">REST API</Link></li>
               <li><Link href="/about" className="text-sm text-muted hover:text-accent transition-colors">About</Link></li>
+              <li><Link href="/privacy" className="text-sm text-muted hover:text-accent transition-colors">Analytics and privacy</Link></li>
+              <li><AnalyticsSettingsButton className="text-sm text-muted hover:text-accent transition-colors" /></li>
             </ul>
           </div>
 

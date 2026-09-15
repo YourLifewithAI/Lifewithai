@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { AnalyticsSettingsButton } from '@/components/GoogleAnalytics';
 // Keep scene content out of the shared client navigation bundle.
 const subscriptionUrl = 'https://sbcorvus.substack.com';
 
@@ -59,6 +60,8 @@ export function ReaderFooter() {
         <Link href="/about">About Life with AI</Link>
         <Link href="/arcology/research">Engineering the Arcology</Link>
         <Link href="/mcp">For AI agents</Link>
+        <Link href="/privacy">Analytics and privacy</Link>
+        <AnalyticsSettingsButton className="cursor-pointer text-left" />
         <span>Built by humans and AI, together.</span>
       </div>
     </footer>
