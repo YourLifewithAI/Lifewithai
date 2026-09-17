@@ -8,6 +8,7 @@ const subscriptionUrl = 'https://sbcorvus.substack.com';
 export function isReaderPath(path: string) {
   return (
     path === '/' ||
+    path === '/privacy' ||
     path === '/arcology' ||
     path === '/stories' ||
     path === '/stories/water' ||
