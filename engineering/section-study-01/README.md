@@ -29,7 +29,7 @@ uv run --project engineering --locked python -m unittest discover -s engineering
 
 `build` executes the real solvers and regenerates graphics, tables, CAD and provenance. `build --reuse-solvers` reuses a run only when its complete model/parameter content and solver/worker source signature match; it still rechecks geometry and rebuilds the report. This is useful for refining review graphics without repeating identical solver calls. `render` writes review files from existing records but does not refresh provenance; finish with a full build or a verified reuse build. `check` verifies saved source and artifact hashes, not physical feasibility.
 
-The current placements were executed on Windows. The runtime tools themselves have Windows and Ubuntu benchmark evidence; section-study CI exercises the larger package separately. Python/geometry dependencies use `engineering/uv.lock`; structural/native execution uses `engineering/simulation/uv.lock` and its official-release checksums. The CLI bridges those environments rather than requiring a global CAD Python installation.
+The current placements completed full solver/CAD builds on local Windows and on clean Windows and Ubuntu runners; [the first full section-study CI run](https://github.com/YourLifewithAI/Lifewithai/actions/runs/36173485476) records both successful builds. Python/geometry dependencies use `engineering/uv.lock`; structural/native execution uses `engineering/simulation/uv.lock` and its official-release checksums. The CLI bridges those environments rather than requiring a global CAD Python installation. macOS execution remains unverified.
 
 ## Inputs, outputs and boundaries
 

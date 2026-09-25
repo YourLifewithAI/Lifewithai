@@ -40,11 +40,15 @@ def comparison(cases,results,p,out):
     fig=plt.figure(figsize=(16,9));gs=fig.add_gridspec(2,3,height_ratios=[1.45,1],hspace=.06,wspace=.03)
     for i,case in enumerate(cases):
         ax=fig.add_subplot(gs[0,i],projection="3d")
+        faces=[];colors=[]
         for item in case["obstruction_boxes"]:
             verts=vertices(item)
             cat=item["category"]
             color=GOLD if cat=="civic" else BLUE if cat=="service_deck" else INK if cat=="exposed_support" else GREEN
-            ax.add_collection3d(Poly3DCollection([verts[list(f)] for f in FACES],facecolors=color,edgecolors=INK,linewidths=.10,alpha=1))
+            faces.extend(verts[list(f)] for f in FACES);colors.extend([color]*len(FACES))
+        # Sort individual faces across the whole scene: separate box collections
+        # can incorrectly paint rear walls over courtyard openings.
+        ax.add_collection3d(Poly3DCollection(faces,facecolors=colors,edgecolors=INK,linewidths=.10,alpha=1,shade=True))
         ax.set(xlim=(-655,655),ylim=(-300,440),zlim=(0,260));ax.set_box_aspect((1310,740,260))
         ax.view_init(elev=32,azim=-66);ax.set_axis_off();ax.set_title(case["label"],fontsize=19,pad=2)
         r=results[case["id"]];l=r["ledger"];d=r["daylight"]["groups"]
