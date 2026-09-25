@@ -1,0 +1,507 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-25T17:40:41.854053+00:00",
+  "platform": "linux-x86_64",
+  "sources_sha256_lf": {
+    ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+    "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+    "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+    "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+    "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+    "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+    "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+    "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+    "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+    "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+    "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+    "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+    "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+    "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+    "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+  },
+  "scope": "Integration benchmarks only; no Arcology structural/daylight/energy design validation",
+  "status": "passed",
+  "benchmarks": [
+    {
+      "tool": "freecad",
+      "status": "passed",
+      "checks": [
+        "32.4 m3 analytical volume",
+        "12 x 12 x 0.3 m bounds",
+        "native and STEP valid solid round-trips"
+      ],
+      "runs": [
+        {
+          "input": "courtyard.json",
+          "result": {
+            "solver_version": "1.1.3",
+            "cad_units": "mm",
+            "result_units": "m,m3",
+            "volume_m3": 32.4,
+            "dimensions_m": [
+              12.0,
+              12.0,
+              0.3
+            ],
+            "native_reopened_volume_m3": 32.4,
+            "step_reopened_volume_m3": 32.4,
+            "native_valid": true,
+            "step_valid": true,
+            "solids": 1,
+            "assumptions": "Single centered through-court in a uniform slab; geometry only, no reinforcement or load capacity"
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "freecad",
+            "started_utc": "20260925T174041Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+            "status": "completed",
+            "solver_version": "1.1.3",
+            "result_sha256": "71374eeab9ebe1d800cafa9dd240f24936afe7193643fa197883914d01ebdf66",
+            "result_content_sha256": "835f8d3e34e3fc362cf443e3eea5b288f1210e5a6229170bc954c1799fbf25f5",
+            "executable_sha256": "26390efaa5f21653c583315bf67124e31a2767165cbfcd29aaf96370a868d153",
+            "native_release": "1.1.3",
+            "artifacts_sha256": {
+              "freecad.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "freecad.command.json": "ec782c87c89b70a9fa342305e98b7c84949f3c31a0562d6f7989677929360adf",
+              "courtyard.step": "9dd911c4c990175666dfd8baf31f4c4280a4854373f680e9b2aa1b37721b8f6c",
+              "result.json": "71374eeab9ebe1d800cafa9dd240f24936afe7193643fa197883914d01ebdf66",
+              "input.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "courtyard.FCStd": "d7fd67a97586cbb806f8f7da167322f3252a33ccc7aacb5a11fd5293c74e70b8",
+              "freecad.stdout.log": "7d6ec437d85efe545149b322dedd96f1d17efe9e83736223e5d853a97f026e80"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tool": "opensees",
+      "status": "passed",
+      "checks": [
+        "-0.001152 m analytical tip deflection",
+        "10 kN shear and 60 kNm root moment",
+        "global force/moment equilibrium"
+      ],
+      "runs": [
+        {
+          "input": "cantilever.json",
+          "result": {
+            "solver_version": "3.8.0",
+            "analysis_code": 0,
+            "displacements_m_m_rad": {
+              "1": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "2": [
+                0.0,
+                -0.0011519999999999996,
+                -0.00028799999999999984
+              ]
+            },
+            "reactions_N_N_Nm": {
+              "1": [
+                0.0,
+                10000.0,
+                59999.999999999985
+              ]
+            },
+            "equilibrium_residual_N_N_Nm": [
+              0.0,
+              0.0,
+              -1.4551915228366852e-11
+            ],
+            "assumptions": "2D, small displacement, linear elastic Euler-Bernoulli members; nodal loads only; no self-weight, dynamics, buckling or strength check"
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "opensees",
+            "started_utc": "20260925T174043Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+            "status": "completed",
+            "solver_version": "3.8.0",
+            "result_sha256": "b2fcaf04d5368961eb7349214b87e0500c47ccbc65318a8b98aaf0adbd7fa86c",
+            "result_content_sha256": "2777a5ce4a3e4441dd7f894e179eb32494e15a0c6f552e311620605794a63a5e",
+            "openseespy_package": "3.8.0.0",
+            "artifacts_sha256": {
+              "opensees.stdout.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "opensees.command.json": "15b9f74581b874a6c276ba9ba5f15879a054ef9f78d2e82a6e75a1d0432fa17d",
+              "result.json": "b2fcaf04d5368961eb7349214b87e0500c47ccbc65318a8b98aaf0adbd7fa86c",
+              "opensees.stderr.log": "04530c844358076f69ce6df47c31ca561f7611f25ea282f26bab6fcbcf4eef3c",
+              "input.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tool": "radiance",
+      "status": "passed",
+      "checks": [
+        "Unobstructed horizontal illuminance = 179*pi lux within 1%",
+        "closed opaque box below 0.01 lux"
+      ],
+      "runs": [
+        {
+          "input": "sky-open.json",
+          "result": {
+            "solver_version": "RADIANCE 6.0.2 2026-02-02 LBNL (6.0.c1700d56cc)",
+            "sky_radiance_W_m2_sr": 1,
+            "sensors": [
+              {
+                "id": "horizontal",
+                "irradiance_rgb_W_m2": [
+                  3.141601,
+                  3.141601,
+                  3.141601
+                ],
+                "illuminance_lux": 562.3465790000001
+              }
+            ],
+            "assumptions": "Uniform hemispherical sky; no sun, ground glow, glazing or climate; diffuse opaque boxes; two ambient bounces"
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "radiance",
+            "started_utc": "20260925T174043Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+            "status": "completed",
+            "solver_version": "RADIANCE 6.0.2 2026-02-02 LBNL (6.0.c1700d56cc)",
+            "result_sha256": "084d348d19ca06f031d6527d446b0d6f7a157433b4ab2e124580bd3c420b208e",
+            "result_content_sha256": "d0067dd1e690b0983164310024664935d07cd674cdfc867484213564b51a2ed4",
+            "executable_sha256": "a6926b452b534cf3e38a3a11ef8c49daded43699b220c8cbc35b50637b5af143",
+            "native_release": "6.0.2",
+            "artifacts_sha256": {
+              "sensors.pts": "af7f89b26e53ca7562f6f45c704fc420196803fb3b722ac4222b441d4ab0475c",
+              "scene.rad": "9fa0bec3ce209597cfdb166ecacb2bd1b4f5fe9537cdd1d1df46d88b7e01e342",
+              "oconv.command.json": "0259f1bbcbc7f72a9f3beedec94593e19c9ba986e86027a7511d7bd1da7e8fbd",
+              "scene.oct": "f5a19034f878fb2b9ec324baaab99badb25de054b6cb4e40a92b397cfc20fb66",
+              "oconv.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "rtrace.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "rtrace.stdout.log": "d32f6db54b607283b9778293179874631394728e40fa6f8f3fb8246ab4e64893",
+              "result.json": "084d348d19ca06f031d6527d446b0d6f7a157433b4ab2e124580bd3c420b208e",
+              "input.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "rtrace.command.json": "38294ed92f25eb65b15d684bfce2072efa6b61433518c0d5942e88b2062e6f4e"
+            }
+          }
+        },
+        {
+          "input": "sky-closed.json",
+          "result": {
+            "solver_version": "RADIANCE 6.0.2 2026-02-02 LBNL (6.0.c1700d56cc)",
+            "sky_radiance_W_m2_sr": 1,
+            "sensors": [
+              {
+                "id": "horizontal",
+                "irradiance_rgb_W_m2": [
+                  0.0,
+                  0.0,
+                  0.0
+                ],
+                "illuminance_lux": 0.0
+              }
+            ],
+            "assumptions": "Uniform hemispherical sky; no sun, ground glow, glazing or climate; diffuse opaque boxes; two ambient bounces"
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "radiance",
+            "started_utc": "20260925T174043Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+            "status": "completed",
+            "solver_version": "RADIANCE 6.0.2 2026-02-02 LBNL (6.0.c1700d56cc)",
+            "result_sha256": "c986444d7d8f91d3673c5f1f662918eac14e700c4abb4a21dd2159e9ad20595d",
+            "result_content_sha256": "ead461c795bbca1ca05b0e6e6b25b6f3c7128c53ad56d22cd01c879a567c35f5",
+            "executable_sha256": "a6926b452b534cf3e38a3a11ef8c49daded43699b220c8cbc35b50637b5af143",
+            "native_release": "6.0.2",
+            "artifacts_sha256": {
+              "sensors.pts": "af7f89b26e53ca7562f6f45c704fc420196803fb3b722ac4222b441d4ab0475c",
+              "scene.rad": "8371fec4472c223e1f37c45d9a17f86cd8f6b91520e611e40633e5a766457630",
+              "oconv.command.json": "4c2e4d4739ac57bbd77a0d1a0e90b47d4d4278c95ed5a08c516496183e291168",
+              "scene.oct": "b4a386cbec413cb7ea26e2ee685dd61413903b490daf12cd6382dfac54dc4ac3",
+              "oconv.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "rtrace.stderr.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "rtrace.stdout.log": "e3eadd608fff3b06f02205be222ee4d795475012accbbc642e0b888ed5e4f7dd",
+              "result.json": "c986444d7d8f91d3673c5f1f662918eac14e700c4abb4a21dd2159e9ad20595d",
+              "input.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "rtrace.command.json": "d21d96354598dc2b74208aafbe9a3f05cfc6bfd8a8450ec39b3fa5363c5a9cb8"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "tool": "energyplus",
+      "status": "passed",
+      "checks": [
+        "1000 W x 24 h = 86.4 MJ lights and sensible cooling within 1%",
+        "zero-gain control below 100 J",
+        "24 C maintained within 0.05 C",
+        "zero severe/fatal errors"
+      ],
+      "runs": [
+        {
+          "input": "thermal_box(1000) generated by thermal.py",
+          "result": {
+            "solver_version": "EnergyPlus, Version 26.1.0-6f2e40d102",
+            "severe_or_fatal_errors": 0,
+            "warnings": 2,
+            "mode": "design-day",
+            "weather_sha256": null,
+            "hourly_outputs": [
+              {
+                "name": "Zone Lights Electricity Energy",
+                "key": "TESTZONE",
+                "units": "J",
+                "aggregation": "Sum",
+                "samples": 24,
+                "sum": 86400000.0,
+                "min": 3600000.0,
+                "max": 3600000.0
+              },
+              {
+                "name": "Zone Mean Air Temperature",
+                "key": "TESTZONE",
+                "units": "C",
+                "aggregation": "Avg",
+                "samples": 24,
+                "sum": null,
+                "min": 23.999999999999993,
+                "max": 24.000000000000004
+              },
+              {
+                "name": "Zone Ideal Loads Zone Sensible Cooling Energy",
+                "key": "IDEALAIR",
+                "units": "J",
+                "aggregation": "Sum",
+                "samples": 24,
+                "sum": 86399999.99223422,
+                "min": 3599999.99930471,
+                "max": 3599999.9998875572
+              }
+            ]
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "energyplus",
+            "started_utc": "20260925T174043Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "e13b293f2f0a776f9ab1fe6ddb75eb60093224d40211a56a41bfe87a5fd53b62",
+            "status": "completed",
+            "solver_version": "EnergyPlus, Version 26.1.0-6f2e40d102",
+            "result_sha256": "d0ab21aa8ec4a6229a2f197c7526c4739e24f3f14592b2884070f6913a21fa94",
+            "result_content_sha256": "750d732781a36340ca6992f2b2d1dc54e35de7d59de0107a82db2401fb6bca0c",
+            "executable_sha256": "8bc414e178df1b98d889d04390484fd0a064494a9f1ca62b9eb9d8be286a6252",
+            "native_release": "26.1.0",
+            "artifacts_sha256": {
+              "energyplus.stderr.log": "05cc021168fe85e3ed7e0c6fc15decb6944578b13fcb862889c368ec9e00153e",
+              "energyplus.stdout.log": "9b85b5cd310c0dfc084f1b3fee8cb21a33e29cfab9fa4efdd96254f313f0d382",
+              "input.epJSON": "e13b293f2f0a776f9ab1fe6ddb75eb60093224d40211a56a41bfe87a5fd53b62",
+              "result.json": "d0ab21aa8ec4a6229a2f197c7526c4739e24f3f14592b2884070f6913a21fa94",
+              "energyplus.command.json": "c2a530295d764ce51bdca31428502f2ed437fa0dd466b0c22f7ab847ad66ec96",
+              "energyplus/eplusout.mtd": "e92feb1333ddeb302c4d6de1ab0ac8664dd7637d19c492eeb80228e9a037634a",
+              "energyplus/eplusout.audit": "c88e4ce54b02cbbcbfbde9653a0a59db1568fe206d4f32b2c8ff04aca180a0d9",
+              "energyplus/eplusout.eio": "ddbaf7ae63ed20fd0f76319194a2f8debdc8dc51aff920dcebf5d98a4339d5f5",
+              "energyplus/eplusout.err": "e6c1f8b137ec68c86e60ab4e0361cbef5c3cef497ccec699eacb916f6c9e5bb8",
+              "energyplus/eplusout.bnd": "4658dea3bf275e752c1d86822199cf0a1f7bda721f282edcff7ccb8763631448",
+              "energyplus/eplusout.eso": "c2996147c73fe771a26571169befc8b3c5078f2adc49be1ea5490d107bbaa628",
+              "energyplus/eplusout.end": "f0a6c1f70c94606d5b674c116dbbe0ab980bf072cfdc3c0d1f20e7e3c9c3c08e",
+              "energyplus/eplusout.sql": "48b95575a008d10fb664d5ef0da2ed1ac0fa17277c4e4244d4b7bc88f536c4cb",
+              "energyplus/sqlite.err": "7e196eb1f5808cc4e70e17bc44fddb65d79d0096a4a30dec9f33f199db7830e7",
+              "energyplus/eplusout.rdd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "energyplus/eplusout.shd": "934e54a783b76731e416997a9c0be707bfb49eab14e902416c48cb43fbf488a8",
+              "energyplus/eplusout.mdd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        },
+        {
+          "input": "thermal_box(0) generated by thermal.py",
+          "result": {
+            "solver_version": "EnergyPlus, Version 26.1.0-6f2e40d102",
+            "severe_or_fatal_errors": 0,
+            "warnings": 2,
+            "mode": "design-day",
+            "weather_sha256": null,
+            "hourly_outputs": [
+              {
+                "name": "Zone Lights Electricity Energy",
+                "key": "TESTZONE",
+                "units": "J",
+                "aggregation": "Sum",
+                "samples": 24,
+                "sum": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              },
+              {
+                "name": "Zone Mean Air Temperature",
+                "key": "TESTZONE",
+                "units": "C",
+                "aggregation": "Avg",
+                "samples": 24,
+                "sum": null,
+                "min": 23.00000000000001,
+                "max": 23.00000000000001
+              },
+              {
+                "name": "Zone Ideal Loads Zone Sensible Cooling Energy",
+                "key": "IDEALAIR",
+                "units": "J",
+                "aggregation": "Sum",
+                "samples": 24,
+                "sum": 0.0,
+                "min": 0.0,
+                "max": 0.0
+              }
+            ]
+          },
+          "manifest": {
+            "schema_version": 1,
+            "tool": "energyplus",
+            "started_utc": "20260925T174043Z",
+            "platform": "linux-x86_64",
+            "python_version": "3.12.12",
+            "sources_sha256_lf": {
+              ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
+              "benchmarks/cantilever.json": "9230212ac04237a9cd6002035dfc86d655808b73dc75fa58f427d6be6417c772",
+              "benchmarks/courtyard.json": "4612a9d3ac4665814df43420690326473da5f566fedb0bb09ddbcd3827ccf741",
+              "benchmarks/sky-closed.json": "9e36255179a2f20f4be26e3f69d904f54d85573caa0dc9eb0b4ec12838416479",
+              "benchmarks/sky-open.json": "cd594e85aad1389887deffe1a43a9747403fc29c5d516924280d416c812b6027",
+              "models.py": "1085a06709d802dd1369f7ea7add093197474160bb72473f343c727fe5f78338",
+              "native-tools.lock.json": "8b5f3da04e6aa28ac279236cf6987aec27938d75ccf139aa5c3d97fbe9c2bf3d",
+              "pyproject.toml": "3e4fd4c390073fe3ced8276f20c1938dfcfca7a89280d8f90728374504f29159",
+              "run.py": "d507bf0fa9e6cacfe74c1dc4d6ed3fc669d7bcb38bb28e4750a5f8a0cd347204",
+              "runtime.py": "b68e187770fd87def450f3884ad55e2e833d6db0fa852376c0fc35926cc87bba",
+              "test_simulation.py": "48e2b90e53d0de028f527b5bd66b26a101cdda136eca326c21b45f6bdd688a5c",
+              "thermal.py": "c80a6f3b67f200b0dd9669cf390102345b00e1a98ed09d8623c7fb6e8403445f",
+              "uv.lock": "b0ceee843b334d1368becca172f2a6ece65cd24f24575585b38e588f103b2952",
+              "workers/freecad_worker.py": "a5522e97a553d94b028f682ab9c499448dfac065f771cc01d505fda73e047910",
+              "workers/opensees_worker.py": "94800df7d46ca3f21fd1c9f98a68971dd7786f030a685de44c0c40442367d67d"
+            },
+            "input_sha256": "f4ade6544102303b9b80bd2b5683b7ddff12ac1248de7d99596bc0c34db47b21",
+            "status": "completed",
+            "solver_version": "EnergyPlus, Version 26.1.0-6f2e40d102",
+            "result_sha256": "751263ae9ce1abc3fd9d75513e36126dee91aedd78034314ecc1b0bf3087ae83",
+            "result_content_sha256": "bfa9d80ac3e8d2696e90722895013ae8d6eb0c26b6ed6d30d202ae0a2c837eb1",
+            "executable_sha256": "8bc414e178df1b98d889d04390484fd0a064494a9f1ca62b9eb9d8be286a6252",
+            "native_release": "26.1.0",
+            "artifacts_sha256": {
+              "energyplus.stderr.log": "05cc021168fe85e3ed7e0c6fc15decb6944578b13fcb862889c368ec9e00153e",
+              "energyplus.stdout.log": "9b85b5cd310c0dfc084f1b3fee8cb21a33e29cfab9fa4efdd96254f313f0d382",
+              "input.epJSON": "f4ade6544102303b9b80bd2b5683b7ddff12ac1248de7d99596bc0c34db47b21",
+              "result.json": "751263ae9ce1abc3fd9d75513e36126dee91aedd78034314ecc1b0bf3087ae83",
+              "energyplus.command.json": "722ebffdcff28634a78813a71f15ef30f597e3c5b0ba03abe4fa8742a3dcebac",
+              "energyplus/eplusout.mtd": "e92feb1333ddeb302c4d6de1ab0ac8664dd7637d19c492eeb80228e9a037634a",
+              "energyplus/eplusout.audit": "c88e4ce54b02cbbcbfbde9653a0a59db1568fe206d4f32b2c8ff04aca180a0d9",
+              "energyplus/eplusout.eio": "c765e36941199142bbe2bf3729411af6d4721c2f0bf24b845ef79c20edf61053",
+              "energyplus/eplusout.err": "e6c1f8b137ec68c86e60ab4e0361cbef5c3cef497ccec699eacb916f6c9e5bb8",
+              "energyplus/eplusout.bnd": "4658dea3bf275e752c1d86822199cf0a1f7bda721f282edcff7ccb8763631448",
+              "energyplus/eplusout.eso": "edc9a3daa1275b382ccfd0e8ea4b000de4e0f76e22161e6ed54f5c2d9d0d4e92",
+              "energyplus/eplusout.end": "f0a6c1f70c94606d5b674c116dbbe0ab980bf072cfdc3c0d1f20e7e3c9c3c08e",
+              "energyplus/eplusout.sql": "973a881427f8562c492d04fbdaa7e4e419e953c5ef55e5a0a3bb8331c1aefb9d",
+              "energyplus/sqlite.err": "949c5978b9d9567f9976cba5708101aeb5d4c8ec93f95ed15b525e829dccc920",
+              "energyplus/eplusout.rdd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "energyplus/eplusout.shd": "934e54a783b76731e416997a9c0be707bfb49eab14e902416c48cb43fbf488a8",
+              "energyplus/eplusout.mdd": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

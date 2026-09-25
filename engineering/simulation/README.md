@@ -2,7 +2,7 @@
 
 This is the repo-local integration layer for **FreeCAD 1.1.3, OpenSeesPy 3.8.0.0 / OpenSees 3.8.0, Radiance 6.0.2, and EnergyPlus 26.1.0**. Each adapter runs the actual solver, preserves its input and diagnostics, and has a small analytical benchmark. It is separate from the massing environment so a solver upgrade does not silently change an existing massing study.
 
-The initial four-tool benchmark suite has been executed on Windows x86-64. These checks validate the adapters against simple known answers; they do not establish the Arcology's feasibility. See [saved benchmark evidence](benchmarks/results/windows-x86_64.json) and the [next structural-section study brief](section-study-brief.md).
+The initial four-tool benchmark suite has been executed locally on Windows x86-64 and on clean Windows/Ubuntu CI runners. These checks validate the adapters against simple known answers; they do not establish the Arcology's feasibility. See the saved [Windows](benchmarks/results/windows-x86_64.json) and [Linux](benchmarks/results/linux-x86_64.json) evidence, the [clean-machine CI run](https://github.com/YourLifewithAI/Lifewithai/actions/runs/36168540653), and the [next structural-section study brief](section-study-brief.md).
 
 ## Set up another computer
 
@@ -23,8 +23,8 @@ Git carries code, parameters, dependency locks, documentation and selected bench
 
 | Platform | Status and requirements |
 |---|---|
-| Windows x86-64 | All four tools executed locally; portable setup, no administrator installation. |
-| Ubuntu 24.04 x86-64 | Pinned releases and installer implemented; GitHub Actions exercises setup and all benchmarks. Linux needs the GUI shared libraries listed in the workflow even for headless FreeCAD. Check the workflow result for execution evidence. |
+| Windows x86-64 | All four tools executed locally and on a clean CI runner; portable setup, no administrator installation. |
+| Ubuntu 24.04 x86-64 | All four tools passed on a clean CI runner. Linux needs the GUI shared libraries listed in the workflow even for headless FreeCAD. |
 | macOS 13+ Apple Silicon | Pinned releases and read-only DMG extraction implemented, but not executed here. OpenSeesPy's locked macOS wheel is arm64. Normal macOS application security requirements still apply. |
 | Intel macOS / Linux ARM / Windows ARM | Not supported by the complete locked suite. Some individual native releases are listed, but OpenSeesPy/platform availability is incomplete. Do not assume a successful install from asset availability alone. |
 
