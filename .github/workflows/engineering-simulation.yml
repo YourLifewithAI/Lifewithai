@@ -5,6 +5,9 @@ on:
   pull_request:
     paths:
       - engineering/simulation/**
+      - engineering/section-study-01/**
+      - engineering/pyproject.toml
+      - engineering/uv.lock
       - .github/workflows/engineering-simulation.yml
 
 permissions:
@@ -41,10 +44,23 @@ jobs:
         run: uv run --project engineering/simulation --locked python engineering/simulation/run.py benchmark --save engineering/simulation/runs/ci-benchmarks.json
       - name: Check saved evidence
         run: uv run --project engineering/simulation --locked python engineering/simulation/run.py check engineering/simulation/runs/ci-benchmarks.json
+      - name: Section-study geometry environment
+        run: uv sync --project engineering --locked
+      - name: Section-study area, geometry and utility failure checks
+        run: uv run --project engineering --locked python -m unittest discover -s engineering/section-study-01 -p test_study.py -v
+      - name: Rebuild four-district comparison using actual solvers
+        run: uv run --project engineering --locked python engineering/section-study-01/build.py build
+      - name: Check section-study provenance
+        run: uv run --project engineering --locked python engineering/section-study-01/build.py check
       - name: Preserve results and diagnostics
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: simulation-${{ matrix.os }}
-          path: engineering/simulation/runs/
+          path: |
+            engineering/simulation/runs/
+            engineering/section-study-01/output/
+            !engineering/section-study-01/output/**/*.step
+            !engineering/section-study-01/output/**/*.FCBak
+            !engineering/section-study-01/output/**/support-input.json
           retention-days: 7

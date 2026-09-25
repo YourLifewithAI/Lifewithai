@@ -2,6 +2,8 @@
 
 Status: proposed study method, not a selected construction system or approved placement.
 
+The first comparison is now implemented in [section study 01](../section-study-01/README.md). Read its [generated findings](../section-study-01/output/report.md) before choosing an arrangement. The brief below records the study intent; a successful adapter run does not establish design viability.
+
 The tools are now connected to reproducible local workflows. The next decision is how inhabited districts share a structural section while retaining daylight, continuous supports and maintainable, isolatable services. Preserve the confirmed brief: 100 million humans, 100 million paired AI plus other AI, at least 750 sqft of private dwelling area per human, a universally public flat summit, variable main tier count, and equipment-based compute requirements. Lead with the housing-led case and keep the shared-city case as the comparison.
 
 ## A bounded first comparison

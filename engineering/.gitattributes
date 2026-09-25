@@ -4,7 +4,9 @@
 *.pdf binary
 *.glb binary
 *.dxf binary
+*.FCStd binary
 *.svg -diff
 *.html -diff
 massing-study-01/output/** linguist-generated=true
 output/** linguist-generated=true
+section-study-01/output/** linguist-generated=true

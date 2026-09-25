@@ -13,6 +13,7 @@ The current implementation produces **concept geometry and resource sensitivitie
 - [Interactive model](massing-study-01/output/massing-viewer.html): open the file in a browser, choose A/B, and rotate. It is self-contained.
 - [Parameters](massing-study-01/parameters.json) and [generated results](massing-study-01/output/study-results.json).
 - [Simulation setup and benchmarks](simulation/README.md) and [next structural-section study](simulation/section-study-brief.md).
+- [Four-district section comparison](section-study-01/README.md): aligned, stepped and separated placements with matched housing, actual sky-access calculations, support screens, service graphs and editable CAD.
 
 ## One command on each computer
 

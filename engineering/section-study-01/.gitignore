@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+output/*/cad/*.step
+output/*/cad/*.FCStd1
+output/*/cad/*.log
+output/*/cad/*.command.json
+output/*/cad/*.FCStd.*
+output/*/cad/*.FCBak
+output/*/support-input.json
+output/*/cad-input.json
