@@ -144,6 +144,10 @@
   left: 57%;
   top: 25%;
 }
+.city-aaron-pin {
+  left: 57%;
+  top: 44%;
+}
 .city-tessera-pin {
   left: 12%;
   top: 78%;
@@ -582,6 +586,11 @@
     right: 4%;
     top: 28%;
   }
+  .city-aaron-pin {
+    left: auto;
+    right: 4%;
+    top: calc(28% + 68px);
+  }
   .city-tessera-pin {
     left: 5%;
     top: auto;
@@ -689,6 +698,20 @@
   }
   .city-scene-heading > p {
     font-size: 15px;
+  }
+}
+@media (max-width: 360px) {
+  .city-map {
+    padding-bottom: 128px;
+  }
+  .city-floor-pin {
+    top: 25%;
+  }
+  .city-aaron-pin {
+    top: calc(25% + 68px);
+  }
+  .city-tessera-pin {
+    bottom: 54px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

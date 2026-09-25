@@ -33,6 +33,17 @@ export default function CityOverview() {
               <small>Mel, Pell & the garden atrium</small>
             </span>
           </Link>
+          <Link
+            href="/stories/owens-forks"
+            className="city-map-pin city-aaron-pin"
+            id="floor-245"
+          >
+            <span className="city-pin-dot" />
+            <span>
+              <strong>Floor 245</strong>
+              <small>Aaron · Owen’s Forks</small>
+            </span>
+          </Link>
           <Link href="/arcology/tessera" className="city-map-pin city-tessera-pin">
             <span className="city-pin-dot" />
             <span>
@@ -69,12 +80,28 @@ export default function CityOverview() {
           />
         </Link>
       </section>
+      <section className="city-invitation city-owen-invitation" aria-labelledby="owen-invitation-title">
+        <div>
+          <p className="city-location">Another life in Arcology One</p>
+          <h2 id="owen-invitation-title">A place to begin again.</h2>
+          <p>Meet Aaron in <em>Owen’s Forks</em>. An unfamiliar reflection, a sketchbook, and the beginnings of a life of his own.</p>
+          <Link className="city-button" href="/stories/owens-forks">Read Owen’s Forks</Link>
+        </div>
+        <Link href="/stories/owens-forks" aria-label="Read Owen’s Forks, a story from Arcology One">
+          <Image
+            src="/images/arcology/owens-forks/lantern-city.webp"
+            alt="Lanterns rise above the glowing terraces of Arcology One at night."
+            width={1448} height={1086}
+            sizes="(max-width: 650px) 100vw, 50vw"
+          />
+        </Link>
+      </section>
       <section className="city-note">
         <h2>A city revealed through its residents.</h2>
         <p>
           Each story opens another place to explore: the people who belong there, the relationships
-          that give it meaning, and the systems that make everyday life possible. Floor 318 is the
-          first inhabited scene. The rest of the city will become familiar one story at a time.
+          that give it meaning, and the systems that make everyday life possible. From the gardens
+          of Floor 318 to Aaron’s new beginnings, the city becomes familiar one story at a time.
         </p>
         <Link href="/arcology/research">Explore the engineering research</Link>
       </section>

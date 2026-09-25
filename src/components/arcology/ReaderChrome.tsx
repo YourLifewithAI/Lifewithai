@@ -12,6 +12,7 @@ export function isReaderPath(path: string) {
     path === '/arcology' ||
     path === '/stories' ||
     path === '/stories/water' ||
+    path === '/stories/owens-forks' ||
     path === '/stories/water/experience' ||
     path === '/stories/water-part-2' ||
     path.startsWith('/arcology/floors/') ||

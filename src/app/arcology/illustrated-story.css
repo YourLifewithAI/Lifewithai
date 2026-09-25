@@ -1,0 +1,56 @@
+/* Illustrated fiction keeps a quiet reading column and uncropped, expansive art. */
+.city-illustrated-cover {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.8fr) 1.4fr;
+  align-items: center;
+  max-width: 1440px;
+  margin: auto;
+}
+.city-cover-copy { padding: 50px clamp(24px, 4vw, 64px); }
+.city-cover-copy h1 { font-size: clamp(3.5rem, 6vw, 6.5rem); margin: 20px 0; }
+.city-cover-byline { font-size: 16px; }
+.city-cover-summary { margin: 28px 0; color: var(--city-muted); font-size: 17px; }
+.city-cover-copy .city-reading-time { margin-top: 16px; font-size: 12px; color: var(--city-muted); }
+.city-illustrated-cover > img { display: block; width: 100%; height: auto; }
+.city-illustrated-story { max-width: 1160px; padding: 56px 4vw 90px; margin: auto; }
+.city-illustrated-story > .city-story-body,
+.city-story-contents,
+.city-story-departure { max-width: 680px; margin-left: auto; margin-right: auto; }
+.city-illustrated-story .city-story-body h2 { scroll-margin-top: 32px; margin-top: 56px; }
+.city-illustrated-story .city-story-body #dawn { margin-top: 20px; }
+.city-story-body .city-story-season {
+  scroll-margin-top: 32px;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  color: var(--city-muted);
+  border-top: 1px solid var(--city-line);
+  padding-top: 32px;
+  margin-top: 64px;
+}
+.city-story-contents { margin-bottom: 48px; font-size: 14px; }
+.city-story-contents summary { cursor: pointer; padding: 12px 0; }
+.city-story-contents nav { display: flex; flex-wrap: wrap; gap: 12px 24px; padding: 16px 0; }
+.city-story-contents a { text-decoration: underline; }
+.city-story-illustration { margin: 48px 0 56px; }
+.city-story-illustration img { display: block; width: 100%; height: auto; }
+.city-story-departure { border-top: 1px solid var(--city-line); padding-top: 40px; margin-top: 64px; }
+.city-story-departure h2 { margin: 16px 0; }
+.city-story-departure > p:not(.city-location) { margin-bottom: 24px; }
+.city-owen-invitation { border-top: 1px solid var(--city-line); }
+.city-owen-invitation img { border-radius: 3px; height: auto; max-height: none; }
+@media (min-width: 651px) {
+  .city-owen-invitation { grid-template-columns: 1.2fr 1fr; }
+  .city-owen-invitation > a { grid-column: 1; grid-row: 1; }
+  .city-owen-invitation > div { grid-column: 2; }
+}
+@media (max-width: 750px) {
+  .city-illustrated-cover { grid-template-columns: 1fr; }
+  .city-cover-copy { padding: 36px 6vw; }
+  .city-cover-copy h1 { font-size: clamp(3.4rem, 13vw, 5rem); }
+  .city-cover-summary { margin: 20px 0; }
+  .city-illustrated-story { padding: 32px 6vw 60px; }
+  .city-story-illustration { margin: 32px -2vw 40px; }
+  .city-story-departure > div { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+  .city-story-departure .city-text-link { margin-left: 0; }
+}

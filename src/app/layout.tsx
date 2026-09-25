@@ -7,6 +7,7 @@ import Providers from '@/components/Providers';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import './globals.css';
 import './arcology/reader.css';
+import './arcology/illustrated-story.css';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',

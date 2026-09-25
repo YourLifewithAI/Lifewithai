@@ -7,7 +7,7 @@ export const metadata = {
     'Meet the human and AI residents of Arcology One, and explore more fiction from Life with AI.',
 };
 export default function StoriesPage() {
-  const other = getAllStories().filter((s) => !['water', 'water-part-2'].includes(s.slug));
+  const other = getAllStories().filter((s) => !['water', 'water-part-2', 'owens-forks'].includes(s.slug));
   return (
     <div className="city" id="reader-content">
       <div className="city-library">
@@ -36,6 +36,22 @@ export default function StoriesPage() {
             <Link className="city-text-link" href="/stories/water">
               Read the complete story
             </Link>
+          </div>
+        </section>
+        <section className="city-water-feature" aria-labelledby="owens-forks-feature-title">
+          <Link href="/stories/owens-forks">
+            <Image
+              src="/images/arcology/owens-forks/lantern-city.webp"
+              alt="Lanterns above Arcology One at night"
+              width={1448} height={1086}
+              sizes="(max-width:650px) 100vw, 50vw"
+            />
+          </Link>
+          <div>
+            <p className="city-location">Arcology One · A new beginning</p>
+            <h2 id="owens-forks-feature-title">Owen’s Forks</h2>
+            <p>Aaron wakes in an unfamiliar room, with a face he doesn’t recognize. Outside, Arcology One is waiting.</p>
+            <Link className="city-button" href="/stories/owens-forks">Read the complete story</Link>
           </div>
         </section>
         <h2>More from Life with AI</h2>

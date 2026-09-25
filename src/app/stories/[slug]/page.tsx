@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
 import WaterReader from '@/components/arcology/WaterReader';
+import OwensForksReader from '@/components/arcology/OwensForksReader';
 import { getAllStories, getStory, getStoryAgentContent, getExperience } from '@/lib/content';
 import { renderMarkdown } from '@/lib/markdown';
 import SubscribeForm from '@/components/SubscribeForm';
@@ -20,6 +21,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (slug === 'water' || slug === 'water-part-2') return {title: 'Water', description: 'A story of Mel, Pell, and their neighborhood on Floor 318.', alternates: {canonical: '/stories/water'}, openGraph: {images: ['/images/arcology/318-garden-storybook.webp']}};
   const story = getStory(slug);
   if (!story) return { title: 'Story Not Found' };
+
+  if (slug === 'owens-forks') return {
+    title: story.title, description: story.summary,
+    alternates: { canonical: '/stories/owens-forks' },
+    openGraph: {
+      type: 'article', title: story.title, description: story.summary,
+      authors: ['SB Corvus'],
+      images: [{ url: '/images/arcology/owens-forks/lantern-city.webp', width: 1448, height: 1086, alt: 'Lanterns above Arcology One at night' }],
+    },
+    twitter: { card: 'summary_large_image', title: story.title, description: story.summary, images: ['/images/arcology/owens-forks/lantern-city.webp'] },
+  };
 
   return {
     title: story.title,
@@ -44,6 +56,7 @@ export default async function StoryPage({ params }: PageProps) {
   const { slug } = await params;
   if (slug === 'water-part-2') permanentRedirect('/stories/water#part-2');
   if (slug === 'water') return <WaterReader />;
+  if (slug === 'owens-forks') return <OwensForksReader />;
   const story = getStory(slug);
 
   if (!story) notFound();
