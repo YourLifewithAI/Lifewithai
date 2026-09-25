@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "checked_date": "2026-09-25",
+  "tools": {
+    "7zr": {
+      "version": "26.03",
+      "upstream": "https://github.com/ip7z/7zip",
+      "assets": {
+        "windows-x86_64": {
+          "url": "https://github.com/ip7z/7zip/releases/download/26.03/7zr.exe",
+          "sha256": "ad4c82fadcbdf93c03b4fc440f300509c7d60c5c2f4d183e35d9d70d6957037d",
+          "size_bytes": 602624,
+          "format": "exe-portable"
+        }
+      }
+    },
+    "freecad": {
+      "version": "1.1.3",
+      "upstream": "https://github.com/FreeCAD/FreeCAD",
+      "assets": {
+        "windows-x86_64": {
+          "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.3/FreeCAD_1.1.3-Windows-x86_64-py311.7z",
+          "sha256": "9c6959dc9c4dba64dd818a62447e3dfedb4221d776fb044b239d462f150bcec4",
+          "size_bytes": 418053398,
+          "format": "7z"
+        },
+        "linux-x86_64": {
+          "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.3/FreeCAD_1.1.3-Linux-x86_64-py311.AppImage",
+          "sha256": "3a853eb69ee595f779f2255dbf80a765926981d8ff68903cefee4dfb03a8f5ef",
+          "size_bytes": 820795896,
+          "format": "appimage"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.3/FreeCAD_1.1.3-Linux-aarch64-py311.AppImage",
+          "sha256": "9a8f9f7f2802bb856f2bb70f53d536e2ae06569f4e6d718407803076104ff55e",
+          "size_bytes": 755575304,
+          "format": "appimage"
+        },
+        "darwin-x86_64": {
+          "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.3/FreeCAD_1.1.3-macOS-x86_64-py311.dmg",
+          "sha256": "8434bd6ad32f597605d184e5b996f496e9cbc7e6d8ffb6db4dbd6e2ce6d1612b",
+          "size_bytes": 719583151,
+          "format": "dmg"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/FreeCAD/FreeCAD/releases/download/1.1.3/FreeCAD_1.1.3-macOS-arm64-py311.dmg",
+          "sha256": "f5c0ece7cd7c932466d6effadc0fc6e179b0538a9d9a6a77a6769eae3af2667c",
+          "size_bytes": 649856006,
+          "format": "dmg"
+        }
+      }
+    },
+    "radiance": {
+      "version": "6.0.2",
+      "release_tag": "rad6R0P2",
+      "upstream": "https://github.com/LBNL-ETA/Radiance",
+      "assets": {
+        "windows-x86_64": {
+          "url": "https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_Windows.zip",
+          "sha256": "c4f02efcb4a33f4a43b7ce0ba58100544abc317a1be61f7b0425a64a66eb8a09",
+          "size_bytes": 33584750,
+          "format": "zip"
+        },
+        "linux-x86_64": {
+          "url": "https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_Linux.zip",
+          "sha256": "04ee53cafbb64b943a53616b3d0ee379dd7ef80379c83aa7a145e547d9809c28",
+          "size_bytes": 10256068,
+          "format": "zip"
+        },
+        "darwin-x86_64": {
+          "url": "https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_OSX.zip",
+          "sha256": "11de5f786706d0f2662346e62c762c062856ffed256455294d054e93be495a0c",
+          "size_bytes": 8586279,
+          "format": "zip"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/LBNL-ETA/Radiance/releases/download/rad6R0P2/Radiance_c1700d56_OSX_arm64.zip",
+          "sha256": "329ca788c6cedc641ad47577ce985ae16ee291acb1d5d02d7995192d58118cf0",
+          "size_bytes": 8202089,
+          "format": "zip"
+        }
+      }
+    },
+    "energyplus": {
+      "version": "26.1.0",
+      "upstream": "https://github.com/NatLabRockies/EnergyPlus",
+      "assets": {
+        "windows-x86_64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Windows-x86_64.zip",
+          "sha256": "0bb6932d277eed62f996b625f37c533b8c35f9af0c53710d961d8442fc4e70b3",
+          "size_bytes": 242356526,
+          "format": "zip"
+        },
+        "windows-arm64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Windows-arm64.zip",
+          "sha256": "636f0eca2748aae85c47e031eed542885b0ad71337ab6730c4f37ced82a9a6b5",
+          "size_bytes": 227079770,
+          "format": "zip"
+        },
+        "linux-x86_64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Linux-Ubuntu24.04-x86_64.tar.gz",
+          "sha256": "b651f4197bfc147a0f66dc92c58895d1748bdadb7a0288145fa9d50375edfbca",
+          "size_bytes": 240273063,
+          "format": "tar.gz"
+        },
+        "linux-arm64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Linux-Ubuntu24.04-arm64.tar.gz",
+          "sha256": "1a27eb6a5be69ac1fbfb591b206c1cce5bf02a973c92d207b9fd7da459984208",
+          "size_bytes": 232423092,
+          "format": "tar.gz"
+        },
+        "darwin-x86_64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Darwin-macOS12.1-x86_64.tar.gz",
+          "sha256": "60d634dd1936f69bb9553dd85469f3c2af51d68b03d85434ada559e984a464cd",
+          "size_bytes": 215918153,
+          "format": "tar.gz"
+        },
+        "darwin-arm64": {
+          "url": "https://github.com/NatLabRockies/EnergyPlus/releases/download/v26.1.0/EnergyPlus-26.1.0-6f2e40d102-Darwin-macOS13-arm64.tar.gz",
+          "sha256": "7f2ec425e67f5d71c668e4504db1b10d91dc4d8cb802e9a8ee70c4f02a46d379",
+          "size_bytes": 209850883,
+          "format": "tar.gz"
+        }
+      }
+    }
+  }
+}

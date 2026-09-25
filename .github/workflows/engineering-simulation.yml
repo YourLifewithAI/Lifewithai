@@ -1,0 +1,66 @@
+name: Engineering simulation benchmarks
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - engineering/simulation/**
+      - engineering/section-study-01/**
+      - engineering/pyproject.toml
+      - engineering/uv.lock
+      - .github/workflows/engineering-simulation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  solvers:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: '0.9.27'
+          enable-cache: false
+      - name: Linux graphical runtime libraries for headless CAD
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libgl1 libopengl0 libxkbcommon0 libxcb-cursor0 libxcb-xinerama0
+      - name: Locked Python setup
+        run: uv sync --project engineering/simulation --locked
+      - name: Adapter failure and input tests
+        run: uv run --project engineering/simulation --locked python -m unittest discover -s engineering/simulation -p test_simulation.py -v
+      - name: Install verified native releases
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py install
+      - name: Runtime discovery
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py doctor
+      - name: Execute analytical solver benchmarks
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py benchmark --save engineering/simulation/runs/ci-benchmarks.json
+      - name: Check saved evidence
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py check engineering/simulation/runs/ci-benchmarks.json
+      - name: Section-study geometry environment
+        run: uv sync --project engineering --locked
+      - name: Section-study area, geometry and utility failure checks
+        run: uv run --project engineering --locked python -m unittest discover -s engineering/section-study-01 -p test_study.py -v
+      - name: Rebuild four-district comparison using actual solvers
+        run: uv run --project engineering --locked python engineering/section-study-01/build.py build
+      - name: Check section-study provenance
+        run: uv run --project engineering --locked python engineering/section-study-01/build.py check
+      - name: Preserve results and diagnostics
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: simulation-${{ matrix.os }}
+          path: |
+            engineering/simulation/runs/
+            engineering/section-study-01/output/
+            !engineering/section-study-01/output/**/*.step
+            !engineering/section-study-01/output/**/*.FCBak
+            !engineering/section-study-01/output/**/support-input.json
+          retention-days: 7

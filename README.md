@@ -1,5 +1,15 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Arcology engineering workspace
+
+The versioned concept models, research review, CAD exports and illustrated massing study are in [`engineering/`](engineering/README.md). Rebuild them from the repository root with:
+
+```bash
+uv run --project engineering --locked python engineering/run.py build
+```
+
+The engineering workspace has its own locked Python environment and does not run as part of the website build.
+
 ## Getting Started
 
 First, run the development server:

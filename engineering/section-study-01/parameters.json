@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "status": "Comparative concept study; placements and engineering inputs are hypotheses, not construction specifications",
+  "source_district": "../massing-study-01/parameters.json",
+  "coordinate_system": "metres; X east, Y north, Z up; structural worker maps global Z to 2D Y",
+  "district_ids": ["L1", "L2", "U1", "U2"],
+  "intertier_clearance_floor_increments": 3,
+  "variants": [
+    {"id": "aligned", "label": "Aligned", "extra_gap_m": 0, "upper_offset_y_m": 0},
+    {"id": "stepped", "label": "Stepped", "extra_gap_m": 0, "upper_offset_y_m": 140},
+    {"id": "separated", "label": "Separated", "extra_gap_m": 140, "upper_offset_y_m": 0}
+  ],
+  "supports": {
+    "stations_per_block": 8,
+    "reservation_outer_m": 8,
+    "illustrative_wall_thickness_m": 1,
+    "illustrative_elastic_modulus_pa": 30000000000,
+    "combined_gravity_pressure_pa": 12000,
+    "pressure_sensitivity_pa": [8000, 12000, 16000],
+    "status": "Eight hollow support/core envelopes per block, within the inherited 30% gross allowance. Dimensions and modulus are illustrative. Area load lumps structural dead, finishes, services and imposed load; no separate self-weight is added. No factored/code loads, lateral stability, overburden or capacity check."
+  },
+  "daylight": {
+    "sky_radiance_w_m2_sr": 1,
+    "opaque_reflectance": 0,
+    "primary_ambient_divisions": 4096,
+    "convergence_ambient_divisions": 16384,
+    "sensor_height_above_local_civic_roof_m": 1.5,
+    "facade_floor_indices": [0, 11, 23],
+    "diagnostic_threshold_fraction": 0.2,
+    "status": "Uniform sky, black obstructions, no glass/sun/weather. Horizontal court and vertical facade irradiance are normalized by corresponding unobstructed orientations. The 20% band is a comparison marker, not a daylight standard."
+  },
+  "utilities": {
+    "bridge_width_m": 8,
+    "bridge_depth_m": 2,
+    "plant_room_size_m": [16, 16, 3.8],
+    "plant_reserved_gross_m2_per_district": 512,
+    "water_pressure_zone_max_height_m": 40,
+    "services": ["electricity", "potable_water", "cooling_supply", "cooling_return", "data"],
+    "status": "Two spatially separated A/B service spines and section-entry boundaries. Graph connectivity only; capacities, autonomy, pump head/friction, electrical protection, heat rejection, sewage and evacuation are not validated. A and B upstream independence is not established."
+  }
+}

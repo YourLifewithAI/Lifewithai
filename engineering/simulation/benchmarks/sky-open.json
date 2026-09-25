@@ -1,0 +1,8 @@
+{
+  "schema_version": 1,
+  "units": "m,W/m2/sr",
+  "status": "synthetic uniform hemispherical sky; not site weather or a daylight compliance test",
+  "sky_radiance": 1,
+  "sensors": [{"id": "horizontal", "position": [0, 0, 1], "normal": [0, 0, 1]}],
+  "opaque_boxes": []
+}

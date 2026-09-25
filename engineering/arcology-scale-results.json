@@ -1,0 +1,263 @@
+{
+  "status": "concept-stage sensitivity calculations, not validated design",
+  "confirmed_design_direction": {
+    "summit": "large flat public space, open to everyone regardless of wealth or residential address",
+    "main_mass_tier_count": "variable with physical design requirements; ten is a legacy comparison only",
+    "lead_scenario": "housing_led_working_case",
+    "comparison_scenario": "larger_shared_city_case",
+    "compute_area": "derived from rack, cooling, power-room, maintenance and redundancy requirements; not a fixed percentage"
+  },
+  "population": {
+    "humans": 100000000,
+    "paired_ai": 100000000,
+    "additional_logistical_ai": "unquantified",
+    "additional_independent_ai": "unquantified"
+  },
+  "legacy_geometry": {
+    "shape": "square tiers; excludes an explicit subsidiary-wing model",
+    "tier_count": 10,
+    "status": "historical reference only; the new massing geometry is not yet modeled",
+    "base_side_m": 5632.704,
+    "base_area_km2": 31.727354351615997,
+    "calculated_above_ground_gross_sqft": 69495624000,
+    "published_rounded_gross_m2": 7404372288.000001,
+    "published_rounded_usable_m2": 5183989632.0,
+    "usable_m2_per_human": 51.83989632,
+    "usable_sqft_per_human": 558.0,
+    "residential_m2_per_human_at_25_percent": 12.95997408,
+    "private_m2_per_human_at_60_percent_of_residential": 7.775984447999999
+  },
+  "area_scenarios": [
+    {
+      "usable_m2_per_human": 51.83989632,
+      "usable_area_billion_m2": 5.183989632,
+      "gross_area_billion_m2_at_70_percent_efficiency": 7.405699474285715,
+      "legacy_floor_area_multiplier": 1.0,
+      "square_base_side_miles_same_height_and_relative_taper": 3.5
+    },
+    {
+      "usable_m2_per_human": 80,
+      "usable_area_billion_m2": 8.0,
+      "gross_area_billion_m2_at_70_percent_efficiency": 11.42857142857143,
+      "legacy_floor_area_multiplier": 1.5432129629691358,
+      "square_base_side_miles_same_height_and_relative_taper": 4.3479143041660695
+    },
+    {
+      "usable_m2_per_human": 100,
+      "usable_area_billion_m2": 10.0,
+      "gross_area_billion_m2_at_70_percent_efficiency": 14.285714285714286,
+      "legacy_floor_area_multiplier": 1.9290162037114198,
+      "square_base_side_miles_same_height_and_relative_taper": 4.861115972229514
+    },
+    {
+      "usable_m2_per_human": 150,
+      "usable_area_billion_m2": 15.0,
+      "gross_area_billion_m2_at_70_percent_efficiency": 21.42857142857143,
+      "legacy_floor_area_multiplier": 2.8935243055671296,
+      "square_base_side_miles_same_height_and_relative_taper": 5.953626856227835
+    }
+  ],
+  "electricity_scenarios": [
+    {
+      "assumed_average_noncompute_w_per_human": 300,
+      "noncompute_gw": 30.0,
+      "held_constant_legacy_ai_it_gw": 6.175,
+      "assumed_ai_facility_pue": 1.2,
+      "ai_facility_gw": 7.409999999999999,
+      "total_average_gw": 37.41,
+      "annual_twh": 327.7116,
+      "note": "AI capacity adequacy and peak demand are unestablished"
+    },
+    {
+      "assumed_average_noncompute_w_per_human": 600,
+      "noncompute_gw": 60.0,
+      "held_constant_legacy_ai_it_gw": 6.175,
+      "assumed_ai_facility_pue": 1.2,
+      "ai_facility_gw": 7.409999999999999,
+      "total_average_gw": 67.41,
+      "annual_twh": 590.5115999999999,
+      "note": "AI capacity adequacy and peak demand are unestablished"
+    },
+    {
+      "assumed_average_noncompute_w_per_human": 1000,
+      "noncompute_gw": 100.0,
+      "held_constant_legacy_ai_it_gw": 6.175,
+      "assumed_ai_facility_pue": 1.2,
+      "ai_facility_gw": 7.409999999999999,
+      "total_average_gw": 107.41,
+      "annual_twh": 940.9115999999999,
+      "note": "AI capacity adequacy and peak demand are unestablished"
+    }
+  ],
+  "human_flows": {
+    "assumed_water_l_per_person_day": 200,
+    "daily_domestic_water_billion_l": 20.0,
+    "makeup_billion_l_day_if_95_percent_of_this_stream_recovered": 1.0,
+    "assumed_kcal_per_person_day": 2000,
+    "food_billion_kcal_per_day": 200.0,
+    "metabolic_heat_gw_at_100_w_per_person": 10.0,
+    "exclusions": "Water: cooling, food production, industrial use, blowdown, leakage beyond assumed recovery. Food: distribution loss and diet detail."
+  },
+  "ai_capacity_ratios_not_service_sizing": {
+    "legacy_gpu_count": 1929600,
+    "paired_ai_per_legacy_gpu": 51.824212271973465,
+    "legacy_it_average_w_per_paired_ai": 61.75,
+    "note": "These ratios do not establish concurrency, inference performance, memory capacity, or redundancy."
+  },
+  "material_proxy": [
+    {
+      "equivalent_floor_concrete_m": 0.15,
+      "concrete_billion_m3": 1.1106558432,
+      "concrete_billion_t_at_2400_kg_m3": 2.6655740236799996,
+      "annual_concrete_million_m3_if_30_years": 37.02186144,
+      "hypothetical_cement_t_per_m3": 0.3,
+      "historical_clinker_fraction": 0.71,
+      "historical_kiln_gj_per_t_clinker": 3.6,
+      "clinker_kiln_thermal_energy_twh": 236.56969460159996,
+      "exclusions": "Cores, columns, foundations, steel, earthworks, walls, facade, plant, manufacture electricity, transport, lifting. Not a minimum or specification."
+    },
+    {
+      "equivalent_floor_concrete_m": 0.25,
+      "concrete_billion_m3": 1.8510930720000003,
+      "concrete_billion_t_at_2400_kg_m3": 4.4426233728,
+      "annual_concrete_million_m3_if_30_years": 61.703102400000006,
+      "hypothetical_cement_t_per_m3": 0.3,
+      "historical_clinker_fraction": 0.71,
+      "historical_kiln_gj_per_t_clinker": 3.6,
+      "clinker_kiln_thermal_energy_twh": 394.28282433600003,
+      "exclusions": "Cores, columns, foundations, steel, earthworks, walls, facade, plant, manufacture electricity, transport, lifting. Not a minimum or specification."
+    }
+  ],
+  "cooling_proxy": {
+    "evaporation_only_million_l_day_for_legacy_it_6_175_gw": 217.76326530612246,
+    "assumed_latent_heat_j_per_kg": 2450000.0,
+    "note": "All IT heat removed by evaporation only; excludes blowdown and facility overhead. Dry/hybrid/reuse choices change water demand."
+  },
+  "residential_requirement": {
+    "private_sqft_per_human": 750,
+    "private_sqft_family_of_four": 3000,
+    "total_private_home_billion_sqft": 75.0,
+    "total_private_home_billion_m2": 6.967728
+  },
+  "early_scenario_status": "area_scenarios were initial exploration before the 750 sqft private-home requirement; they are not current proposals. Use residential_driven_scenarios. material_proxy uses legacy geometry.",
+  "residential_driven_scenarios": [
+    {
+      "name": "legacy_allocation_reapplied",
+      "study_role": "historical_reference",
+      "assumed_private_fraction_of_residential_program": 0.6,
+      "assumed_residential_fraction_of_usable_city": 0.25,
+      "assumed_usable_to_gross_efficiency": 0.7,
+      "residential_program_billion_sqft": 125.0,
+      "private_home_billion_sqft": 75.0,
+      "shared_residential_billion_sqft": 50.0,
+      "other_city_program_billion_sqft": 375.0,
+      "city_usable_billion_sqft": 500.0,
+      "city_gross_billion_sqft": 714.2857142857143,
+      "city_usable_billion_m2": 46.45152,
+      "city_gross_billion_m2": 66.35931428571429,
+      "gross_area_multiple_of_legacy": 8.962179602079226,
+      "equivalent_square_base_side_miles": 10.477914874891404,
+      "equivalent_square_base_area_km2": 284.34624799799246,
+      "floor_concrete_proxy_billion_m3_150_250_mm": [
+        9.953897142857143,
+        16.589828571428573
+      ],
+      "floor_concrete_proxy_million_m3_per_year_over_30_years": [
+        331.79657142857144,
+        552.9942857142858
+      ],
+      "floor_proxy_clinker_kiln_thermal_twh": [
+        2120.1800914285714,
+        3533.633485714286
+      ],
+      "legacy_150_usd_sqft_cost_arithmetic_trillion_usd": 107.14285714285715,
+      "notes": "Sizes are square-tier equivalents at unchanged height and relative taper, not a fit to the image; concrete, cost and efficiency are sensitivity inputs only."
+    },
+    {
+      "name": "housing_led_working_case",
+      "study_role": "lead",
+      "assumed_private_fraction_of_residential_program": 0.8,
+      "assumed_residential_fraction_of_usable_city": 0.5,
+      "assumed_usable_to_gross_efficiency": 0.7,
+      "residential_program_billion_sqft": 93.75,
+      "private_home_billion_sqft": 75.0,
+      "shared_residential_billion_sqft": 18.75,
+      "other_city_program_billion_sqft": 93.75,
+      "city_usable_billion_sqft": 187.5,
+      "city_gross_billion_sqft": 267.8571428571429,
+      "city_usable_billion_m2": 17.41932,
+      "city_gross_billion_m2": 24.88474285714286,
+      "gross_area_multiple_of_legacy": 3.36081735077971,
+      "equivalent_square_base_side_miles": 6.416386252950445,
+      "equivalent_square_base_area_km2": 106.62984299924717,
+      "floor_concrete_proxy_billion_m3_150_250_mm": [
+        3.7327114285714287,
+        6.221185714285715
+      ],
+      "floor_concrete_proxy_million_m3_per_year_over_30_years": [
+        124.4237142857143,
+        207.37285714285716
+      ],
+      "floor_proxy_clinker_kiln_thermal_twh": [
+        795.0675342857143,
+        1325.1125571428572
+      ],
+      "legacy_150_usd_sqft_cost_arithmetic_trillion_usd": 40.17857142857143,
+      "notes": "Sizes are square-tier equivalents at unchanged height and relative taper, not a fit to the image; concrete, cost and efficiency are sensitivity inputs only.",
+      "area_led_building_electricity_sensitivity": {
+        "assumed_conditioned_noncompute_fraction_of_usable_area": 0.75,
+        "conditioned_noncompute_billion_m2": 13.06449,
+        "cases": [
+          {
+            "assumed_annual_building_electricity_kwh_per_m2": 50,
+            "annual_twh": 653.2245,
+            "average_gw": 74.56900684931506
+          },
+          {
+            "assumed_annual_building_electricity_kwh_per_m2": 100,
+            "annual_twh": 1306.449,
+            "average_gw": 149.13801369863012
+          },
+          {
+            "assumed_annual_building_electricity_kwh_per_m2": 150,
+            "annual_twh": 1959.6735,
+            "average_gw": 223.7070205479452
+          }
+        ],
+        "note": "Sensitivity inputs, not predictions or asserted benchmarks. Do not add to per-capita building scenarios: they overlap. Add separately modeled excluded loads only."
+      }
+    },
+    {
+      "name": "larger_shared_city_case",
+      "study_role": "comparison",
+      "assumed_private_fraction_of_residential_program": 0.75,
+      "assumed_residential_fraction_of_usable_city": 0.4,
+      "assumed_usable_to_gross_efficiency": 0.7,
+      "residential_program_billion_sqft": 100.0,
+      "private_home_billion_sqft": 75.0,
+      "shared_residential_billion_sqft": 25.0,
+      "other_city_program_billion_sqft": 150.0,
+      "city_usable_billion_sqft": 250.0,
+      "city_gross_billion_sqft": 357.14285714285717,
+      "city_usable_billion_m2": 23.22576,
+      "city_gross_billion_m2": 33.179657142857145,
+      "gross_area_multiple_of_legacy": 4.481089801039613,
+      "equivalent_square_base_side_miles": 7.409004660731107,
+      "equivalent_square_base_area_km2": 142.17312399899623,
+      "floor_concrete_proxy_billion_m3_150_250_mm": [
+        4.976948571428571,
+        8.294914285714286
+      ],
+      "floor_concrete_proxy_million_m3_per_year_over_30_years": [
+        165.89828571428572,
+        276.4971428571429
+      ],
+      "floor_proxy_clinker_kiln_thermal_twh": [
+        1060.0900457142857,
+        1766.816742857143
+      ],
+      "legacy_150_usd_sqft_cost_arithmetic_trillion_usd": 53.57142857142858,
+      "notes": "Sizes are square-tier equivalents at unchanged height and relative taper, not a fit to the image; concrete, cost and efficiency are sensitivity inputs only."
+    }
+  ]
+}

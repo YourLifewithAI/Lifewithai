@@ -1,0 +1,440 @@
+{
+  "status": "Concept geometry and planning scenarios, not engineering validation",
+  "units": "meters and square meters unless named otherwise",
+  "cases": [
+    {
+      "id": "A",
+      "name": "Housing-led",
+      "residential_private_efficiency": 0.8,
+      "residential_share_of_usable": 0.5,
+      "usable_to_gross": 0.7,
+      "main_tiers": 12,
+      "main_height_m": 1536.192,
+      "wing_height_m": 384.048,
+      "central_base_radius_m": 9306.079069036217,
+      "width_x_m": 25870.899811920688,
+      "width_y_m": 23252.665622109835,
+      "gross_m2": 24884742857.142853,
+      "usable_m2": 17419320000.0,
+      "private_home_m2": 6967728000.0,
+      "district_count": 5000.0,
+      "local_district_void_floor_equivalent_m2": 27239256000.0,
+      "post_macro_void_floor_slots_m2": 52123998857.14285,
+      "built_fraction_of_post_macro_void_volume": 0.47741430824110215,
+      "program_only_width_x_m_without_local_void_budget": 17875.543263478194,
+      "district_placement_status": "Local empty volume reserved arithmetically; a complete 3D arrangement of the districts is not established.",
+      "base_envelope_m2": 381086980.40415657,
+      "base_post_macro_void_plate_m2": 355447845.6695508,
+      "overlap_floor_area_removed_m2": 2488074082.278191,
+      "void_floor_area_removed_m2": 6321763373.350701,
+      "pre_void_enclosed_potential_m2": 58445762230.49355,
+      "summit_roof_m2": 39817374.45542412,
+      "all_exposed_roof_surface_m2": 355447845.66955084,
+      "upper_overhang_area_m2": 7.429427276954177e-09,
+      "program_usable_m2": {
+        "Private homes": 6967728000.0,
+        "Shared residential": 1741932000.0,
+        "Education": 557418240.0,
+        "Healthcare": 278709120.0,
+        "Workplaces and commerce": 1672254720.0,
+        "Indoor public landscape": 929030400.0000001,
+        "Passenger and freight facilities": 650321280.0,
+        "Food production and distribution": 371612160.0,
+        "Municipal utility facilities": 464515200.00000006,
+        "Industry and repair": 836127360.0,
+        "Civic and cultural facilities": 464515200.00000006,
+        "Compute facilities": 6600000,
+        "Unassigned program reserve": 2478556320.0
+      },
+      "bands": [
+        {
+          "floor_start": 0,
+          "floors": 30,
+          "post_macro_void_plate_m2": 355447845.6695508
+        },
+        {
+          "floor_start": 30,
+          "floors": 30,
+          "post_macro_void_plate_m2": 300008261.2971283
+        },
+        {
+          "floor_start": 60,
+          "floors": 30,
+          "post_macro_void_plate_m2": 244611376.4823582
+        },
+        {
+          "floor_start": 90,
+          "floors": 30,
+          "post_macro_void_plate_m2": 161353579.55169272
+        },
+        {
+          "floor_start": 120,
+          "floors": 30,
+          "post_macro_void_plate_m2": 139970628.1202396
+        },
+        {
+          "floor_start": 150,
+          "floors": 30,
+          "post_macro_void_plate_m2": 120032302.41158701
+        },
+        {
+          "floor_start": 180,
+          "floors": 30,
+          "post_macro_void_plate_m2": 101538602.42573497
+        },
+        {
+          "floor_start": 210,
+          "floors": 30,
+          "post_macro_void_plate_m2": 85935983.24027082
+        },
+        {
+          "floor_start": 240,
+          "floors": 30,
+          "post_macro_void_plate_m2": 74316758.13956557
+        },
+        {
+          "floor_start": 270,
+          "floors": 30,
+          "post_macro_void_plate_m2": 63345970.950603016
+        },
+        {
+          "floor_start": 300,
+          "floors": 30,
+          "post_macro_void_plate_m2": 51087945.82727336
+        },
+        {
+          "floor_start": 330,
+          "floors": 30,
+          "post_macro_void_plate_m2": 39817374.45542412
+        }
+      ]
+    },
+    {
+      "id": "B",
+      "name": "Shared-city comparison",
+      "residential_private_efficiency": 0.75,
+      "residential_share_of_usable": 0.4,
+      "usable_to_gross": 0.7,
+      "main_tiers": 12,
+      "main_height_m": 1536.192,
+      "wing_height_m": 384.048,
+      "central_base_radius_m": 9950.214894999852,
+      "width_x_m": 27661.59740809959,
+      "width_y_m": 24862.137760186684,
+      "gross_m2": 33179657142.85716,
+      "usable_m2": 23225760000.0,
+      "private_home_m2": 6967728000.0,
+      "district_count": 5000.0,
+      "local_district_void_floor_equivalent_m2": 26409764571.42857,
+      "post_macro_void_floor_slots_m2": 59589421714.28573,
+      "built_fraction_of_post_macro_void_volume": 0.5568044828819475,
+      "program_only_width_x_m_without_local_void_budget": 20640.899430159872,
+      "district_placement_status": "Local empty volume reserved arithmetically; a complete 3D arrangement of the districts is not established.",
+      "base_envelope_m2": 435667893.542959,
+      "base_post_macro_void_plate_m2": 406356611.87638646,
+      "overlap_floor_area_removed_m2": 2844426732.3312254,
+      "void_floor_area_removed_m2": 7227193459.676338,
+      "pre_void_enclosed_potential_m2": 66816615173.96207,
+      "summit_roof_m2": 45520189.73990807,
+      "all_exposed_roof_surface_m2": 406356611.8763863,
+      "upper_overhang_area_m2": 7.94366751067414e-09,
+      "program_usable_m2": {
+        "Private homes": 6967728000.0,
+        "Shared residential": 2322576000.0,
+        "Education": 929030400.0000001,
+        "Healthcare": 464515200.00000006,
+        "Workplaces and commerce": 2601285120.0,
+        "Indoor public landscape": 1672254720.0,
+        "Passenger and freight facilities": 929030400.0000001,
+        "Food production and distribution": 557418240.0,
+        "Municipal utility facilities": 650321280.0,
+        "Industry and repair": 1300642560.0,
+        "Civic and cultural facilities": 743224320.0,
+        "Compute facilities": 6600000,
+        "Unassigned program reserve": 4081133760.0
+      },
+      "bands": [
+        {
+          "floor_start": 0,
+          "floors": 30,
+          "post_macro_void_plate_m2": 406356611.87638646
+        },
+        {
+          "floor_start": 30,
+          "floors": 30,
+          "post_macro_void_plate_m2": 342976732.2572637
+        },
+        {
+          "floor_start": 60,
+          "floors": 30,
+          "post_macro_void_plate_m2": 279645667.80972725
+        },
+        {
+          "floor_start": 90,
+          "floors": 30,
+          "post_macro_void_plate_m2": 184463331.82086194
+        },
+        {
+          "floor_start": 120,
+          "floors": 30,
+          "post_macro_void_plate_m2": 160017822.29966867
+        },
+        {
+          "floor_start": 150,
+          "floors": 30,
+          "post_macro_void_plate_m2": 137223843.9983113
+        },
+        {
+          "floor_start": 180,
+          "floors": 30,
+          "post_macro_void_plate_m2": 116081396.9167901
+        },
+        {
+          "floor_start": 210,
+          "floors": 30,
+          "post_macro_void_plate_m2": 98244103.63777265
+        },
+        {
+          "floor_start": 240,
+          "floors": 30,
+          "post_macro_void_plate_m2": 84960723.2429422
+        },
+        {
+          "floor_start": 270,
+          "floors": 30,
+          "post_macro_void_plate_m2": 72418652.82097591
+        },
+        {
+          "floor_start": 300,
+          "floors": 30,
+          "post_macro_void_plate_m2": 58404980.72224934
+        },
+        {
+          "floor_start": 330,
+          "floors": 30,
+          "post_macro_void_plate_m2": 45520189.73990807
+        }
+      ]
+    }
+  ],
+  "compute_equipment_sensitivity": [
+    {
+      "active_racks": 26800,
+      "equipped_racks": 32160,
+      "usable_m2": 1768800,
+      "usable_billion_sqft": 0.019039204745076158,
+      "active_it_gw": 6.164,
+      "facility_gw": 7.3968
+    },
+    {
+      "active_racks": 100000,
+      "equipped_racks": 120000,
+      "usable_m2": 6600000,
+      "usable_billion_sqft": 0.07104180875028417,
+      "active_it_gw": 23.0,
+      "facility_gw": 27.6
+    },
+    {
+      "active_racks": 300000,
+      "equipped_racks": 360000,
+      "usable_m2": 19800000,
+      "usable_billion_sqft": 0.21312542625085248,
+      "active_it_gw": 69.0,
+      "facility_gw": 82.8
+    }
+  ],
+  "district": {
+    "humans": 20000,
+    "paired_ai": 20000,
+    "private_home_m2": 1393545.6,
+    "residential_usable_m2": 1741932.0,
+    "residential_gross_m2": 2488474.285714286,
+    "block_outer_m": 100,
+    "court_clear_m": 59.326201751719395,
+    "housing_ring_depth_m": 20.336899124140302,
+    "blocks": 16,
+    "housing_floors_per_block": 24,
+    "podium_floors": 3,
+    "podium_outer_m": 120.74553378312355,
+    "housing_height_m": 102.4128,
+    "total_height_m": 115.2144,
+    "local_civic_usable_m2": 371612.16000000003,
+    "citywide_facility_share_usable_m2": 1370319.8399999999,
+    "total_allocated_usable_m2": 3483864.0,
+    "gross_area_drawn_m2": 3019348.8000000003,
+    "gross_citywide_share_m2": 1957599.7714285713,
+    "local_civic_split_sqft_per_human": {
+      "education": 50,
+      "health": 20,
+      "workplaces_and_markets": 70,
+      "indoor_commons": 30,
+      "utility_and_transit_rooms": 30
+    }
+  },
+  "summit_access_sensitivity": [
+    {
+      "daily_human_visits": 100000.0,
+      "peak_arrivals_per_hour": 15000.0,
+      "peak_simultaneous_human_visitors": 45000.0,
+      "illustrative_express_cars_required": 59,
+      "public_area_required_m2": 450000.0,
+      "case_A_public_summit_m2": 27872162.118796885
+    },
+    {
+      "daily_human_visits": 1000000.0,
+      "peak_arrivals_per_hour": 150000.0,
+      "peak_simultaneous_human_visitors": 450000.0,
+      "illustrative_express_cars_required": 586,
+      "public_area_required_m2": 4500000.0,
+      "case_A_public_summit_m2": 27872162.118796885
+    }
+  ],
+  "tier_sensitivity": [
+    {
+      "main_tiers": 8,
+      "width_x_m": 25837.760947038805,
+      "gross_m2": 24884742857.142868,
+      "summit_roof_m2": 39715433.08461505,
+      "main_height_m": 1536.192
+    },
+    {
+      "main_tiers": 12,
+      "width_x_m": 25870.899811920688,
+      "gross_m2": 24884742857.142853,
+      "summit_roof_m2": 39817374.45542412,
+      "main_height_m": 1536.192
+    },
+    {
+      "main_tiers": 16,
+      "width_x_m": 25878.679435719532,
+      "gross_m2": 24884742857.142845,
+      "summit_roof_m2": 39841324.97671885,
+      "main_height_m": 1536.192
+    }
+  ],
+  "resource_sensitivity": [
+    {
+      "case": "A",
+      "noncompute_gross_m2": 24875314285.714283,
+      "slab_proxy": [
+        {
+          "thickness_m": 0.2,
+          "volume_m3": 4976948571.428571,
+          "mass_tonnes": 11944676571.42857
+        },
+        {
+          "thickness_m": 0.3,
+          "volume_m3": 7465422857.142856,
+          "mass_tonnes": 17917014857.142857
+        },
+        {
+          "thickness_m": 0.4,
+          "volume_m3": 9953897142.857141,
+          "mass_tonnes": 23889353142.85714
+        }
+      ],
+      "electricity": [
+        {
+          "kwh_per_noncompute_gross_m2_year": 100,
+          "noncompute_twh_year": 2487.531428571428,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 2729.307428571428,
+          "average_gw": 311.5647749510763
+        },
+        {
+          "kwh_per_noncompute_gross_m2_year": 200,
+          "noncompute_twh_year": 4975.062857142856,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 5216.838857142856,
+          "average_gw": 595.5295499021526
+        },
+        {
+          "kwh_per_noncompute_gross_m2_year": 400,
+          "noncompute_twh_year": 9950.125714285712,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 10191.901714285712,
+          "average_gw": 1163.459099804305
+        }
+      ]
+    },
+    {
+      "case": "B",
+      "noncompute_gross_m2": 33170228571.42859,
+      "slab_proxy": [
+        {
+          "thickness_m": 0.2,
+          "volume_m3": 6635931428.571432,
+          "mass_tonnes": 15926235428.571438
+        },
+        {
+          "thickness_m": 0.3,
+          "volume_m3": 9953897142.857147,
+          "mass_tonnes": 23889353142.85715
+        },
+        {
+          "thickness_m": 0.4,
+          "volume_m3": 13271862857.142864,
+          "mass_tonnes": 31852470857.142876
+        }
+      ],
+      "electricity": [
+        {
+          "kwh_per_noncompute_gross_m2_year": 100,
+          "noncompute_twh_year": 3317.022857142859,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 3558.7988571428587,
+          "average_gw": 406.2555772994131
+        },
+        {
+          "kwh_per_noncompute_gross_m2_year": 200,
+          "noncompute_twh_year": 6634.045714285718,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 6875.8217142857175,
+          "average_gw": 784.9111545988262
+        },
+        {
+          "kwh_per_noncompute_gross_m2_year": 400,
+          "noncompute_twh_year": 13268.091428571435,
+          "compute_twh_year": 241.776,
+          "total_twh_year": 13509.867428571435,
+          "average_gw": 1542.2223091976523
+        }
+      ]
+    }
+  ],
+  "tool_versions": {
+    "shapely": "2.1.2",
+    "numpy": "2.5.3",
+    "matplotlib": "3.11.2",
+    "trimesh": "5.1.0",
+    "ezdxf": "1.4.4",
+    "mapbox-earcut": "2.1.0",
+    "plotly": "7.1.0",
+    "reportlab": "4.4.9"
+  },
+  "checks": {
+    "program_totals_reconcile": true,
+    "required_private_area_preserved": true,
+    "wing_overlaps_removed": true,
+    "macro_courtyard_and_street_voids_deducted": true,
+    "local_district_empty_volume_reserved": true,
+    "upper_plates_contained_by_lower": true,
+    "band_meshes_watertight": true,
+    "mesh_volume_matches_geometry": true,
+    "glb_files_reopened": true,
+    "dxf_files_reopened_and_audited": true
+  },
+  "not_checked": [
+    "complete spatial packing of 5000 districts",
+    "structural capacity",
+    "foundation settlement",
+    "progressive collapse",
+    "fire/egress compliance",
+    "daylight sufficiency",
+    "wind/microclimate",
+    "thermal balance",
+    "AI workload capacity",
+    "regional resource supply",
+    "cost feasibility"
+  ]
+}
