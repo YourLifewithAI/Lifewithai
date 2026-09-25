@@ -1,0 +1,50 @@
+name: Engineering simulation benchmarks
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - engineering/simulation/**
+      - .github/workflows/engineering-simulation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  solvers:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-24.04]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: astral-sh/setup-uv@d0d8abe699bfb85fec6de9f7adb5ae17292296ff # v6
+        with:
+          version: '0.9.27'
+          enable-cache: false
+      - name: Linux graphical runtime libraries for headless CAD
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y libegl1 libgl1 libopengl0 libxkbcommon0 libxcb-cursor0 libxcb-xinerama0
+      - name: Locked Python setup
+        run: uv sync --project engineering/simulation --locked
+      - name: Adapter failure and input tests
+        run: uv run --project engineering/simulation --locked python -m unittest discover -s engineering/simulation -p test_simulation.py -v
+      - name: Install verified native releases
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py install
+      - name: Runtime discovery
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py doctor
+      - name: Execute analytical solver benchmarks
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py benchmark --save engineering/simulation/runs/ci-benchmarks.json
+      - name: Check saved evidence
+        run: uv run --project engineering/simulation --locked python engineering/simulation/run.py check engineering/simulation/runs/ci-benchmarks.json
+      - name: Preserve results and diagnostics
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: simulation-${{ matrix.os }}
+          path: engineering/simulation/runs/
+          retention-days: 7

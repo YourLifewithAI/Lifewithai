@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "type": "elastic_frame_2d",
+  "units": "N,m,Pa",
+  "status": "synthetic solver benchmark, not a proposed Arcology member",
+  "nodes": {"1": [0, 0], "2": [6, 0]},
+  "supports": {"1": [1, 1, 1]},
+  "elements": [{"id": 1, "nodes": [1, 2], "area_m2": 0.15, "elastic_modulus_pa": 200000000000, "inertia_m4": 0.003125}],
+  "loads": {"2": [0, -10000, 0]}
+}

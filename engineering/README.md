@@ -2,7 +2,7 @@
 
 This directory makes the Arcology studies portable with the repository. It holds the model inputs, generator, research review, selected outputs and dependency lock. A new computer can recreate the calculation environment and rebuild the drawings from the same sources.
 
-The current implementation produces **concept geometry and resource sensitivities**. Structural, daylight, energy and wind solvers can be added to this workspace as their inputs become available; none of those analyses has been completed by the present geometry tools.
+The current implementation produces **concept geometry and resource sensitivities**, with a separate [simulation workspace](simulation/README.md) that integrates FreeCAD, OpenSees, Radiance and EnergyPlus. The solvers have small analytical integration benchmarks; Arcology structural, daylight, thermal and wind performance has not yet been established.
 
 ## Start here
 
@@ -12,6 +12,7 @@ The current implementation produces **concept geometry and resource sensitivitie
 - [Illustrated report](output/pdf/arcology-massing-study-01.pdf).
 - [Interactive model](massing-study-01/output/massing-viewer.html): open the file in a browser, choose A/B, and rotate. It is self-contained.
 - [Parameters](massing-study-01/parameters.json) and [generated results](massing-study-01/output/study-results.json).
+- [Simulation setup and benchmarks](simulation/README.md) and [next structural-section study](simulation/section-study-brief.md).
 
 ## One command on each computer
 
@@ -56,12 +57,12 @@ This keeps the tools available through a documented, versioned setup. Full CAD e
 | Geometry and accounting | [Shapely](https://shapely.readthedocs.io/en/stable/manual.html), NumPy | Included and used for polygon unions, void deductions, dimensions and schedules |
 | Meshes and CAD exchange | [trimesh](https://trimesh.org/), [ezdxf](https://ezdxf.readthedocs.io/en/stable/) | Included and used for GLB solids and editable DXF plans |
 | Review outputs | Matplotlib, Plotly, ReportLab | Included and used for diagrams, offline 3D review and PDF |
-| Detailed parametric CAD | [FreeCAD](https://github.com/FreeCAD/FreeCAD) | Recommended next for actual bays, cores, rooms, support assemblies and technical sections; not installed by this toolchain |
-| Structural response | [OpenSees](https://opensees.berkeley.edu/) | Candidate for later load-path/lateral-response models with verified material laws and boundary conditions; not yet integrated |
-| Daylight | [Radiance](https://www.radiance-online.org/) | Candidate to test courts and inhabited depth once sky exposure, glazing and reflectance are specified; not yet integrated |
-| Building energy | [EnergyPlus](https://github.com/NatLabRockies/EnergyPlus) | Candidate once climate, envelope, zones, schedules and HVAC systems are defined; not yet integrated |
+| Detailed parametric CAD | [FreeCAD](https://github.com/FreeCAD/FreeCAD) | Integrated: parametric courtyard slab, native FCStd and STEP, solid-volume and reopen checks |
+| Structural response | [OpenSees](https://opensees.berkeley.edu/) | Integrated: linear 2D frame inputs, reactions/deflections, analytical cantilever benchmark |
+| Daylight | [Radiance](https://www.radiance-online.org/) | Integrated: uniform-sky sensor/obstruction models, open/closed sky benchmark |
+| Building energy | [EnergyPlus](https://github.com/NatLabRockies/EnergyPlus) | Integrated: self-contained epJSON runs, weather-file handling, analytical thermal-load benchmark |
 
-FreeCAD is a cross-platform parametric modeler with a Python API; its upstream project documents Windows, macOS and Linux support. The current Python libraries already meet the first massing study's geometric needs. Each additional solver should earn its place through a specific decision and a small validated model. Software being free does not make external cloud compute or hosting free; the implemented workflow runs locally.
+The simulation tools use their own locked environment and checksum-pinned native releases. See the simulation README for setup commands, platform execution status, units, benchmarks and current adapter limits. Native runtimes and large outputs stay outside Git; the setup code, model inputs and selected evidence travel with the repository. The workflow runs locally without a paid connector or hosted solver.
 
 ## Extending the workspace
 
