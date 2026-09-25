@@ -4,7 +4,7 @@
   "status": "Concept study; geometric verification only",
   "python": "3.12.12",
   "platform": "Windows",
-  "repository_head_at_build": "ae7a9df53c8cecbb798f5ebf8d9c1e5b97eb303c",
+  "repository_head_at_build": "be05baf0bf1c1cf8d38f8cb2d0aa02b90ba93851",
   "revision_note": "HEAD may precede local changes. Source hashes below identify the actual model inputs and generator.",
   "tool_versions": {
     "shapely": "2.1.2",
@@ -22,7 +22,7 @@
     ".python-version": "f01d748a75eb195e6fd73201279bfb23f09036ddd360eb3e9ff40ef042acbc8a",
     "run.py": "c588d4d361106057925fe9c6268aa744ae9373f0c2e80193aa8edca3cd0075a2",
     "massing-study-01/parameters.json": "e4888eb56feb6d170dafa42a50db41a0c6f7864d1ddceb5e619a43297d2f00cc",
-    "massing-study-01/build_study.py": "a4c538c609176788fd0d5bdbda8770f90ed3e5aad4fa6ebffc8d6bc14c5ba75e"
+    "massing-study-01/build_study.py": "39f420a2acb08761008e2841857fc9f7dc9c76bcc80e941ec90677f139b135cf"
   },
   "output_sha256": {
     "massing-study-01/output/01-massing-comparison.png": "0b02be4ba8e70d0611506675f08063b405160ce4ec59a3c81968a1e9defe5ff1",
@@ -34,11 +34,11 @@
     "massing-study-01/output/04-program-and-tier-sensitivity.png": "67624ab6163545dd20308c1d08bc245e23a66fa857033f16e9e404fc5f396bfc",
     "massing-study-01/output/04-program-and-tier-sensitivity.svg": "684815bd46f2546bf7ddc470397fc497b6522cade48fe3aa072f14920182c041",
     "massing-study-01/output/case-A-massing.glb": "fc4f309cd33d5622431ec549037930d1afb37a19469b996f837b189ba70a7e0d",
-    "massing-study-01/output/case-A-plans.dxf": "60247a5b685cda9d6218948b4dbd297b2a0eeb6f53bf6b4c5f3f03e6e66d46df",
+    "massing-study-01/output/case-A-plans.dxf": "e072d012163a0a05fa61fd7f95d24dcd9b136fc8056663a11087a225cb07c752",
     "massing-study-01/output/case-B-massing.glb": "59ab1576aa396a27221688efaa61e09fbb75348845e4aa7c446c2dd0b56c8e06",
-    "massing-study-01/output/case-B-plans.dxf": "6ee6fcbe5a46ebbc40e10bf3301beb7ab1b0f68f7c4c9f8b443c6476555b5369",
-    "massing-study-01/output/district-plan.dxf": "aeef2f375b0f72e4a8c0f7fc5ecf0af988c559519e2d1e2226b67dda89e90f0e",
-    "massing-study-01/output/massing-viewer.html": "8f0279d6b4f5a0841dc6c205c5ae02200f25381f175d5c514b5da718a0f45647",
+    "massing-study-01/output/case-B-plans.dxf": "1a515139c5a4ba197acd7d890c8fab260f08842fc9b6798d4702ebc0efd7ad43",
+    "massing-study-01/output/district-plan.dxf": "0ee03ac515335a149cb7aaad82bcc6b324451c738b78e3d921f8b638a6a3c85b",
+    "massing-study-01/output/massing-viewer.html": "97e8b8969bc66383de72ac69018b96a7beea7244e059ea00cb6fbc0f668dd151",
     "massing-study-01/output/study-results.json": "6e2ecc562f78dfce4eaca74438a28b06d5a130b77d534d61b32ac82a6c1bdfa0",
     "output/pdf/arcology-massing-study-01.pdf": "28b01ab0805beb1f575f04b3d1c149a4f924e2a51db49a17ff43562dbeab1275"
   }

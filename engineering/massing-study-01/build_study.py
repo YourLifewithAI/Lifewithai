@@ -357,9 +357,19 @@ for ci,((r,_),meshes) in enumerate(zip(CASES,MESHES)):
     for idx,m in enumerate(meshes):
         v=m.vertices/1000;f=m.faces
         vf.add_trace(go.Mesh3d(x=v[:,0],y=v[:,1],z=v[:,2],i=f[:,0],j=f[:,1],k=f[:,2],color=TEAL if ci==0 else GOLD,visible=ci==0,name=f"{r['id']} band {idx+1}",showlegend=False,hovertemplate=f"Case {r['id']} / band {idx+1}<extra></extra>"))
-vf.update_layout(title={'text':'Arcology massing 01 - concept volume, true proportions<br><sup>Local courtyard/street space is reserved numerically, not yet placed.</sup>','font':{'size':18}},scene={'aspectmode':'data','xaxis_title':'East/west km','yaxis_title':'North/south km','zaxis_title':'Height km','xaxis':{'range':[-MAX,MAX]},'yaxis':{'range':[-MAX,MAX]},'zaxis':{'range':[0,1.7]},'camera':{'projection':{'type':'orthographic'},'eye':{'x':1.4,'y':-1.6,'z':.8}}},
-    updatemenus=[{'type':'buttons','direction':'left','buttons':[{'label':'A - Housing-led','method':'update','args':[{'visible':[True]*counts[0]+[False]*counts[1]}]},{'label':'B - Shared-city','method':'update','args':[{'visible':[False]*counts[0]+[True]*counts[1]}]}]}],margin={'t':100,'l':0,'r':0,'b':0},height=750)
-vf.write_html(OUT/'massing-viewer.html',include_plotlyjs=True,full_html=True,div_id='arcology-massing-study-01',config={'displaylogo':False,'responsive':True})
+vf.update_layout(title={'text':'Arcology massing 01<br><sup>Concept volume; local courts/streets not yet placed.</sup>','font':{'size':18},'x':.02},scene={'aspectmode':'data','xaxis_title':'East/west km','yaxis_title':'North/south km','zaxis_title':'Height km','xaxis':{'range':[-MAX,MAX]},'yaxis':{'range':[-MAX,MAX]},'zaxis':{'range':[0,1.7]},'camera':{'projection':{'type':'orthographic'},'eye':{'x':1.4,'y':-1.6,'z':.8}}},
+    updatemenus=[{'type':'buttons','direction':'left','x':.02,'xanchor':'left','y':1,'yanchor':'top','buttons':[{'label':'A - Housing-led','method':'update','args':[{'visible':[True]*counts[0]+[False]*counts[1]}]},{'label':'B - Shared-city','method':'update','args':[{'visible':[False]*counts[0]+[True]*counts[1]}]}]}],margin={'t':90,'l':0,'r':0,'b':0},height=750)
+responsive_script="""
+const graph = document.getElementById('{plot_id}');
+let lastWidth = 0;
+new ResizeObserver(() => {
+  const width = graph.clientWidth;
+  if (Math.abs(width - lastWidth) < 1) return;
+  lastWidth = width;
+  Plotly.relayout(graph, {height: Math.max(420, Math.min(750, width * 0.65 + 100))});
+}).observe(graph);
+"""
+vf.write_html(OUT/'massing-viewer.html',include_plotlyjs=True,full_html=True,div_id='arcology-massing-study-01',post_script=responsive_script,config={'displaylogo':False,'responsive':True})
 
 VERS={n:importlib.metadata.version(n) for n in ['shapely','numpy','matplotlib','trimesh','ezdxf','mapbox-earcut','plotly']}
 VERS['reportlab']=importlib.metadata.version('reportlab')
