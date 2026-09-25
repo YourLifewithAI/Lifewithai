@@ -1,0 +1,10 @@
+* text=auto eol=lf
+*.png binary
+*.webp binary
+*.pdf binary
+*.glb binary
+*.dxf binary
+*.svg -diff
+*.html -diff
+massing-study-01/output/** linguist-generated=true
+output/** linguist-generated=true

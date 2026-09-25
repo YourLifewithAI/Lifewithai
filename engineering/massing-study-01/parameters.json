@@ -1,0 +1,84 @@
+{
+  "requirements": {
+    "humans": 100000000,
+    "paired_ai": 100000000,
+    "additional_ai": "Unquantified logistical and independent residents",
+    "private_home_sqft_per_human": 750,
+    "summit": "Large flat public landscape; access independent of wealth and home address"
+  },
+  "geometry": {
+    "main_tiers": 12,
+    "total_main_floors": 360,
+    "floor_height_m": 4.2672,
+    "summit_radius_ratio": 0.42,
+    "plan_facets": 12,
+    "wing_count": 6,
+    "wing_center_radius_ratio": 1.05,
+    "wing_radii_ratios": [0.34, 0.27, 0.20],
+    "wing_tier_floors": 30,
+    "central_court_radius_ratio": 0.12,
+    "six_court_center_radius_ratio": 0.58,
+    "six_court_radius_ratio": 0.075,
+    "radial_open_street_width_ratio": 0.035,
+    "radial_open_street_start_ratio": 0.30,
+    "status": "Exploratory geometry. All floors above grade; legacy 30 basements removed from this case. Open streets and courts are explicit voids, not established canon."
+  },
+  "cases": [
+    {"id": "A", "name": "Housing-led", "residential_private_efficiency": 0.80, "residential_share_of_usable": 0.50, "usable_to_gross": 0.70},
+    {"id": "B", "name": "Shared-city comparison", "residential_private_efficiency": 0.75, "residential_share_of_usable": 0.40, "usable_to_gross": 0.70}
+  ],
+  "program_per_human_sqft": {
+    "Education": [60, 100],
+    "Healthcare": [30, 50],
+    "Workplaces and commerce": [180, 280],
+    "Indoor public landscape": [100, 180],
+    "Passenger and freight facilities": [70, 100],
+    "Food production and distribution": [40, 60],
+    "Municipal utility facilities": [50, 70],
+    "Industry and repair": [90, 140],
+    "Civic and cultural facilities": [50, 80]
+  },
+  "compute": {
+    "status": "Equipment sensitivity, not proof of capacity for the AI population. Active rack counts are unresolved workload scenarios, independent of city area.",
+    "active_rack_cases": [26800, 100000, 300000],
+    "ledger_active_racks": 100000,
+    "extra_equipped_redundant_rack_fraction": 0.20,
+    "usable_m2_per_equipped_rack": {"rack_footprint": 3, "aisles": 9, "cooling_plant": 20, "power_rooms": 15, "maintenance_and_logistics": 8},
+    "active_it_kw_per_rack": 230,
+    "assumed_pue": 1.20,
+    "note": "Rack density and component areas are planning inputs. PUE covers facility overhead; spare installed capacity is not added as active IT demand. No capacity promise or redundancy topology is implied."
+  },
+  "district": {
+    "humans": 20000,
+    "paired_ai": 20000,
+    "residential_blocks": 16,
+    "housing_floors_per_block": 24,
+    "block_outer_side_m": 100,
+    "block_spacing_m": 140,
+    "district_pitch_m": 560,
+    "private_fraction_of_residential_usable": 0.80,
+    "residential_usable_to_gross": 0.70,
+    "local_civic_usable_sqft_per_human": 200,
+    "local_service_podium_floors": 3,
+    "note": "Case A district. Local common civic program drawn under the blocks; remaining area is a share of citywide facilities, not duplicated locally. Six-storey neighborhood bands are organizational only, not fire-code compartments."
+  },
+  "resource_sensitivity": {
+    "equivalent_floor_slab_thickness_m": [0.20, 0.30, 0.40],
+    "assumed_concrete_density_kg_per_m3": 2400,
+    "noncompute_electricity_kwh_per_gross_m2_year": [100, 200, 400],
+    "status": "Deliberately broad arithmetic sensitivities, not material selection, structural member sizing, calibrated energy intensities or a whole-project bill of quantities. Noncompute electricity excludes the separately modeled compute campus. Constant compute load is assumed for the annual-energy illustration."
+  },
+  "summit": {
+    "daily_visitor_fractions_of_humans": [0.001, 0.01],
+    "arrival_window_hours": 10,
+    "mean_visit_hours": 3,
+    "peak_factor": 1.5,
+    "public_fraction_of_roof": 0.70,
+    "assumed_m2_per_visitor": 10,
+    "illustrative_express_car_people": 80,
+    "illustrative_round_trip_minutes": 12,
+    "loading_efficiency": 0.80,
+    "unavailable_capacity_fraction": 0.20,
+    "note": "Illustrative human visitor traffic only; embodied AI, accessibility arrangements, staff, freight, transfer times and event surges need separate modeling. Lift arithmetic is a capacity sensitivity, not an engineered installation."
+  }
+}
