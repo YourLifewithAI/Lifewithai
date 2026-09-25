@@ -6,6 +6,7 @@ The current implementation produces **concept geometry and resource sensitivitie
 
 ## Start here
 
+- [Open on another computer](OPEN-ON-ANOTHER-COMPUTER.md): download the correct branch and explore the saved viewer without installing the simulation tools.
 - [Massing study 01](massing-study-01/README.md): results, assumptions, district section, area/dependency schedule and next design gate.
 - [Construction and sections](arcology-construction-and-sections.md): confirmed requirements and proposed construction approach.
 - [Research evaluation](arcology-research-evaluation.md): review of the existing research and its numerical inconsistencies.
