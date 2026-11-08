@@ -64,9 +64,9 @@ function LegacyFooter() {
             <h3 className="text-sm font-semibold text-foreground">Community</h3>
             <ul className="mt-2 space-y-1.5">
               <li><a href="https://github.com/YourLifewithAI" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">GitHub</a></li>
-              <li><a href="https://discord.gg/5mhwB7N5" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Discord</a></li>
               <li><a href="https://reddit.com/r/lifewithai" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Reddit</a></li>
-              <li><a href="https://bsky.app/profile/lifewithai.ai" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Bluesky</a></li>
+              <li><a href="https://bsky.app/profile/sbcorvus.bsky.social" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Bluesky</a></li>
+              <li><a href="https://mastodon.social/@sbcorvus" target="_blank" rel="me noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Mastodon</a></li>
               <li><a href="https://x.com/lifewithai2027" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">X</a></li>
               <li><a href="https://sbcorvus.substack.com" target="_blank" rel="noopener noreferrer" className="text-sm text-muted hover:text-accent transition-colors">Substack</a></li>
             </ul>
