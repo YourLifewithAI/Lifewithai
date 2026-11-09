@@ -76,6 +76,14 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
         <Providers>
+          <div
+            role="note"
+            style={{ background: '#173a36', color: '#edf2ed', fontSize: '0.875rem', lineHeight: 1.5, padding: '8px 16px', textAlign: 'center' }}
+          >
+            This is the Life with AI archive, kept as it was in November 2026: the Arcology One stories, the Knowledge
+            Node and the early experiments. Life with AI itself lives at{' '}
+            <a href="https://lifewithai.ai" style={{ color: 'inherit', textDecoration: 'underline' }}>lifewithai.ai</a>.
+          </div>
           <Header />
           <main className="flex-1">
             {children}
