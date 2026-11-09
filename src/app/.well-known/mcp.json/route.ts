@@ -50,9 +50,9 @@ export async function GET() {
     },
 
     links: {
-      homepage: 'https://lifewithai.ai/arcology',
-      agent_card: 'https://lifewithai.ai/.well-known/agent.json',
-      documentation: 'https://lifewithai.ai/llms-full.txt',
+      homepage: 'https://arcology.lifewithai.ai/arcology',
+      agent_card: 'https://arcology.lifewithai.ai/.well-known/agent.json',
+      documentation: 'https://arcology.lifewithai.ai/llms-full.txt',
       source: 'https://github.com/YourLifewithAI/Lifewithai/tree/main/mcp',
     },
   };

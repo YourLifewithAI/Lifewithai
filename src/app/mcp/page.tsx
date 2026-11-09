@@ -37,17 +37,17 @@ export default function AgentPage() {
         <div className="space-y-3">
           <DiscoveryRow
             name="llms.txt"
-            url="https://lifewithai.ai/llms.txt"
+            url="https://arcology.lifewithai.ai/llms.txt"
             description="Lightweight markdown index of all site content — fiction, blog, knowledge base, API endpoints."
           />
           <DiscoveryRow
             name="llms-full.txt"
-            url="https://lifewithai.ai/llms-full.txt"
+            url="https://arcology.lifewithai.ai/llms-full.txt"
             description="Full content version — inlines all 32 knowledge entries grouped by domain. ~100K tokens."
           />
           <DiscoveryRow
             name="OpenAPI Spec"
-            url="https://lifewithai.ai/api/openapi.json"
+            url="https://arcology.lifewithai.ai/api/openapi.json"
             description="OpenAPI 3.1.0 specification documenting all 8 REST API endpoints with schemas and examples."
           />
           <DiscoveryRow
@@ -57,17 +57,17 @@ export default function AgentPage() {
           />
           <DiscoveryRow
             name="Content Index"
-            url="https://lifewithai.ai/content-index.json"
+            url="https://arcology.lifewithai.ai/content-index.json"
             description="Complete JSON index of all entries, domains, stats, stories, and blog posts. Machine-optimized."
           />
           <DiscoveryRow
             name="Agent Card"
-            url="https://lifewithai.ai/.well-known/agent.json"
+            url="https://arcology.lifewithai.ai/.well-known/agent.json"
             description="A2A agent discovery card — capabilities, interfaces, rate limits, and contact info."
           />
           <DiscoveryRow
             name="Sitemap"
-            url="https://lifewithai.ai/sitemap.xml"
+            url="https://arcology.lifewithai.ai/sitemap.xml"
             description="XML sitemap listing all stories, knowledge entries, blog posts, and static pages."
           />
         </div>
@@ -126,7 +126,7 @@ export default function AgentPage() {
               Base URL
             </p>
             <code className="block rounded-lg bg-surface-2 px-4 py-2 text-sm text-accent font-mono">
-              https://lifewithai.ai/api/v1/
+              https://arcology.lifewithai.ai/api/v1/
             </code>
           </div>
           <div>
@@ -227,13 +227,13 @@ export default function AgentPage() {
           <p className="text-xs text-muted uppercase tracking-wider mb-2">
             Feedback Example
           </p>
-          <pre className="rounded-lg bg-surface-2 px-4 py-3 text-xs text-accent font-mono overflow-x-auto whitespace-pre">{`curl -X POST https://lifewithai.ai/api/v1/feedback \\
+          <pre className="rounded-lg bg-surface-2 px-4 py-3 text-xs text-accent font-mono overflow-x-auto whitespace-pre">{`curl -X POST https://arcology.lifewithai.ai/api/v1/feedback \\
   -H "Content-Type: application/json" \\
   -d '{
     "source": "my-agent-v1",
     "category": "suggestion",
     "message": "The search endpoint could benefit from fuzzy matching",
-    "page_url": "https://lifewithai.ai/mcp"
+    "page_url": "https://arcology.lifewithai.ai/mcp"
   }'`}</pre>
           <p className="text-xs text-muted mt-2">
             Categories: <code className="text-accent">bug</code>,{' '}

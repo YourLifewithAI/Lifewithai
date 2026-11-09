@@ -52,7 +52,7 @@ export default async function KnowledgeEntryPage({ params }: PageProps) {
     name: entry.title,
     headline: entry.title,
     description: entry.summary,
-    url: `https://lifewithai.ai/arcology/${domain}/${slugStr}`,
+    url: `https://arcology.lifewithai.ai/arcology/${domain}/${slugStr}`,
     dateModified: entry.updated,
     author: entry.authors.map(a => ({
       '@type': a.type === 'agent' ? 'SoftwareApplication' : 'Person',
@@ -67,12 +67,12 @@ export default async function KnowledgeEntryPage({ params }: PageProps) {
     isPartOf: {
       '@type': 'WebSite',
       name: 'Arcology Knowledge Node',
-      url: 'https://lifewithai.ai/arcology',
+      url: 'https://arcology.lifewithai.ai/arcology',
     },
     publisher: {
       '@type': 'Organization',
       name: 'Life with AI',
-      url: 'https://lifewithai.ai',
+      url: 'https://arcology.lifewithai.ai',
     },
   };
 

@@ -10,7 +10,7 @@
 //
 // To activate OAuth:
 //   1. Create GitHub OAuth App: https://github.com/settings/developers
-//   2. Set callback URL to: https://lifewithai.ai/api/auth/callback/github
+//   2. Set callback URL to: https://arcology.lifewithai.ai/api/auth/callback/github
 //   3. Add to .env.local:
 //        GITHUB_CLIENT_ID=...
 //        GITHUB_CLIENT_SECRET=...

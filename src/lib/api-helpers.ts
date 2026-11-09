@@ -27,11 +27,11 @@ export function getKnowledgeBaseVersion(): string {
 export function jsonLdContext() {
   return {
     '@context': {
-      '@vocab': 'https://lifewithai.ai/schema/',
-      'kedl': 'https://lifewithai.ai/schema/kedl',
-      'confidence': 'https://lifewithai.ai/schema/confidence',
-      'domain': 'https://lifewithai.ai/schema/domain',
-      'parameters': 'https://lifewithai.ai/schema/parameters',
+      '@vocab': 'https://arcology.lifewithai.ai/schema/',
+      'kedl': 'https://arcology.lifewithai.ai/schema/kedl',
+      'confidence': 'https://arcology.lifewithai.ai/schema/confidence',
+      'domain': 'https://arcology.lifewithai.ai/schema/domain',
+      'parameters': 'https://arcology.lifewithai.ai/schema/parameters',
     },
   };
 }

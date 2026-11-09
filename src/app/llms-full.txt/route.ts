@@ -24,7 +24,7 @@ export async function GET() {
       `- Characters: ${s.characters?.join(', ') || 'N/A'}`,
       `- Themes: ${s.themes?.join(', ') || 'N/A'}`,
       `- Summary: ${s.summary}`,
-      `- URL: https://lifewithai.ai/stories/${s.slug}`,
+      `- URL: https://arcology.lifewithai.ai/stories/${s.slug}`,
       '',
     ]).flat(),
     '---',
@@ -37,7 +37,7 @@ export async function GET() {
       `- Published: ${p.published}`,
       `- Tags: ${p.tags?.join(', ') || 'N/A'}`,
       `- Summary: ${p.summary}`,
-      `- URL: https://lifewithai.ai/blog/${p.slug}`,
+      `- URL: https://arcology.lifewithai.ai/blog/${p.slug}`,
       '',
     ]).flat(),
     '---',
@@ -69,7 +69,7 @@ export async function GET() {
         `- KEDL: ${entry.kedl}`,
         `- Confidence: ${entry.confidence}/5`,
         `- Status: ${entry.status}`,
-        `- URL: https://lifewithai.ai/arcology/${entry.domain}/${entry.slug}`,
+        `- URL: https://arcology.lifewithai.ai/arcology/${entry.domain}/${entry.slug}`,
         '',
       );
 

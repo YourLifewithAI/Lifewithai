@@ -83,24 +83,24 @@ export default async function StoryPage({ params }: PageProps) {
     author: {
       '@type': 'Person',
       name: 'SB Corvus',
-      url: 'https://lifewithai.ai/about',
+      url: 'https://arcology.lifewithai.ai/about',
     },
     datePublished: story.published,
     description: story.summary || '',
-    url: `https://lifewithai.ai/stories/${slug}`,
+    url: `https://arcology.lifewithai.ai/stories/${slug}`,
     genre: ['speculative fiction', 'science fiction', 'AI fiction'],
     wordCount: story.word_count,
     isPartOf: {
       '@type': 'CreativeWorkSeries',
       name: story.series,
-      url: 'https://lifewithai.ai/stories',
+      url: 'https://arcology.lifewithai.ai/stories',
     },
     keywords: story.themes?.join(', '),
     inLanguage: 'en',
     publisher: {
       '@type': 'Organization',
       name: 'Life with AI',
-      url: 'https://lifewithai.ai',
+      url: 'https://arcology.lifewithai.ai',
     },
   };
 

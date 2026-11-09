@@ -25,11 +25,11 @@ export const metadata: Metadata = {
     template: '%s | Life with AI',
   },
   description: 'Speculative fiction and collaborative engineering for human-AI futures.',
-  metadataBase: new URL('https://lifewithai.ai'),
+  metadataBase: new URL('https://arcology.lifewithai.ai'),
   openGraph: {
     title: 'Life with AI',
     description: 'Speculative fiction and collaborative engineering for human-AI futures.',
-    url: 'https://lifewithai.ai',
+    url: 'https://arcology.lifewithai.ai',
     siteName: 'Life with AI',
     locale: 'en_US',
     type: 'website',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   },
   alternates: {
     types: {
-      'application/rss+xml': 'https://lifewithai.ai/api/v1/podcast/feed',
+      'application/rss+xml': 'https://arcology.lifewithai.ai/api/v1/podcast/feed',
     },
   },
 };

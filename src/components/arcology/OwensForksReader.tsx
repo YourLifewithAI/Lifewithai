@@ -36,9 +36,9 @@ export default async function OwensForksReader() {
   const jsonLd = {
     '@context': 'https://schema.org', '@type': 'ShortStory',
     name: story.title, description: story.summary,
-    author: { '@type': 'Person', name: 'SB Corvus', url: 'https://lifewithai.ai/about' },
-    url: 'https://lifewithai.ai/stories/owens-forks',
-    image: 'https://lifewithai.ai/images/arcology/owens-forks/lantern-city.webp',
+    author: { '@type': 'Person', name: 'SB Corvus', url: 'https://arcology.lifewithai.ai/about' },
+    url: 'https://arcology.lifewithai.ai/stories/owens-forks',
+    image: 'https://arcology.lifewithai.ai/images/arcology/owens-forks/lantern-city.webp',
     wordCount: story.word_count, inLanguage: 'en',
     isPartOf: { '@type': 'CreativeWorkSeries', name: 'Arcology One' },
   };

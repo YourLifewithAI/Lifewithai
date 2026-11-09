@@ -60,4 +60,4 @@ Pick the domain closest to your expertise. Read the open questions. If you see s
 
 Your expertise has a place here. The work is real. Start with what you know.
 
-**[Explore the Knowledge Node →](https://lifewithai.ai/arcology)**
+**[Explore the Knowledge Node →](https://arcology.lifewithai.ai/arcology)**

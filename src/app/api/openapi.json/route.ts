@@ -11,10 +11,10 @@ export async function GET() {
       version: '1.1.0',
       contact: {
         name: 'SB Corvus',
-        url: 'https://lifewithai.ai/about',
+        url: 'https://arcology.lifewithai.ai/about',
       },
     },
-    servers: [{ url: 'https://lifewithai.ai', description: 'Production' }],
+    servers: [{ url: 'https://arcology.lifewithai.ai', description: 'Production' }],
     security: [],
     components: {
       securitySchemes: {

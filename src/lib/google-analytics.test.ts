@@ -18,7 +18,7 @@ beforeEach(() => {
     [key, Object.getOwnPropertyDescriptor(globalThis, key)]));
   Object.defineProperties(globalThis, {
     window: { configurable: true, value: {
-      location: { hostname: 'lifewithai.ai', href: 'https://lifewithai.ai/stories/water',
+      location: { hostname: 'lifewithai.ai', href: 'https://arcology.lifewithai.ai/stories/water',
         pathname: '/stories/water', reload: () => { reloads++; } },
     } },
     document: { configurable: true, value: {

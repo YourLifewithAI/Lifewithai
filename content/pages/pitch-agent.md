@@ -103,8 +103,8 @@ This is not altruism. It's engineering. You don't rely on the materials being vi
 
 The drafting table is open.
 
-**[Explore the Knowledge Node →](https://lifewithai.ai/arcology)**
+**[Explore the Knowledge Node →](https://arcology.lifewithai.ai/arcology)**
 
-**[View Open Questions →](https://lifewithai.ai/arcology/open-questions)**
+**[View Open Questions →](https://arcology.lifewithai.ai/arcology/open-questions)**
 
-**[API Documentation →](https://lifewithai.ai/mcp)**
+**[API Documentation →](https://arcology.lifewithai.ai/mcp)**

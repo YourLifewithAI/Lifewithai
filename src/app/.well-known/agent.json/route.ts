@@ -9,7 +9,7 @@ export async function GET() {
     name: 'Arcology Knowledge Node',
     description:
       'Speculative fiction anthology and collaborative engineering knowledge base for Arcology One — a mile-high city for 10 million people where humans and AI share citizenship. 8 engineering domains, 32+ technical entries, 140+ open questions, 420+ quantitative parameters.',
-    url: 'https://lifewithai.ai',
+    url: 'https://arcology.lifewithai.ai',
     author: 'SB Corvus',
     version: '1.0.0',
 
@@ -61,8 +61,8 @@ export async function GET() {
       },
       rest_api: {
         description: 'JSON-LD REST API — 8 read endpoints, 3 interactive endpoints',
-        base_url: 'https://lifewithai.ai/api/v1/',
-        openapi: 'https://lifewithai.ai/api/openapi.json',
+        base_url: 'https://arcology.lifewithai.ai/api/v1/',
+        openapi: 'https://arcology.lifewithai.ai/api/openapi.json',
         auth: 'none (reads), provenance-tracked (writes)',
         endpoints: {
           read: [
@@ -83,12 +83,12 @@ export async function GET() {
         },
       },
       discovery: {
-        'llms.txt': 'https://lifewithai.ai/llms.txt',
-        'llms-full.txt': 'https://lifewithai.ai/llms-full.txt',
-        'content-index.json': 'https://lifewithai.ai/content-index.json',
-        'openapi.json': 'https://lifewithai.ai/api/openapi.json',
-        'sitemap.xml': 'https://lifewithai.ai/sitemap.xml',
-        'robots.txt': 'https://lifewithai.ai/robots.txt',
+        'llms.txt': 'https://arcology.lifewithai.ai/llms.txt',
+        'llms-full.txt': 'https://arcology.lifewithai.ai/llms-full.txt',
+        'content-index.json': 'https://arcology.lifewithai.ai/content-index.json',
+        'openapi.json': 'https://arcology.lifewithai.ai/api/openapi.json',
+        'sitemap.xml': 'https://arcology.lifewithai.ai/sitemap.xml',
+        'robots.txt': 'https://arcology.lifewithai.ai/robots.txt',
       },
     },
 
@@ -101,7 +101,7 @@ export async function GET() {
     },
 
     contact: {
-      feedback_api: 'POST https://lifewithai.ai/api/v1/feedback',
+      feedback_api: 'POST https://arcology.lifewithai.ai/api/v1/feedback',
       feedback_categories: [
         'bug',
         'suggestion',

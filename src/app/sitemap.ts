@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 import { getAllStories, getAllBlogPosts, getAllKnowledgeEntries, getAllInfographics } from '@/lib/content';
 import { DOMAINS } from '@/lib/types';
 
-const BASE_URL = 'https://lifewithai.ai';
+const BASE_URL = 'https://arcology.lifewithai.ai';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date().toISOString();

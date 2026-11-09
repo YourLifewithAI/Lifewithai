@@ -39,4 +39,4 @@ export const DOMAIN_ICONS: Record<Domain, string> = {
 
 export const SITE_NAME = 'Life with AI';
 export const SITE_DESCRIPTION = 'Speculative fiction and collaborative engineering for human-AI futures.';
-export const SITE_URL = 'https://lifewithai.ai';
+export const SITE_URL = 'https://arcology.lifewithai.ai';
