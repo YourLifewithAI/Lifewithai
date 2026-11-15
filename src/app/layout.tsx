@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
 import { Jost, Public_Sans } from 'next/font/google';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
 import HeaderGate from '@/components/site/HeaderGate';
@@ -46,12 +45,6 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <head>
-        <Script async src="https://plausible.io/js/pa-sEx2qqgf1J4O5wgebsjES.js" strategy="afterInteractive" />
-        <Script id="plausible-init" strategy="afterInteractive">
-          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
-        </Script>
-      </head>
       <body className={`${jost.variable} ${publicSans.variable}`}>
         <a className="skip" href="#main">
           Skip to content

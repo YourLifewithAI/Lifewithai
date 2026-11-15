@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   // Netlify serves public files from its CDN. Keep them, the docs, the old site's
   // code and content out of the server function.
   outputFileTracingExcludes: {
-    '/*': ['./docs/**/*', './public/**/*', './legacy/**/*', './content/**/*', './mcp/**/*'],
+    '/*': ['./docs/**/*', './public/**/*', './legacy/**/*', './content/**/*'],
   },
   // Old addresses answer with a 301 to the same path on the archive host (src/lib/archive.ts).
   async redirects() {

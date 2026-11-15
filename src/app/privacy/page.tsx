@@ -84,13 +84,11 @@ export default function PrivacyPage() {
           <section id="other-services" className="doc">
             <h2>Other site services.</h2>
             <p>
-              Your Google Analytics preference controls Google Analytics specifically. The site also uses Plausible
-              for traffic reporting, and Netlify hosts the website and records requests for operation and traffic
-              reporting. Declining Google Analytics does not disable these services.
+              Your Google Analytics preference controls Google Analytics specifically. Netlify hosts the website and
+              records requests for operation and traffic reporting. Declining Google Analytics does not turn that off.
             </p>
             <p>
-              See <a href="https://plausible.io/data-policy">Plausible&apos;s data policy</a> and{' '}
-              <a href="https://www.netlify.com/privacy/">Netlify&apos;s privacy policy</a> for their practices.
+              See <a href="https://www.netlify.com/privacy/">Netlify&apos;s privacy policy</a> for its practices.
             </p>
           </section>
           <section id="signup-data" className="doc">
