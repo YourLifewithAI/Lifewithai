@@ -1,11 +1,25 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { TOPICS } from '@/lib/topics';
+import type { TopicId } from '@/lib/topics';
 
 type Status = { kind: 'idle' | 'sending' | 'ok' | 'error'; text: string };
+
+// Every word on the form comes in as props from the layout (words/site.md and words/topics/): this file runs in the
+// browser, where the words files can't be read.
+export interface SignupWords {
+  heading: string;
+  emailLabel: string;
+  topicsLabel: string;
+  trapLabel: string; // the label of the field people never see
+  consentHtml: string; // one line of Markdown, already made into HTML
+  button: string;
+  sending: string;
+  thanks: string;
+  badEmail: string;
+  failed: string;
+}
 
 // Which page the form was sent from, as a short tag: "home", "topic-making", "about"...
 function sourceFor(path: string | null) {
@@ -15,7 +29,7 @@ function sourceFor(path: string | null) {
   return parts.join('-').toLowerCase().replace(/[^a-z0-9-]/g, '').slice(0, 40) || 'other';
 }
 
-export default function SignupForm() {
+export default function SignupForm({ words, topics }: { words: SignupWords; topics: { id: TopicId; verb: string }[] }) {
   const path = usePathname();
   const onTopic = path?.startsWith('/topics/') ? path.split('/')[2] : undefined;
   const [status, setStatus] = useState<Status>({ kind: 'idle', text: '' });
@@ -26,11 +40,11 @@ export default function SignupForm() {
     const data = new FormData(form);
     const email = String(data.get('email') ?? '').trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setStatus({ kind: 'error', text: 'Please check the email address. It needs an @ and a dot.' });
+      setStatus({ kind: 'error', text: words.badEmail });
       form.querySelector<HTMLInputElement>('input[name="email"]')?.focus();
       return;
     }
-    setStatus({ kind: 'sending', text: 'Sending...' });
+    setStatus({ kind: 'sending', text: words.sending });
     try {
       const res = await fetch('/api/v1/subscribe', {
         method: 'POST',
@@ -44,12 +58,9 @@ export default function SignupForm() {
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
-      setStatus({ kind: 'ok', text: 'Thank you. You are on the list. We will write when a new piece is up.' });
+      setStatus({ kind: 'ok', text: words.thanks });
     } catch {
-      setStatus({
-        kind: 'error',
-        text: 'That did not go through. Please try again in a minute, or write to hello@lifewithai.ai.',
-      });
+      setStatus({ kind: 'error', text: words.failed });
     }
   }
 
@@ -57,11 +68,11 @@ export default function SignupForm() {
     <section className="signup sheet" id="signup" aria-labelledby="signup-h">
       <div className="sheet-body">
         <h2 className="sec" id="signup-h">
-          New pieces, by email
+          {words.heading}
         </h2>
         <form onSubmit={submit} noValidate>
           <div className="field">
-            <label htmlFor="signup-email">Your email</label>
+            <label htmlFor="signup-email">{words.emailLabel}</label>
             <input
               id="signup-email"
               name="email"
@@ -74,8 +85,8 @@ export default function SignupForm() {
             />
           </div>
           <fieldset className="ticks">
-            <legend>Topics you care about (optional)</legend>
-            {TOPICS.map((t) => (
+            <legend>{words.topicsLabel}</legend>
+            {topics.map((t) => (
               <label key={t.id} className="tick">
                 <input type="checkbox" name="topics" value={t.id} defaultChecked={onTopic === t.id} />
                 <span>{t.verb}</span>
@@ -84,16 +95,13 @@ export default function SignupForm() {
           </fieldset>
           {/* A field people never see. Forms that fill it in are dropped. */}
           <div className="hp" aria-hidden="true">
-            <label htmlFor="signup-website">Leave this empty</label>
+            <label htmlFor="signup-website">{words.trapLabel}</label>
             <input id="signup-website" name="website" type="text" tabIndex={-1} autoComplete="off" />
           </div>
-          <p className="small consent" id="signup-consent">
-            We use your email only to send new pieces. You can ask us to remove it at any time. See{' '}
-            <Link href="/privacy#signup-data">how we keep it</Link>.
-          </p>
+          <p className="small consent" id="signup-consent" dangerouslySetInnerHTML={{ __html: words.consentHtml }} />
           <div className="btnrow">
             <button type="submit" className="btn primary" disabled={status.kind === 'sending'}>
-              Send me new pieces
+              {words.button}
             </button>
           </div>
           <p

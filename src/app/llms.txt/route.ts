@@ -1,9 +1,10 @@
 import { ARCHIVE_HOST } from '@/lib/archive';
 import { SITE } from '@/lib/site';
-import { TOPICS } from '@/lib/topics';
-import { PIECES } from '@/lib/pieces';
+import { topics } from '@/lib/topic-words';
+import { pieces } from '@/lib/pieces';
 
-// A short guide to the new site for language models, with a pointer to the archive.
+// A short guide to the new site for language models, with a pointer to the archive. The site's, topics' and pieces'
+// words come from words/; the guide's own lines below are for language models, not readers, and stay here.
 export const dynamic = 'force-static';
 
 export function GET() {
@@ -16,11 +17,11 @@ export function GET() {
     '',
     '## Topics',
     '',
-    ...TOPICS.map((t) => `- [${t.verb}](${SITE.url}/topics/${t.id}): ${t.covers}.`),
+    ...topics().map((t) => `- [${t.verb}](${SITE.url}/topics/${t.id}): ${t.covers}.`),
     '',
     '## Pieces',
     '',
-    ...PIECES.map((p) => `- [${p.title}](${SITE.url}${p.href}): ${p.hook}`),
+    ...pieces().map((p) => `- [${p.title}](${SITE.url}${p.href}): ${p.hook}`),
     '',
     '## About',
     '',

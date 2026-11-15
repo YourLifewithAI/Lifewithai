@@ -1,0 +1,201 @@
+/* A build's project page, on the site's Drawing Set tokens. Every rule sits under .pp. Ported from the studio's round 4
+   page.css, without the parts the site already has (sheets, title blocks, buttons). The drawing's own look is in
+   src/components/site/drawing/drawing.css. */
+.pp { display: flex; flex-direction: column; gap: 28px; }
+.pp > * { min-width: 0; }
+.pp q { quotes: "\201C" "\201D" "\2018" "\2019"; }
+.pp .sheet-title small { display: block; font-size: 15px; color: var(--ink-2); font-weight: 500; margin-top: 4px; }
+.pp .sheet-sub { font: 500 15px/1.4 var(--jost); color: var(--ink-2); margin-top: -10px; max-width: 60ch; }
+.pp .small { font-size: 15px; }
+.pp .copy, .pp .arc-text p, .pp .receipt .rv p { max-width: 52ch; }
+.pp .tb.two { --tbc: 2; }
+@media (min-width: 720px) { .pp .tb.two > div:nth-child(2n) { border-right: 0; } }
+
+/* a full-width line in a title block, above its cells */
+.pp .tbl { border-top: 2px solid var(--ink); margin: 0 6px; padding: 8px 10px 10px; font-family: var(--jost);
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px 14px; }
+.pp .tbl > b { font-size: 13px; font-weight: 500; letter-spacing: 0.02em; }
+.pp .tbl + .tb { border-top: 1px solid var(--hair); }
+.pp .tbl .tbl-note { color: var(--ink-2); flex: 1 1 220px; font-size: 15px; font-weight: 500; min-width: 0; }
+
+/* 1. the title sheet */
+.pp .verbline { display: flex; align-items: center; gap: 10px; font: 500 15px/1.2 var(--jost); letter-spacing: 0.02em; }
+.pp .verbline .vicon { width: 48px; height: 32px; flex: none; --ic-w: 1.2px; --ic-wn: .9px; }
+.pp #p-name { font-size: 40px; font-weight: 600; margin-top: -6px; }
+.pp .intro { display: flex; flex-direction: column; gap: 10px; }
+.pp .jumps { display: flex; flex-wrap: wrap; gap: 0 20px; margin: -4px 0; font: 500 15px/1.25 var(--jost); }
+.pp .jumps a { display: inline-flex; align-items: center; min-height: 48px; }
+@media (min-width: 720px) { .pp #p-name { font-size: 52px; } }
+
+/* the stage ladder: three steps rising to the right, a flag planted on this build's step */
+.pp .ladder { list-style: none; margin: 0; padding: 14px 0 0; display: flex; align-items: flex-end;
+  border-bottom: 2px solid var(--ink); font-family: var(--jost); flex: none; max-width: 100%; }
+.pp .ladder li { position: relative; border: 2px solid var(--ink); border-bottom: 0; border-right: 0; background: var(--paper);
+  padding: 4px 10px 5px; font-size: 13px; font-weight: 500; line-height: 1.25; min-width: 0; }
+.pp .ladder li:last-child { border-right: 2px solid var(--ink); }
+.pp .ladder li:nth-child(1) { min-height: 26px; }
+.pp .ladder li:nth-child(2) { min-height: 36px; }
+.pp .ladder li:nth-child(3) { min-height: 46px; }
+.pp .ladder li.on { background: var(--paper-2); }
+.pp .ladder li.on .ll { font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+.pp .ladder .lflag { position: absolute; left: 12px; bottom: 100%; width: 2px; height: 14px; background: var(--red); }
+.pp .ladder .lflag::after { content: ""; position: absolute; left: 2px; top: 0; width: 11px; height: 8px; background: var(--red);
+  clip-path: polygon(0 0, 100% 50%, 0 100%); }
+.pp .ladder.full { align-items: stretch; padding-top: 16px; max-width: 720px; }
+.pp .ladder.full li { flex: 1 1 0; padding: 8px 10px 12px; font-size: 17px; display: flex; flex-direction: column; gap: 4px; min-height: 0; }
+.pp .ladder.full li:nth-child(1) { margin-top: 24px; }
+.pp .ladder.full li:nth-child(2) { margin-top: 12px; }
+.pp .ladder.full .lm { font: 400 15px/1.4 var(--sans); }
+@media (max-width: 479px) { .pp .ladder.full li { font-size: 15px; padding: 6px 8px 10px; } .pp .ladder.full .lm { font-size: 14px; } }
+
+/* 2. the drawing */
+.pp .drawing-body { padding-inline: 14px; }
+@media (min-width: 720px) { .pp .drawing-body { padding-inline: 22px; } }
+.pp .pending { font: 500 15px/1.4 var(--jost); color: var(--ink-2); border-top: 1px solid var(--hair); padding-top: 12px; }
+.pp .howto { border: 1px solid var(--hair); background: var(--paper); }
+.pp .howto > summary { cursor: pointer; list-style: none; min-height: 48px; display: flex; align-items: center; gap: 10px;
+  padding: 6px 14px; }
+.pp .howto > summary::-webkit-details-marker { display: none; }
+.pp .howto > summary::after { content: "+"; font: 500 22px/1 var(--jost); margin-left: auto; }
+.pp .howto[open] > summary::after { content: "\2212"; }
+.pp .howto h3 { font-size: 18px; font-weight: 600; }
+.pp .howto-body { padding: 4px 14px 14px; display: flex; flex-direction: column; gap: 8px; max-width: 68ch; }
+.pp .ckey { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; }
+.pp .ckey span { display: inline-flex; align-items: center; gap: 6px; }
+.pp .ckey i { display: inline-block; width: 12px; height: 12px; border: 1px solid var(--ink); border-radius: 2px; }
+
+/* tables of rows: a table on wide screens, a stack of labelled rows on a phone */
+.pp .rows-t { width: 100%; border-collapse: collapse; border: 1px solid var(--ink); font-size: 16px; }
+.pp .rows-t th[scope="col"] { font: 500 15px/1.3 var(--jost); text-align: left; padding: 8px 12px; border-bottom: 2px solid var(--ink); vertical-align: bottom; }
+.pp .rows-t td, .pp .rows-t th[scope="row"] { padding: 10px 12px; border-bottom: 1px solid var(--hair); vertical-align: top; text-align: left; }
+.pp .rows-t th[scope="row"] { font-weight: 600; }
+.pp .rows-t small { display: block; font: 400 14px/1.35 var(--sans); color: var(--ink-2); }
+.pp .cando td.can { font-weight: 600; }
+.pp .cando td.last { font: 500 16px/1.35 var(--jost); white-space: nowrap; }
+.pp .cando td.last small { white-space: normal; }
+@media (max-width: 719px) {
+  .pp .rows-t thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .pp .rows-t, .pp .rows-t tbody, .pp .rows-t tr, .pp .rows-t td, .pp .rows-t th[scope="row"] { display: block; }
+  .pp .rows-t tr { padding: 10px 12px 12px; border-bottom: 1px solid var(--hair); }
+  .pp .rows-t tr:last-child { border-bottom: 0; }
+  .pp .rows-t td, .pp .rows-t th[scope="row"] { padding: 0; border: 0; }
+  .pp .rows-t td { margin-top: 6px; }
+  .pp .rows-t td[data-label]::before { content: attr(data-label); display: block; font: 500 13px/1.3 var(--jost); color: var(--ink-2); letter-spacing: 0.02em; }
+  .pp .cando td.last { white-space: normal; }
+}
+@media (min-width: 720px) { .pp .cando td.can { width: 36%; } .pp .cando td.last { width: 18%; } }
+
+/* 3. what runs where: an intro, a table, short sections, a second table and a closing line */
+.pp .runs-text { display: flex; flex-direction: column; gap: 8px; max-width: 60ch; min-width: 0; overflow-wrap: anywhere; }
+.pp .runs-text ul { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; list-style: disc; }
+.pp .runs-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 18px 28px; }
+.pp .runs-s { display: flex; flex-direction: column; gap: 8px; min-width: 0; border-top: 1px solid var(--hair); padding-top: 12px; }
+.pp .runs-s h3, .pp .runs-h { font-size: 19px; font-weight: 600; }
+.pp .runs-h { border-top: 1px solid var(--hair); padding-top: 12px; }
+@media (min-width: 720px) { .pp .runs th[scope="row"] { width: 28%; } }
+@media (min-width: 900px) { .pp .runs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* 5. then, now, next */
+.pp .arc { display: grid; gap: 16px; }
+.pp .arc-s .sheet-body { padding: 18px; gap: 12px; flex: 1; }
+.pp .arc-text { display: flex; flex-direction: column; gap: 8px; }
+.pp .miles { list-style: none; margin: 4px 0 0; padding: 0; border-top: 1px solid var(--hair); font: 500 15px/1.3 var(--jost); }
+.pp .miles li { display: grid; grid-template-columns: 22px 1fr; gap: 2px 8px; padding: 6px 0; border-bottom: 1px solid var(--hair); align-items: start; }
+.pp .miles .mk { width: 14px; height: 14px; margin-top: 2px; border: 2px solid var(--ink); }
+.pp .miles .done .mk { background: var(--ink); }
+.pp .miles .next .mk { border-color: var(--red); background: var(--paper); box-shadow: inset 0 0 0 2px var(--paper), inset 0 0 0 7px var(--red); }
+.pp .miles .when { grid-column: 2; font: 400 14px/1.3 var(--sans); color: var(--ink-2); }
+.pp .miles .next .ml { color: var(--red); }
+@media (min-width: 900px) { .pp .arc { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* 6. the journal */
+.pp .journal { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
+.pp .journal > li { border-bottom: 1px solid var(--hair); }
+.pp .journal summary { cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center;
+  min-height: 56px; padding: 8px 2px; list-style: none; }
+.pp .journal summary::-webkit-details-marker { display: none; }
+.pp .journal summary::after { content: "+"; font: 500 22px/1 var(--jost); grid-row: 1 / span 2; grid-column: 2; }
+.pp .journal details[open] > summary::after { content: "\2212"; }
+.pp .journal .jd { font: 500 14px/1.2 var(--jost); color: var(--ink-2); letter-spacing: 0.02em; }
+.pp .journal .jt { font: 500 19px/1.25 var(--jost); }
+.pp .journal .jb { padding: 2px 2px 16px; display: grid; gap: 14px; }
+.pp .journal h4 { font-size: 15px; letter-spacing: 0.02em; }
+.pp .journal h4.wrong { color: var(--red); }
+.pp .journal ul { margin: 6px 0 0; padding-left: 1.1em; display: flex; flex-direction: column; gap: 6px; max-width: 60ch; }
+@media (min-width: 900px) { .pp .journal .jb { grid-template-columns: 1.2fr 1fr; gap: 28px; } }
+
+/* 7. the receipt */
+.pp .receipt { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--ink); margin: 0; }
+.pp .receipt .row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px 14px; padding: 12px 14px; border-bottom: 1px solid var(--hair); }
+.pp .receipt .row:last-child { border-bottom: 0; }
+.pp .receipt .rk { font: 500 15px/1.3 var(--jost); color: var(--ink-2); }
+.pp .receipt .rv { margin: 0; display: flex; flex-direction: column; gap: 6px; }
+@media (min-width: 720px) { .pp .receipt .row { grid-template-columns: 11em minmax(0, 1fr); } }
+
+/* 8. the core */
+.pp .core { display: flex; flex-direction: column; gap: 20px; }
+.pp .corehead { display: flex; flex-direction: column; gap: 14px; border-top: 2px solid var(--ink); padding-top: 22px; margin-top: 8px; }
+.pp .coregrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.pp .coregrid > .sheet { min-width: 0; }
+.pp .coregrid .sheet-body { flex: 1; }
+.pp .coregrid h3.sheet-title { font-size: 22px; }
+.pp .lines { display: flex; flex-direction: column; gap: 8px; max-width: 52ch; }
+.pp .notes2 { display: grid; gap: 18px; }
+.pp .notes-col { display: flex; flex-direction: column; gap: 12px; min-width: 0; max-width: 52ch; }
+.pp .checks { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; }
+.pp h4.sub { font-size: 18px; font-weight: 600; }
+.pp h5 { font: 600 16px/1.2 var(--jost); margin: 16px 0 0; }
+.pp .parts-body { padding-inline: 14px; }
+@media (min-width: 720px) { .pp .parts-body { padding-inline: 22px; } }
+.pp .partsgrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; align-items: start; }
+.pp .partsgrid > * { min-width: 0; }
+.pp .pblock { display: flex; flex-direction: column; gap: 8px; }
+.pp .tablebox { overflow-x: auto; max-width: 100%; border: 1px solid var(--hair); }
+.pp .plain-t { border-collapse: collapse; width: 100%; font-size: 15px; }
+.pp .plain-t th, .pp .plain-t td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--hair); vertical-align: top; }
+.pp .plain-t thead th { font: 600 14px/1.3 var(--jost); color: var(--ink-2); }
+.pp .plain-t .num { text-align: right; }
+.pp .plain-t .est { font-weight: 400; color: var(--ink-2); font-size: 13px; white-space: nowrap; }
+.pp .plain-t tfoot th, .pp .plain-t tfoot td { font-weight: 600; border-bottom: 0; border-top: 2px solid var(--ink); }
+.pp .parts-t td.num { white-space: nowrap; width: 32%; }
+.pp .parts-t .pn, .pp .meas .pn { font-weight: 500; display: block; }
+.pp .parts-t .pslot { display: block; font: 500 13px/1.3 var(--jost); color: var(--ink-2); }
+.pp .meas td.num { width: 38%; }
+.pp .meas .mnote { display: block; margin-top: 2px; font-size: 13px; color: var(--ink-2); text-align: left; }
+.pp .meas td.num .mnote { text-align: right; }
+.pp .meas .pst { display: inline-block; margin-top: 3px; font: 500 13px/1.3 var(--jost); padding: 0 6px; border: 1px solid var(--hair);
+  border-radius: 3px; color: var(--ink-2); }
+.pp .meas .pst.src-measured { border-color: var(--ink); color: var(--ink); }
+.pp .meas .pst.src-guess { border-color: var(--red); color: var(--red); }
+.pp .meas-g summary { cursor: pointer; min-height: 48px; display: flex; align-items: center; gap: 6px; font: 500 16px/1.3 var(--jost);
+  max-width: 100%; }
+.pp .meas-g .tablebox { margin-bottom: 6px; }
+.pp .figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px 14px; margin: 4px 0 0; }
+.pp .figs div { border-top: 1px solid var(--hair); padding-top: 6px; min-width: 0; }
+.pp .figs dt { font-size: 13px; color: var(--ink-2); }
+.pp .figs dd { margin: 0; font-weight: 500; font-size: 15px; }
+.pp .figs .est { font-weight: 400; color: var(--ink-2); font-size: 13px; }
+.pp .foot-note { max-width: 62ch; }
+.pp .fig { position: relative; margin: 0; }
+.pp .fig svg { width: 100%; height: auto; }
+.pp .fig .ln { stroke: var(--ink); fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.pp .fig .ln2 { stroke: var(--ink); fill: none; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.pp .fig .fill { fill: var(--ink); stroke: none; }
+.pp .fig .pfill { fill: var(--paper); }
+.pp .fig .shade { fill: var(--paper-2); }
+.pp .wiregrid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 20px; }
+.pp .wirefig { max-width: 400px; }
+.pp .wirefig text { font-size: 15px; }
+.pp .wirefig text.sm { font-size: 14px; fill: var(--ink); }
+.pp .wirefig .wb { stroke: var(--ink); stroke-width: 2; }
+.pp .wirefig .wbox { stroke-width: 1.6; }
+.pp .wirefig text.wboxl { font-weight: 600; }
+@media (max-width: 719px) { .pp .wirefig text { font-size: 16px; } .pp .wirefig text.sm { font-size: 15px; } }
+.pp .wire-col { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+@media (min-width: 900px) {
+  .pp .coregrid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .pp .coregrid > .wide { grid-column: 1 / -1; }
+  .pp .notes2 { grid-template-columns: 1.15fr 1fr; gap: 36px; }
+  .pp .wiregrid { grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: start; gap: 32px; }
+  .pp .partsgrid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}

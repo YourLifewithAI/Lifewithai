@@ -3,8 +3,6 @@
 import type { Metadata } from 'next';
 import { SITE } from './site';
 
-const IMAGE = { url: '/opengraph-image', width: 1200, height: 630, alt: `${SITE.name}: ${SITE.line} ${SITE.tagline}` };
-
 export function pageMeta({
   title,
   description,
@@ -14,6 +12,7 @@ export function pageMeta({
   description: string;
   path: string;
 }): Metadata {
+  const image = { url: '/opengraph-image', width: 1200, height: 630, alt: `${SITE.name}: ${SITE.line} ${SITE.tagline}` };
   const shareTitle = title ? `${title} | ${SITE.name}` : `${SITE.name}: ${SITE.line.replace(/\.$/, '')}`;
   return {
     ...(title ? { title } : {}),
@@ -26,8 +25,8 @@ export function pageMeta({
       siteName: SITE.name,
       locale: 'en_US',
       type: 'website',
-      images: [IMAGE],
+      images: [image],
     },
-    twitter: { card: 'summary_large_image', title: shareTitle, description, images: [IMAGE.url] },
+    twitter: { card: 'summary_large_image', title: shareTitle, description, images: [image.url] },
   };
 }

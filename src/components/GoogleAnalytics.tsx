@@ -8,16 +8,27 @@ import {
   startGoogleAnalytics, stopGoogleAnalytics, trackSubstackClick,
 } from '@/lib/google-analytics';
 
-export function AnalyticsSettingsButton({ className }: { className?: string }) {
+// Every word here comes in as props from server components (words/site.md): this file runs in the browser.
+export function AnalyticsSettingsButton({ className, label }: { className?: string; label: string }) {
   return (
     <button type="button" className={className}
       onClick={() => window.dispatchEvent(new Event(ANALYTICS_SETTINGS_EVENT))}>
-      Analytics preferences
+      {label}
     </button>
   );
 }
 
-export default function GoogleAnalytics() {
+export interface AnalyticsWords {
+  label: string; // the banner's name for screen readers
+  heading: string;
+  text: string;
+  link: string; // the link to the privacy page
+  preview: string; // shown only where Google Analytics is switched off
+  decline: string;
+  accept: string;
+}
+
+export default function GoogleAnalytics({ words }: { words: AnalyticsWords }) {
   const [choice, setChoice] = useState<AnalyticsChoice | null>(null);
   const [showChoice, setShowChoice] = useState(false);
   const [available, setAvailable] = useState(false);
@@ -69,20 +80,19 @@ export default function GoogleAnalytics() {
 
   if (!showChoice) return null;
   return (
-    <section aria-label="Analytics preferences"
+    <section aria-label={words.label}
       className="fixed bottom-4 left-4 right-4 z-[100] mx-auto max-w-3xl rounded-xl border border-white/20 bg-[#171a1b] p-5 text-[#f5f2e9] shadow-2xl sm:flex sm:items-center sm:gap-6">
       <div className="flex-1 text-sm leading-relaxed">
-        <p className="font-semibold">Help us understand what you enjoy</p>
-        <p className="mt-1">With your permission, Google Analytics uses cookies to measure visits,
-          reading engagement, and clicks to Substack. You can change your choice at any time.
-          {' '}<Link href="/privacy" className="underline underline-offset-2">About analytics</Link></p>
-        {!available && <p className="mt-1">Google Analytics is inactive on this preview.</p>}
+        <p className="font-semibold">{words.heading}</p>
+        <p className="mt-1">{words.text}
+          {' '}<Link href="/privacy" className="underline underline-offset-2">{words.link}</Link></p>
+        {!available && <p className="mt-1">{words.preview}</p>}
       </div>
       <div className="mt-4 flex shrink-0 gap-3 sm:mt-0">
         <button type="button" onClick={() => choose('declined')}
-          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">Decline</button>
+          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">{words.decline}</button>
         <button type="button" onClick={() => choose('accepted')}
-          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">Accept</button>
+          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">{words.accept}</button>
       </div>
     </section>
   );

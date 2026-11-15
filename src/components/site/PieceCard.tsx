@@ -1,11 +1,15 @@
 import Link from 'next/link';
 import type { Piece } from '@/lib/pieces';
+import { fill } from '@/lib/project';
 import { stageLabel } from '@/lib/site';
-import { topicById } from '@/lib/topics';
+import { topicById } from '@/lib/topic-words';
+import { slot, words } from '@/lib/words';
 import { TopicIcon } from './TopicIcons';
 
 // One card sheet: form, title, who, the receipt, and a title block (piece, topic, stage).
+// The card's own labels are in words/topic-page.md; the piece's words in words/pieces/<id>.md.
 export default function PieceCard({ piece, n, total }: { piece: Piece; n: number; total: number }) {
+  const w = words('topic-page');
   const topic = topicById(piece.topic);
   return (
     <li className="sheet card">
@@ -21,7 +25,7 @@ export default function PieceCard({ piece, n, total }: { piece: Piece; n: number
         </h3>
         <p className="meta">{piece.who}</p>
         <p>{piece.hook}</p>
-        <ul className="chips" aria-label="Main parts">
+        <ul className="chips" aria-label={slot(w, 'Card: main parts, for screen readers')}>
           {piece.receipt.map((c) => (
             <li key={c}>{c}</li>
           ))}
@@ -29,17 +33,15 @@ export default function PieceCard({ piece, n, total }: { piece: Piece; n: number
       </div>
       <div className="tb">
         <div>
-          <b>Piece</b>
-          <span className="num">
-            {n} of {total}
-          </span>
+          <b>{slot(w, 'Card: piece')}</b>
+          <span className="num">{fill(slot(w, 'Card: piece number'), { n, total })}</span>
         </div>
         <div>
-          <b>Topic</b>
+          <b>{slot(w, 'Card: topic')}</b>
           <span>{topic?.verb}</span>
         </div>
         <div>
-          <b>Stage</b>
+          <b>{slot(w, 'Card: stage')}</b>
           <span>{stageLabel(piece.stage)}</span>
         </div>
       </div>

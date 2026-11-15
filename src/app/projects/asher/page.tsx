@@ -1,45 +1,30 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { stageLabel } from '@/lib/site';
-import { PIECES } from '@/lib/pieces';
-import { topicById } from '@/lib/topics';
+import { pieceById } from '@/lib/pieces';
 import { pageMeta } from '@/lib/meta';
+import { asherPage } from '@/content/asher';
+import model from '@/content/asher.model.json';
+import { loadProject, type Model } from '@/lib/project-model';
+import { Arc, CanDo, Core, DrawingSheet, Journal, Receipt, TitleSheet, WhatRunsWhere } from '@/components/site/project/ProjectSheets';
 
-// A stub so links resolve. A later port fills the full build page.
-const asher = PIECES.find((p) => p.id === 'asher')!;
-
-export const metadata: Metadata = pageMeta({ title: 'Asher', description: asher.hook, path: '/projects/asher' });
+export function generateMetadata(): Metadata {
+  return pageMeta({ title: asherPage().name, description: pieceById('asher')!.hook, path: '/projects/asher' });
+}
 
 export default function AsherPage() {
-  const topic = topicById(asher.topic);
+  // The words (words/projects/asher.md) and the model meet here, when the page is built: the reader's browser gets the
+  // finished drawing data.
+  const page = asherPage();
+  const built = loadProject(model as unknown as Model, page);
   return (
-    <div className="sheet">
-      <div className="sheet-body page-head">
-        <p className="form">{asher.form}</p>
-        <h1>{asher.title}</h1>
-        <p className="lead">{asher.hook}</p>
-        <p className="copy">The full build page is on its way.</p>
-      </div>
-      <div className="tb">
-        <div>
-          <b>Builder</b>
-          <span>Ben</span>
-        </div>
-        <div>
-          <b>Topic</b>
-          <span>
-            <Link href={`/topics/${asher.topic}`}>{topic?.verb}</Link>
-          </span>
-        </div>
-        <div>
-          <b>Stage</b>
-          <span>{stageLabel(asher.stage)}</span>
-        </div>
-        <div>
-          <b>Status</b>
-          <span>Real, Ben&apos;s bench</span>
-        </div>
-      </div>
-    </div>
+    <article className="pp">
+      <TitleSheet page={page} />
+      <DrawingSheet page={page} drawing={built.drawing} />
+      <WhatRunsWhere page={page} />
+      <CanDo page={page} />
+      <Arc page={page} />
+      <Journal page={page} />
+      <Receipt page={page} />
+      <Core page={page} parts={built.parts} meas={built.measurements} />
+    </article>
   );
 }

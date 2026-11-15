@@ -1,11 +1,13 @@
 // The topic strip: six buildings and two open plots on one ground line, built as a title block.
 // Every topic starts as an open plot (a dashed drawing). Its first interview fills it in.
+// Its words are in words/home.md (the "Topics" and "Open plot" slots) and words/topics/.
 import Link from 'next/link';
-import { TOPICS, OPEN_PLOTS } from '@/lib/topics';
+import { OPEN_PLOTS } from '@/lib/topics';
+import { topics } from '@/lib/topic-words';
 import { interviewsFor } from '@/lib/pieces';
+import { fill } from '@/lib/project';
+import { slot, words } from '@/lib/words';
 import { TopicIcon } from './TopicIcons';
-
-const countWords = (n: number) => (n === 0 ? 'Open' : n === 1 ? '1 interview' : `${n} interviews`);
 
 export default function Strip({
   current,
@@ -16,14 +18,17 @@ export default function Strip({
   headingId?: string;
   intro?: string;
 }) {
+  const w = words('home');
+  const countWords = (n: number) =>
+    n === 0 ? slot(w, 'Topic count: none') : n === 1 ? slot(w, 'Topic count: one') : fill(slot(w, 'Topic count: more'), { n });
   return (
     <div className="topics">
       <div className="topics-head">
-        <h2 id={headingId}>Topics</h2>
+        <h2 id={headingId}>{slot(w, 'Topics heading')}</h2>
       </div>
       {intro ? <p className="topics-intro">{intro}</p> : null}
       <ul className="strip" aria-labelledby={headingId}>
-        {TOPICS.map((t) => {
+        {topics().map((t) => {
           const n = interviewsFor(t.id).length;
           return (
             <li key={t.id}>
@@ -52,9 +57,9 @@ export default function Strip({
               </span>
               <span className="plate">
                 <span className="flag" aria-hidden="true" />
-                <span className="verb">Open plot</span>{' '}
+                <span className="verb">{slot(w, 'Open plot')}</span>{' '}
                 <span className="count">
-                  <span className="vh">A topic we haven&apos;t named yet.</span>
+                  <span className="vh">{slot(w, 'Open plot, for screen readers')}</span>
                 </span>
               </span>
             </a>
@@ -62,8 +67,8 @@ export default function Strip({
         ))}
       </ul>
       <p className="strip-key">
-        <span className="key-flag" aria-hidden="true" />A dashed drawing is an open plot. It fills in, with a flag,
-        when the topic&apos;s first interview goes up.
+        <span className="key-flag" aria-hidden="true" />
+        {slot(w, 'Topics: the key under the drawings')}
       </p>
     </div>
   );

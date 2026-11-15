@@ -1,0 +1,134 @@
+/* The drawing engine's look, on the site's Drawing Set tokens. Every rule sits under .pp .pd so it cannot reach
+   anything else on the site. Ported from the studio's round 4 drawing.css, as-built only (no swap panel, checks,
+   presets or software sheet). The part colours sit on .pp so the how-to's colour key can use them too. */
+.pp {
+  --sheet: var(--paper);
+  --grid: var(--paper-2);
+  --grid2: color-mix(in srgb, var(--hair) 70%, var(--paper));
+  --rule: var(--hair);
+  --rule2: color-mix(in srgb, var(--hair) 50%, var(--ink-2));
+  --select: var(--red);
+  --select-soft: color-mix(in srgb, var(--red) 12%, var(--paper));
+  --edge: var(--ink);
+  --f-structure: #E3EAF0; --f-pillar: #C9A86A; --f-board: #7FB29A; --f-compute: #7A86C9; --f-power: #8A93A3;
+  --f-sensor: #D28B5B; --f-drive: #5A6470;
+}
+.pp .pd { font-variant-numeric: tabular-nums; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .pp {
+    --f-structure: #3A4651; --f-pillar: #B08E4F; --f-board: #4F8A6E; --f-compute: #6B78BE;
+    --f-power: #7B8491; --f-sensor: #C27B4C; --f-drive: #3C444D;
+  }
+}
+:root[data-theme="dark"] .pp {
+  --f-structure: #3A4651; --f-pillar: #B08E4F; --f-board: #4F8A6E; --f-compute: #6B78BE;
+  --f-power: #7B8491; --f-sensor: #C27B4C; --f-drive: #3C444D;
+}
+.pp .pd h3 { font-family: var(--jost); font-weight: 600; line-height: 1.15; margin: 0; font-size: 18px; }
+.pp .pd button, .pp .pd input { font: inherit; color: inherit; }
+.pp .pd button { cursor: pointer; }
+.pp .pd .small { font-size: 14px; color: var(--ink-2); }
+
+.pp .pd .chip { display: inline-block; font-family: var(--jost); font-size: 14px; font-weight: 500; padding: 2px 8px;
+  border: 1px solid var(--ink-2); border-radius: 3px; }
+.pp .pd .pd-status { margin: 0 0 10px; }
+
+/* the workspace: one column on a phone; the model across the top and the panes side by side on a wide screen */
+.pp .pd .ws { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+.pp .pd .pane, .pp .pd .model { background: var(--sheet); border: 1px solid var(--rule); min-width: 0; }
+.pp .pd .pane > .ph { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px;
+  padding: 10px 14px 8px; border-bottom: 1px solid var(--rule); }
+.pp .pd .pane > .pb { padding: 12px 14px 14px; }
+@media (min-width: 760px) {
+  .pp .pd .ws { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "model model" "props tree"; align-items: start; }
+  .pp .pd .ws > .model { grid-area: model; }
+  .pp .pd .ws > .props { grid-area: props; }
+  .pp .pd .ws > .tree { grid-area: tree; }
+}
+
+/* the model sheet */
+.pp .pd .pd-sheet { position: relative; width: 100%; height: 420px; overflow: hidden; touch-action: pan-y;
+  user-select: none; -webkit-user-select: none; cursor: grab; }
+@media (min-width: 760px) { .pp .pd .pd-sheet { height: 480px; } }
+.pp .pd .pd-sheet.dragging { cursor: grabbing; }
+.pp .pd .pd-sheet svg { display: block; width: 100%; height: 100%; max-width: none; }
+.pp .pd .pd-sheet .part { pointer-events: none; }
+.pp .pd .pd-sheet .tap { fill: transparent; stroke: transparent; stroke-width: 6; stroke-linejoin: round; cursor: pointer; }
+.pp .pd .pd-sheet .hitg:focus { outline: none; }
+.pp .pd .pd-sheet .hit { fill: none; stroke: transparent; stroke-width: 3; stroke-linejoin: round; pointer-events: none; }
+.pp .pd .pd-sheet .hitg:focus-visible .hit { stroke: var(--select); stroke-width: 3; stroke-dasharray: 4 3; }
+.pp .pd .pd-sheet .face { stroke: var(--edge); stroke-width: 1; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.pp .pd .pd-sheet .side { stroke: none; }
+.pp .pd .pd-sheet .sil { fill: none; stroke: var(--edge); stroke-width: 1; stroke-linejoin: round; }
+.pp .pd .pd-sheet .part.quiet .sil { stroke-opacity: 0.45; }
+.pp .pd .pd-sheet .part.sel .sil { stroke: var(--select); stroke-width: 2.25; stroke-opacity: 1; }
+.pp .pd .pd-sheet .labels { pointer-events: none; }
+.pp .pd .pd-sheet .leader { fill: none; stroke: var(--ink-2); stroke-width: 1; }
+.pp .pd .pd-sheet .leader-dot { fill: var(--ink-2); }
+.pp .pd .pd-sheet .numc { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.2; }
+.pp .pd .pd-sheet .num { font: 600 12px/1 var(--jost); fill: var(--ink); }
+.pp .pd .pd-sheet .lab { font: 500 13px/1 var(--jost); fill: var(--ink); letter-spacing: 0.01em; }
+.pp .pd .pd-sheet .lab-bg { fill: var(--sheet); stroke: none; opacity: 0.92; }
+.pp .pd .pd-sheet .tbt { font: 500 13px/1 var(--jost); fill: var(--ink-2); }
+.pp .pd .pd-sheet .tbt-strong { fill: var(--ink); }
+.pp .pd .pd-sheet .tbt-box { fill: var(--sheet); stroke: var(--rule2); stroke-width: 1; }
+.pp .pd .pd-sheet .scale { stroke: var(--ink-2); stroke-width: 1.5; fill: var(--ink-2); }
+.pp .pd .pd-sheet .triad { stroke: var(--ink-2); stroke-width: 1.2; fill: none; }
+.pp .pd .pd-sheet .triad-t { font: 500 12px/1 var(--jost); fill: var(--ink-2); }
+.pp .pd .pd-sheet .gridline { stroke: var(--grid); stroke-width: 1; }
+.pp .pd .pd-sheet .gridline.major { stroke: var(--grid2); }
+.pp .pd .tbline { padding: 6px 12px 0; font-family: var(--jost); font-size: 13px; color: var(--ink-2); }
+.pp .pd .keylist { margin: 0; padding: 6px 12px 4px; list-style: none; display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px 14px; font-size: 14px; }
+.pp .pd .keylist li { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.pp .pd .keylist b { flex: 0 0 22px; height: 22px; border: 1px solid var(--ink); border-radius: 50%; text-align: center;
+  font: 600 12px/20px var(--jost); align-self: center; }
+
+/* the controls under the sheet: Labels and Explode (turning is by drag only) */
+.pp .pd .pd-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 10px 12px;
+  border-top: 1px solid var(--rule); }
+.pp .pd .vb { min-height: 48px; min-width: 48px; padding: 0 14px; border: 1px solid var(--ink-2); background: var(--sheet);
+  border-radius: 3px; font-family: var(--jost); font-weight: 500; font-size: 16px; letter-spacing: 0.01em; }
+.pp .pd .vb[aria-pressed="true"] { background: var(--select); border-color: var(--select); color: var(--paper); }
+.pp .pd .rng { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.pp .pd .rng label { font-family: var(--jost); font-weight: 500; white-space: nowrap; }
+.pp .pd .rng input[type="range"] { flex: 1 1 auto; min-width: 0; height: 48px; margin: 0; padding: 0; border: 0;
+  background: none; accent-color: var(--select); }
+.pp .pd .explode { flex: 1 1 200px; }
+.pp .pd .explode output { min-width: 3.2ch; text-align: right; font-size: 14px; color: var(--ink-2); }
+.pp .pd .hint { padding: 0 12px 10px; }
+
+/* the selected part */
+.pp .pd .props .name { font-family: var(--jost); font-size: 22px; font-weight: 600; line-height: 1.15; }
+.pp .pd .props .slotline { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+.pp .pd .props .does { margin-top: 10px; max-width: 62ch; }
+.pp .pd .figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 8px 14px; margin: 12px 0 0; }
+.pp .pd .figs div { border-top: 1px solid var(--rule); padding-top: 6px; min-width: 0; }
+.pp .pd .figs dt { font-size: 13px; color: var(--ink-2); }
+.pp .pd .figs dd { margin: 0; font-weight: 500; font-size: 15px; overflow-wrap: anywhere; }
+.pp .pd .figs .est { font-weight: 400; color: var(--ink-2); font-size: 13px; }
+.pp .pd .status { display: inline-block; margin-top: 10px; font-family: var(--jost); font-weight: 500; font-size: 14px;
+  padding: 2px 8px; border-radius: 3px; border: 1px solid var(--ink); }
+.pp .pd .props .note { margin-top: 10px; font-size: 14px; color: var(--ink-2); max-width: 62ch; }
+
+/* the parts on the robot */
+.pp .pd .tree > summary { cursor: pointer; list-style: none; min-height: 48px; align-items: center; }
+.pp .pd .tree > summary::-webkit-details-marker { display: none; }
+.pp .pd .tree > summary::after { content: "+"; font: 500 22px/1 var(--jost); }
+.pp .pd .tree[open] > summary::after { content: "\2212"; }
+.pp .pd .tree:not([open]) > summary { border-bottom: 0; }
+.pp .pd .tree > summary h3 { margin-right: auto; }
+.pp .pd .tree ul { list-style: none; margin: 0; padding: 0; }
+.pp .pd .tree > .pb { padding: 6px 0 8px; }
+.pp .pd .tree .slot { padding: 8px 14px 2px; font-family: var(--jost); font-weight: 500; font-size: 14px; color: var(--ink-2); }
+.pp .pd .tree .pbtn { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 48px; padding: 6px 14px 6px 12px;
+  border: 0; border-left: 3px solid transparent; background: none; text-align: left; line-height: 1.3; }
+.pp .pd .tree .pbtn:hover { background: color-mix(in srgb, var(--select) 8%, transparent); }
+.pp .pd .tree .pbtn[aria-pressed="true"] { border-left-color: var(--select); background: var(--select-soft); }
+.pp .pd .tree .sw { flex: 0 0 12px; width: 12px; height: 12px; border: 1px solid var(--edge); border-radius: 2px; }
+.pp .pd .tree .pbtn .t { min-width: 0; }
+.pp .pd .tree .pbtn .t small { display: block; font-size: 13px; color: var(--ink-2); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .pp .pd .vb, .pp .pd .pbtn { transition: background-color 120ms, border-color 120ms; }
+}

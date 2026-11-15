@@ -1,11 +1,19 @@
 // A plan drawing of Asher from above, in the drawing-set line style. Front is to the right.
-export default function AsherPlan() {
+// Its words come from words/home.md (the "Spotlight drawing" slots), passed in by the front page.
+export interface AsherPlanWords {
+  label: string; // read out in place of the drawing
+  powerBank: string;
+  computer: string;
+  webcam: string;
+  sensor: string;
+  wheel: string;
+  front: string;
+  note: string;
+}
+
+export default function AsherPlan({ words }: { words: AsherPlanWords }) {
   return (
-    <svg
-      viewBox="0 0 320 240"
-      role="img"
-      aria-label="Plan drawing of Asher from above: four mecanum wheels, the computer at the front, the power bank at the rear, a webcam and a distance sensor on the front edge"
-    >
+    <svg viewBox="0 0 320 240" role="img" aria-label={words.label}>
       {/* the deck */}
       <rect className="ln pfill" x="70" y="80" width="180" height="80" />
       {/* four wheels with angled rollers, and their motors */}
@@ -22,7 +30,7 @@ export default function AsherPlan() {
       <rect className="shade" x="82" y="92" width="80" height="56" />
       <rect className="ln" x="82" y="92" width="80" height="56" />
       <text className="sm" x="122" y="124" textAnchor="middle">
-        Power bank
+        {words.powerBank}
       </text>
       {/* front plate: the computer in its fan case */}
       <rect className="ln pfill" x="178" y="90" width="62" height="60" />
@@ -36,28 +44,28 @@ export default function AsherPlan() {
       {/* labels */}
       <polyline className="ln" points="209,102 209,36 172,36" />
       <text x="168" y="40" textAnchor="end">
-        Computer
+        {words.computer}
       </text>
       <polyline className="ln" points="250,104 266,58 284,58" />
       <text className="sm" x="284" y="50" textAnchor="end">
-        Webcam
+        {words.webcam}
       </text>
       <polyline className="ln" points="276,132 292,196" />
       <text className="sm" x="314" y="212" textAnchor="end">
-        Distance sensor
+        {words.sensor}
       </text>
       <polyline className="ln" points="96,50 70,24 40,24" />
       <text className="sm" x="12" y="18">
-        Mecanum wheel
+        {words.wheel}
       </text>
       {/* front arrow and note */}
       <path className="ln" d="M150 206h44" />
       <path className="fill" d="M200 206l-9-5v10z" />
       <text className="sm" x="150" y="226">
-        Front
+        {words.front}
       </text>
       <text className="sm" x="12" y="232">
-        Plan. Not to scale.
+        {words.note}
       </text>
     </svg>
   );
