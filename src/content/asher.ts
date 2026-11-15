@@ -366,6 +366,7 @@ export function asherPage(): ProjectPage {
     status: slot(w, 'Status'),
     hook: slot(w, 'Hook'),
     intro: paras(w, 'Intro'),
+    photo: { alt: slot(w, 'Photo beside the intro, for screen readers'), caption: slot(w, 'Photo beside the intro: caption') },
     footerNote: slot(w, 'Footnote'),
     words: Object.fromEntries(LABELS.map(([k, name]) => [k, slot(w, name)])) as unknown as ProjectWords,
 
@@ -376,7 +377,6 @@ export function asherPage(): ProjectPage {
       drawnFrom: slot(w, 'Drawn from'),
       scale: slot(w, 'Scale'),
       howTo: paras(w, 'How to read the drawing'),
-      photo: { alt: slot(w, 'Photo beside the drawing, for screen readers'), caption: slot(w, 'Photo beside the drawing: caption') },
       partLabels: Object.fromEntries(
         drawn.map((id) => [id, slot(d, `Part, ${PARTS.find((p) => p[0] === id)![1]}: label on the drawing`)]),
       ),

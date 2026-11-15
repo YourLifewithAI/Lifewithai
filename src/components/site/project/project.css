@@ -26,6 +26,27 @@
 .pp .jumps { display: flex; flex-wrap: wrap; gap: 0 20px; margin: -4px 0; font: 500 15px/1.25 var(--jost); }
 .pp .jumps a { display: inline-flex; align-items: center; min-height: 48px; }
 @media (min-width: 720px) { .pp #p-name { font-size: 52px; } }
+/* the hook and the intro, and the photo beside them (Ben, 2026-11-15: no empty half to the right of the intro). Phone:
+   the photo under the intro. From 860 px: the words on the left, the photo on the right, its column sized so the two
+   end level; the jump links run under both. */
+.pp .title-words { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.pp .title-photo { max-width: 560px; }
+@media (min-width: 860px) {
+  .pp .title-body.has-photo { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px 28px;
+    grid-template-areas: "verb verb" "name name" "words photo" "jumps jumps"; align-items: start; }
+  .pp .title-body.has-photo > .verbline { grid-area: verb; }
+  .pp .title-body.has-photo > #p-name { grid-area: name; }
+  .pp .title-body.has-photo > .title-words { grid-area: words; }
+  .pp .title-body.has-photo > .title-photo { grid-area: photo; max-width: none; }
+  .pp .title-body.has-photo > .jumps { grid-area: jumps; }
+  .pp .title-body.has-photo .lead, .pp .title-body.has-photo .copy { max-width: none; }
+}
+@media (min-width: 1040px) { .pp .title-body.has-photo .intro { font-size: 17px; line-height: 1.55; } }
+/* at full width the words fall short of the photo: the jump links move up under the intro to make up the difference */
+@media (min-width: 1112px) {
+  .pp .title-body.has-photo { grid-template-areas: "verb verb" "name name" "words photo" "jumps photo";
+    grid-template-rows: auto auto auto 1fr; }
+}
 
 /* the stage ladder: three steps rising to the right, a flag planted on this build's step */
 .pp .ladder { list-style: none; margin: 0; padding: 14px 0 0; display: flex; align-items: flex-end;

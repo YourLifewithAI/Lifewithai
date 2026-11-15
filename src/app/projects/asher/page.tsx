@@ -18,8 +18,8 @@ export default function AsherPage() {
   const built = loadProject(model as unknown as Model, page);
   return (
     <article className="pp">
-      <TitleSheet page={page} />
-      <DrawingSheet page={page} drawing={built.drawing} photo={asherSide} />
+      <TitleSheet page={page} photo={asherSide} />
+      <DrawingSheet page={page} drawing={built.drawing} />
       <WhatRunsWhere page={page} />
       <CanDo page={page} />
       <Arc page={page} />

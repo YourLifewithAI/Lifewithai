@@ -28,42 +28,28 @@
   border: 1px solid var(--ink-2); border-radius: 3px; }
 .pp .pd .pd-status { margin: 0 0 10px; }
 
-/* the workspace: one column on a phone; the model across the top and the panes side by side on a wide screen */
+/* the workspace: the model, the selected part and the parts list, one under the other at every width, each as wide as
+   the sheet (Ben, 2026-11-15: no large dead space). Side by side, the short part panel left a long empty column beside
+   the parts list; instead the list runs in columns on a wide screen and the part panel spreads its figures out. */
 .pp .pd .ws { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 /* the boxes' edges are --hair-2: the model is dragged, and the parts list opens and closes */
 .pp .pd .pane, .pp .pd .model { background: var(--sheet); border: 1px solid var(--hair-2); min-width: 0; }
 .pp .pd .pane > .ph { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px;
   padding: 10px 14px 8px; border-bottom: 1px solid var(--rule); }
 .pp .pd .pane > .pb { padding: 12px 14px 14px; }
+/* wide: the part panel's words on the left, its figures on the right; the parts list in two or three columns of even
+   length (a long group runs on into the next column; a heading stays with its first part) */
 @media (min-width: 760px) {
-  .pp .pd .ws { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "model model" "props tree"; align-items: start; }
-  .pp .pd .ws > .model { grid-area: model; }
-  .pp .pd .ws > .props { grid-area: props; }
-  .pp .pd .ws > .tree { grid-area: tree; }
+  .pp .pd .props > .pb { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 28px; align-items: start;
+    grid-template-rows: repeat(5, auto) 1fr; }
+  .pp .pd .props > .pb > .status { justify-self: start; }
+  .pp .pd .props > .pb > * { grid-column: 1; }
+  .pp .pd .props > .pb > .figs { grid-column: 2; grid-row: 1 / span 6; margin-top: 4px; }
+  .pp .pd .tree ul { columns: 2; column-gap: 0; }
+  .pp .pd .tree .slot { break-after: avoid; }
+  .pp .pd .tree .pbtn { break-inside: avoid; }
 }
-
-/* With a photo (ProjectDrawing's aside): the engine fills two roots, the model before the photo and the panes after it,
-   so the page reads in the order it shows. Their wrappers step aside (display: contents), so the boxes and the photo
-   share one grid. Phone: the model, the photo under it, then the part panel and the parts list. From 760 px: the photo
-   under the model, then the two panes side by side. From 900 px: the photo beside the model, the part panel under the
-   photo and the parts list under the model, so neither column runs on beside an empty one. The model's column stays
-   under 600 px there, so the engine numbers the parts and prints the key under the sheet. */
-.pp .pd.has-aside { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start;
-  grid-template-areas: "status" "model" "aside" "props" "tree"; }
-.pp .pd.has-aside > .pd-root, .pp .pd.has-aside .ws { display: contents; }
-.pp .pd.has-aside .pd-status { grid-area: status; margin: 0 0 -6px; }
-.pp .pd.has-aside .ws > .model { grid-area: model; }
-.pp .pd.has-aside .ws > .props { grid-area: props; }
-.pp .pd.has-aside .ws > .tree { grid-area: tree; }
-.pp .pd.has-aside > .pd-photo { grid-area: aside; max-width: 560px; }
-@media (min-width: 760px) {
-  .pp .pd.has-aside { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "status status" "model model" "aside aside" "props tree"; }
-}
-@media (min-width: 900px) {
-  .pp .pd.has-aside { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    grid-template-areas: "status status" "model aside" "model props" "tree props"; }
-  .pp .pd.has-aside > .pd-photo { max-width: none; }
-}
+@media (min-width: 1000px) { .pp .pd .tree ul { columns: 3; } }
 
 /* the model sheet */
 .pp .pd .pd-sheet { position: relative; width: 100%; height: 420px; overflow: hidden; touch-action: pan-y;

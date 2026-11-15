@@ -187,6 +187,7 @@ export interface ProjectPage {
   status: string;
   hook: Words;
   intro: Words[];
+  photo?: { alt: string; caption: Words }; // the words for a photo beside the intro (the page brings the picture)
   footerNote: Words;
   words: ProjectWords;
   drawing: {
@@ -196,7 +197,6 @@ export interface ProjectPage {
     drawnFrom: string;
     scale: string;
     howTo: Words[];
-    photo?: { alt: string; caption: Words }; // the words for a photo beside the drawing (the page brings the picture)
     partLabels: Record<string, string>; // the drawing's label for a part, by slot (or by part id for a fixed part)
     sourceWords: Record<string, string>; // how a size was got, counted in Measurements, by the model's source code
     measGroups: [string, string][]; // [heading, key pattern]; anything left over goes under words.otherSizes

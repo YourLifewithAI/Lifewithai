@@ -17,6 +17,12 @@ On top sit a Raspberry Pi 4 and a webcam, an eMeet C980 Pro, which is also his m
 
 Claude, an AI model, drives him. He speaks in a British voice called Lewis.
 
+# Photo beside the intro, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
+Asher from the side: the webcam at the front, the computer case and coiled cable on top, the controller board in the middle, the power bank on its plate at the back with the motor battery's holder under it, and the yellow mecanum wheels.
+
+# Photo beside the intro: caption (under the photo; placeholder words for Ben to replace)
+Asher from the side.
+
 # Jump links, for screen readers (the name read out for the row of links under the intro)
 On this page
 
@@ -70,12 +76,6 @@ The drawing
 
 # Drawing: under the heading
 Drag to turn him, or tap a part to see what it is. Every part drawn is on the robot today.
-
-# Photo beside the drawing, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
-Asher from the side: the webcam at the front, the computer case and coiled cable on top, the controller board in the middle, the power bank on its plate at the back with the motor battery's holder under it, and the yellow mecanum wheels.
-
-# Photo beside the drawing: caption (under the photo; placeholder words for Ben to replace)
-Asher from the side.
 
 # Drawing status chip (on the drawing’s top corner, and in the part panel when nothing is selected)
 Real and built. In progress.

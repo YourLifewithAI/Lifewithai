@@ -39,7 +39,7 @@ function Ladder({ page, full }: { page: ProjectPage; full?: boolean }) {
 }
 
 // ---- 1. the title sheet ---------------------------------------------------------------------------------------------
-export function TitleSheet({ page }: P) {
+export function TitleSheet({ page, photo }: P & { photo?: StaticImageData }) {
   const w = page.words;
   const topic = topicById(page.topic);
   const jumps: [string, string][] = [
@@ -48,20 +48,39 @@ export function TitleSheet({ page }: P) {
     ['receipt', w.jumpReceipt],
     ['core', w.jumpCore],
   ];
+  const shown = !!(photo && page.photo);
   return (
     <section className="sheet" id="top" aria-labelledby="p-name">
-      <div className="sheet-body">
+      {/* With a photo, the hook and the intro sit beside it on a wide screen (project.css), so the sheet has no empty
+          half; on a phone the photo comes under the intro. */}
+      <div className={shown ? 'sheet-body title-body has-photo' : 'sheet-body title-body'}>
         <p className="verbline">
           <TopicIcon id={page.topic} className="vicon" />
           <span>{topic?.verb}</span>
         </p>
         <h1 id="p-name">{page.name}</h1>
-        <p className="lead">
-          <Rich text={page.hook} />
-        </p>
-        <div className="intro copy">
-          <Paras items={page.intro} />
+        <div className="title-words">
+          <p className="lead">
+            <Rich text={page.hook} />
+          </p>
+          <div className="intro copy">
+            <Paras items={page.intro} />
+          </div>
         </div>
+        {shown ? (
+          <figure className="photo title-photo">
+            <Image
+              src={photo}
+              alt={page.photo!.alt}
+              sizes="(min-width: 1112px) 440px, (min-width: 860px) calc((100vw - 120px) * 0.44), min(560px, calc(100vw - 80px))"
+              loading="eager"
+              fetchPriority="high"
+            />
+            <figcaption>
+              <Rich text={page.photo!.caption} />
+            </figcaption>
+          </figure>
+        ) : null}
         <nav className="jumps" aria-label={w.jumpsLabel}>
           {jumps.map(([to, label]) => (
             <a key={to} href={`#${to}`}>
@@ -116,22 +135,8 @@ const COLOURS = [
 // 900 px the figure is the sheet's width, at most 560 px; from 900 px it is the narrower of two columns (drawing.css).
 // It sits at the fold on a desktop, so it loads straight away. The figure carries a key because it is handed to a client
 // component (ProjectDrawing), whose children React checks as a list.
-export function DrawingSheet({ page, drawing, photo }: P & { drawing: DrawingData; photo?: StaticImageData }) {
+export function DrawingSheet({ page, drawing }: P & { drawing: DrawingData }) {
   const w = page.words, d = page.drawing;
-  const aside =
-    photo && d.photo ? (
-      <figure key="photo" className="photo pd-photo">
-        <Image
-          src={photo}
-          alt={d.photo.alt}
-          sizes="(min-width: 1112px) 440px, (min-width: 900px) calc((100vw - 96px) / 2.3), min(560px, calc(100vw - 67px))"
-          loading="eager"
-        />
-        <figcaption>
-          <Rich text={d.photo.caption} />
-        </figcaption>
-      </figure>
-    ) : null;
   return (
     <section className="sheet" id="drawing" aria-labelledby="h-drawing">
       <div className="sheet-body drawing-body">
@@ -141,7 +146,7 @@ export function DrawingSheet({ page, drawing, photo }: P & { drawing: DrawingDat
         <p className="sheet-sub">
           <Rich text={d.sub} />
         </p>
-        <ProjectDrawing data={drawing} words={w} aside={aside} />
+        <ProjectDrawing data={drawing} words={w} />
         <p className="pending">
           <Rich text={d.pending} />
         </p>
