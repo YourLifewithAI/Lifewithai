@@ -1,5 +1,5 @@
 [build]
-  command = "npm run prebuild && next build"
+  command = "next build"
   publish = ".next"
 
 [context.production.environment]

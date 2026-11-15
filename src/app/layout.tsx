@@ -1,88 +1,71 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import { Geist, Geist_Mono } from 'next/font/google';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import Providers from '@/components/Providers';
+import { Jost, Public_Sans } from 'next/font/google';
 import GoogleAnalytics from '@/components/GoogleAnalytics';
+import HeaderGate from '@/components/site/HeaderGate';
+import SignupForm from '@/components/site/SignupForm';
+import SiteFooter from '@/components/site/SiteFooter';
+import { TopicSprite } from '@/components/site/TopicIcons';
+import { SITE } from '@/lib/site';
 import './globals.css';
-import './arcology/reader.css';
-import './arcology/illustrated-story.css';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const jost = Jost({
+  variable: '--font-jost',
   subsets: ['latin'],
+  weight: ['500', '600', '700'],
 });
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const publicSans = Public_Sans({
+  variable: '--font-public-sans',
   subsets: ['latin'],
+  weight: ['400', '600'],
 });
 
 export const metadata: Metadata = {
   title: {
-    default: 'Life with AI',
-    template: '%s | Life with AI',
+    default: `${SITE.name}: ${SITE.line.replace(/\.$/, '')}`,
+    template: `%s | ${SITE.name}`,
   },
-  description: 'Speculative fiction and collaborative engineering for human-AI futures.',
-  metadataBase: new URL('https://lifewithai.ai'),
-  openGraph: {
-    title: 'Life with AI',
-    description: 'Speculative fiction and collaborative engineering for human-AI futures.',
-    url: 'https://lifewithai.ai',
-    siteName: 'Life with AI',
-    locale: 'en_US',
-    type: 'website',
-    images: [
-      {
-        url: '/opengraph-image.png',
-        width: 1792,
-        height: 1024,
-        alt: 'Life with AI — speculative fiction and engineering for human-AI futures',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Life with AI',
-    description: 'Speculative fiction and collaborative engineering for human-AI futures.',
-    images: ['/opengraph-image.png'],
-  },
-  alternates: {
-    types: {
-      'application/rss+xml': 'https://lifewithai.ai/api/v1/podcast/feed',
-    },
-  },
+  description: SITE.description,
+  metadataBase: new URL(SITE.url),
+  // Pages set their own share title, address and image through pageMeta (src/lib/meta.ts).
+  openGraph: { siteName: SITE.name, locale: 'en_US', type: 'website' },
+  twitter: { card: 'summary_large_image' },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#E2E7F0' },
+    { media: '(prefers-color-scheme: dark)', color: '#07192E' },
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <head>
-        <Script
-          async
-          src="https://plausible.io/js/pa-sEx2qqgf1J4O5wgebsjES.js"
-          strategy="afterInteractive"
-        />
+        <Script async src="https://plausible.io/js/pa-sEx2qqgf1J4O5wgebsjES.js" strategy="afterInteractive" />
         <Script id="plausible-init" strategy="afterInteractive">
           {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
         </Script>
       </head>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
-      >
-        <Providers>
-          <Header />
-          <main className="flex-1">
+      <body className={`${jost.variable} ${publicSans.variable}`}>
+        <a className="skip" href="#main">
+          Skip to content
+        </a>
+        <TopicSprite />
+        <HeaderGate />
+        <div className="wrap">
+          <main id="main" className="view" tabIndex={-1}>
             {children}
           </main>
-          <Footer />
-          <GoogleAnalytics />
-        </Providers>
+          <SignupForm />
+          <SiteFooter />
+        </div>
+        <GoogleAnalytics />
       </body>
     </html>
   );

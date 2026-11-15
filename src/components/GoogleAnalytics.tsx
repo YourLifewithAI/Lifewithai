@@ -80,9 +80,9 @@ export default function GoogleAnalytics() {
       </div>
       <div className="mt-4 flex shrink-0 gap-3 sm:mt-0">
         <button type="button" onClick={() => choose('declined')}
-          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4">Decline</button>
+          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">Decline</button>
         <button type="button" onClick={() => choose('accepted')}
-          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4">Accept</button>
+          className="rounded-md border border-white/40 px-4 py-2 hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#f5f2e9]">Accept</button>
       </div>
     </section>
   );

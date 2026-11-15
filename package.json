@@ -3,14 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "tsx src/lib/index-builder.ts",
-    "validate": "tsx src/lib/validate-runner.ts",
-    "validate:strict": "tsx src/lib/validate-runner.ts --strict",
-    "validate:save": "tsx src/lib/validate-runner.ts --save",
     "dev": "next dev",
-    "build": "npm run prebuild && npm run validate && next build",
+    "build": "next build",
     "start": "next start",
-    "test:arcology": "tsx --test src/lib/arcology-world.test.ts src/lib/living-loop.test.ts"
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test src/lib/google-analytics.test.ts",
+    "legacy:index": "tsx legacy/src/lib/index-builder.ts",
+    "legacy:validate": "tsx legacy/src/lib/validate-runner.ts",
+    "legacy:validate:strict": "tsx legacy/src/lib/validate-runner.ts --strict",
+    "legacy:validate:save": "tsx legacy/src/lib/validate-runner.ts --save",
+    "legacy:test:arcology": "tsx --test legacy/src/lib/arcology-world.test.ts legacy/src/lib/living-loop.test.ts"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^3.0.58",
