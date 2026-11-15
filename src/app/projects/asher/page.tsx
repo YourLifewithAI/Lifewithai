@@ -3,6 +3,7 @@ import { pieceById } from '@/lib/pieces';
 import { pageMeta } from '@/lib/meta';
 import { asherPage } from '@/content/asher';
 import model from '@/content/asher.model.json';
+import asherSide from '@/content/photos/asher-side.jpg';
 import { loadProject, type Model } from '@/lib/project-model';
 import { Arc, CanDo, Core, DrawingSheet, Journal, Receipt, TitleSheet, WhatRunsWhere } from '@/components/site/project/ProjectSheets';
 
@@ -11,14 +12,14 @@ export function generateMetadata(): Metadata {
 }
 
 export default function AsherPage() {
-  // The words (words/projects/asher.md) and the model meet here, when the page is built: the reader's browser gets the
+  // The words (words/projects/asher.md and asher-drawing.md) and the model meet here, when the page is built: the reader's browser gets the
   // finished drawing data.
   const page = asherPage();
   const built = loadProject(model as unknown as Model, page);
   return (
     <article className="pp">
       <TitleSheet page={page} />
-      <DrawingSheet page={page} drawing={built.drawing} />
+      <DrawingSheet page={page} drawing={built.drawing} photo={asherSide} />
       <WhatRunsWhere page={page} />
       <CanDo page={page} />
       <Arc page={page} />

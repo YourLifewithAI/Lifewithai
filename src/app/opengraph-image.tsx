@@ -6,10 +6,11 @@ export const alt = `${SITE.name}: ${SITE.line} ${SITE.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
-const INK = '#2B2F8E';
-const PAPER = '#F3F5F9';
-const TABLE = '#E2E7F0';
-const HAIR = '#B4BAD8';
+// The light pages' tokens (src/app/globals.css)
+const INK = '#1C2630';
+const PAPER = '#F8FAFC';
+const TABLE = '#EEF1F4';
+const HAIR = '#C6CFD8';
 const RED = '#B5362C';
 
 export default function OpengraphImage() {

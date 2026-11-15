@@ -7,32 +7,11 @@ Innovator spotlight
 # Spotlight: more about the build (after the card's one-line hook)
 It has a webcam with microphones and a speaker. Claude looks through the camera, listens, decides, and sends short moves.
 
-# Spotlight: drawing caption
-Asher from above: a sketch of the main parts.
+# Spotlight photo, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
+Asher, a small four-wheeled robot with a webcam and a cat-eared distance sensor.
 
-# Spotlight drawing, for screen readers (what the drawing shows, read out in place of the picture)
-Plan drawing of Asher from above: four mecanum wheels, the computer at the front, the power bank at the rear, a webcam and a distance sensor on the front edge
-
-# Spotlight drawing: power bank (the labels on the drawing)
-Power bank
-
-# Spotlight drawing: computer
-Computer
-
-# Spotlight drawing: webcam
-Webcam
-
-# Spotlight drawing: distance sensor
-Distance sensor
-
-# Spotlight drawing: mecanum wheel
-Mecanum wheel
-
-# Spotlight drawing: front (under the arrow)
-Front
-
-# Spotlight drawing: note (bottom left corner)
-Plan. Not to scale.
+# Spotlight photo: caption (under the photo; placeholder words for Ben to replace)
+Asher, as built.
 
 # Spotlight: main parts, for screen readers (the name read out for the small tags)
 Main parts

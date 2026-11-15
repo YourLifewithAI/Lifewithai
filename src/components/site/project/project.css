@@ -52,7 +52,7 @@
 .pp .drawing-body { padding-inline: 14px; }
 @media (min-width: 720px) { .pp .drawing-body { padding-inline: 22px; } }
 .pp .pending { font: 500 15px/1.4 var(--jost); color: var(--ink-2); border-top: 1px solid var(--hair); padding-top: 12px; }
-.pp .howto { border: 1px solid var(--hair); background: var(--paper); }
+.pp .howto { border: 1px solid var(--hair-2); background: var(--paper); }
 .pp .howto > summary { cursor: pointer; list-style: none; min-height: 48px; display: flex; align-items: center; gap: 10px;
   padding: 6px 14px; }
 .pp .howto > summary::-webkit-details-marker { display: none; }
@@ -110,7 +110,7 @@
 
 /* 6. the journal */
 .pp .journal { list-style: none; margin: 0; padding: 0; border-top: 2px solid var(--ink); }
-.pp .journal > li { border-bottom: 1px solid var(--hair); }
+.pp .journal > li { border-bottom: 1px solid var(--hair-2); } /* each entry opens and closes: its edge is a control's */
 .pp .journal summary { cursor: pointer; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center;
   min-height: 56px; padding: 8px 2px; list-style: none; }
 .pp .journal summary::-webkit-details-marker { display: none; }

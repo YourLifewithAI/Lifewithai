@@ -360,7 +360,8 @@ export function partsList(m: Model, w: Words): PartsList {
   return {
     rows,
     total: '$' + fmt(sum, undefined, 2),
-    totalEst: all.some((x) => x.p.priceEst && x.p.price),
+    // an estimate when any price in it is one, is given in words ("about $60"), or is not known and counts as $0
+    totalEst: all.some((x) => !!(x.p.priceEst && x.p.price) || !!x.p.priceText || x.p.price === null || x.p.price === undefined),
     foot: footPart ? footPart.p.note! : null,
     note: note.join(' '),
     checkedOn: m.pricesCheckedOn,

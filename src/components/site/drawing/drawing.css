@@ -3,8 +3,9 @@
    presets or software sheet). The part colours sit on .pp so the how-to's colour key can use them too. */
 .pp {
   --sheet: var(--paper);
-  --grid: var(--paper-2);
-  --grid2: color-mix(in srgb, var(--hair) 70%, var(--paper));
+  /* the build sketch's grid: half its rule on the sheet for the 10 mm lines, its rule for the 50 mm ones */
+  --grid: color-mix(in srgb, var(--hair) 50%, var(--paper));
+  --grid2: var(--hair);
   --rule: var(--hair);
   --rule2: color-mix(in srgb, var(--hair) 50%, var(--ink-2));
   --select: var(--red);
@@ -14,12 +15,6 @@
   --f-sensor: #D28B5B; --f-drive: #5A6470;
 }
 .pp .pd { font-variant-numeric: tabular-nums; }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) .pp {
-    --f-structure: #3A4651; --f-pillar: #B08E4F; --f-board: #4F8A6E; --f-compute: #6B78BE;
-    --f-power: #7B8491; --f-sensor: #C27B4C; --f-drive: #3C444D;
-  }
-}
 :root[data-theme="dark"] .pp {
   --f-structure: #3A4651; --f-pillar: #B08E4F; --f-board: #4F8A6E; --f-compute: #6B78BE;
   --f-power: #7B8491; --f-sensor: #C27B4C; --f-drive: #3C444D;
@@ -35,7 +30,8 @@
 
 /* the workspace: one column on a phone; the model across the top and the panes side by side on a wide screen */
 .pp .pd .ws { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
-.pp .pd .pane, .pp .pd .model { background: var(--sheet); border: 1px solid var(--rule); min-width: 0; }
+/* the boxes' edges are --hair-2: the model is dragged, and the parts list opens and closes */
+.pp .pd .pane, .pp .pd .model { background: var(--sheet); border: 1px solid var(--hair-2); min-width: 0; }
 .pp .pd .pane > .ph { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px;
   padding: 10px 14px 8px; border-bottom: 1px solid var(--rule); }
 .pp .pd .pane > .pb { padding: 12px 14px 14px; }
@@ -44,6 +40,29 @@
   .pp .pd .ws > .model { grid-area: model; }
   .pp .pd .ws > .props { grid-area: props; }
   .pp .pd .ws > .tree { grid-area: tree; }
+}
+
+/* With a photo (ProjectDrawing's aside): the engine fills two roots, the model before the photo and the panes after it,
+   so the page reads in the order it shows. Their wrappers step aside (display: contents), so the boxes and the photo
+   share one grid. Phone: the model, the photo under it, then the part panel and the parts list. From 760 px: the photo
+   under the model, then the two panes side by side. From 900 px: the photo beside the model, the part panel under the
+   photo and the parts list under the model, so neither column runs on beside an empty one. The model's column stays
+   under 600 px there, so the engine numbers the parts and prints the key under the sheet. */
+.pp .pd.has-aside { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start;
+  grid-template-areas: "status" "model" "aside" "props" "tree"; }
+.pp .pd.has-aside > .pd-root, .pp .pd.has-aside .ws { display: contents; }
+.pp .pd.has-aside .pd-status { grid-area: status; margin: 0 0 -6px; }
+.pp .pd.has-aside .ws > .model { grid-area: model; }
+.pp .pd.has-aside .ws > .props { grid-area: props; }
+.pp .pd.has-aside .ws > .tree { grid-area: tree; }
+.pp .pd.has-aside > .pd-photo { grid-area: aside; max-width: 560px; }
+@media (min-width: 760px) {
+  .pp .pd.has-aside { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); grid-template-areas: "status status" "model model" "aside aside" "props tree"; }
+}
+@media (min-width: 900px) {
+  .pp .pd.has-aside { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    grid-template-areas: "status status" "model aside" "model props" "tree props"; }
+  .pp .pd.has-aside > .pd-photo { max-width: none; }
 }
 
 /* the model sheet */

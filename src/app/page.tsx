@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import Strip from '@/components/site/Strip';
-import AsherPlan from '@/components/site/AsherPlan';
+import ThemeToggle from '@/components/site/ThemeToggle';
+import { themeWords } from '@/components/site/SiteHeader';
+import asherFront from '@/content/photos/asher-front.jpg';
 import { SITE, stageLabel } from '@/lib/site';
 import { topicById } from '@/lib/topic-words';
 import { spotlight } from '@/lib/pieces';
@@ -29,6 +32,7 @@ export default function Home() {
           <a className="btn" href="#signup">
             {slot(words('site'), 'Subscribe button')}
           </a>
+          <ThemeToggle words={themeWords()} />
           <p className="mast-tag">{SITE.tagline}</p>
         </div>
       </div>
@@ -40,22 +44,18 @@ export default function Home() {
         </h2>
         <div className="sheet spot">
           <div className="spot-grid">
+            {/* A photo of Asher as built, in place of the plan drawing (Ben, 2026-11-15: "a proof that I've actually
+                built it"). The drawing, AsherPlan.tsx, stays in the code. sizes: the figure is the full sheet width on
+                a phone, and the left of two columns from 900 px, at most 450 px. */}
             <figure className="photo">
-              <div className="fig">
-                <AsherPlan
-                  words={{
-                    label: slot(w, 'Spotlight drawing, for screen readers'),
-                    powerBank: slot(w, 'Spotlight drawing: power bank'),
-                    computer: slot(w, 'Spotlight drawing: computer'),
-                    webcam: slot(w, 'Spotlight drawing: webcam'),
-                    sensor: slot(w, 'Spotlight drawing: distance sensor'),
-                    wheel: slot(w, 'Spotlight drawing: mecanum wheel'),
-                    front: slot(w, 'Spotlight drawing: front'),
-                    note: slot(w, 'Spotlight drawing: note'),
-                  }}
-                />
-              </div>
-              <figcaption>{slot(w, 'Spotlight: drawing caption')}</figcaption>
+              <Image
+                src={asherFront}
+                alt={slot(w, 'Spotlight photo, for screen readers')}
+                sizes="(min-width: 1112px) 450px, (min-width: 900px) calc((100vw - 122px) / 2.2), calc(100vw - 83px)"
+                loading="eager"
+                fetchPriority="high"
+              />
+              <figcaption>{slot(w, 'Spotlight photo: caption')}</figcaption>
             </figure>
             <div className="spot-words">
               <p className="form">{spot.form}</p>

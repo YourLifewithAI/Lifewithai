@@ -8,6 +8,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "tsx --test src/lib/google-analytics.test.ts",
+    "words:check": "tsx src/lib/words-check.ts",
+    "words:snapshot": "tsx src/lib/words-check.ts --snapshot",
     "legacy:index": "tsx legacy/src/lib/index-builder.ts",
     "legacy:validate": "tsx legacy/src/lib/validate-runner.ts",
     "legacy:validate:strict": "tsx legacy/src/lib/validate-runner.ts --strict",

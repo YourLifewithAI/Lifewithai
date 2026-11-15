@@ -28,6 +28,15 @@ Do this kind of work? Tell us.
 # Subscribe button
 Subscribe
 
+# Colour switch, for screen readers (the name read out for the sun and the moon next to Subscribe; not shown)
+Colour mode
+
+# Colour switch: light (the sun; read out, not shown)
+Light mode
+
+# Colour switch: dark (the moon; read out, not shown)
+Dark mode
+
 # Skip link (the first thing a keyboard or screen reader reaches; it jumps past the header)
 Skip to content
 

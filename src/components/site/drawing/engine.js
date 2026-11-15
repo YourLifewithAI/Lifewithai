@@ -1,7 +1,8 @@
 // @ts-nocheck
-/* The drawing's engine: builds the drawing's markup inside one root element, draws the model, and handles turning,
-   exploding, labels and picking a part. Ported from the studio's round 4 engine (app.js), as-built only: no swaps,
-   checks, presets or software sheet, and one start view (iso). It never touches anything outside its root, and
+/* The drawing's engine: builds the drawing's markup inside a root element (or two: see opts.after), draws the model,
+   and handles turning, exploding, labels and picking a part. Ported from the studio's round 4 engine (app.js), as-built
+   only: no swaps, checks, presets or software sheet, and one start view (iso). It never touches anything outside the
+   elements it is given, and
    mount() returns { destroy } so React can clean up.
 
    Turning is by drag; there are no turn buttons or sliders (Ben, 2026-11-15). A finger drag sideways turns the model;
@@ -29,7 +30,8 @@ function h(tag, attrs, ...kids) {
 }
 
 /* data: DrawingData from src/lib/project-model.ts.
-   opts: { words, id (a unique prefix for ids) } */
+   opts: { words, id (a unique prefix for ids), after (optional: a second element, for the part panel and the parts
+   list, so the page can put something of its own between them and the model) } */
 export function mount(root, data, opts) {
   const W = opts.words, P = opts.id || 'pd';
   // the solids get a geometry cache attached as the model is drawn; keep that off the caller's data
@@ -66,11 +68,16 @@ export function mount(root, data, opts) {
     h('summary', { class: 'ph' }, h('h3', { text: W.partsOnRobot }), h('span', { class: 'small', text: fill(W.partsCount, { n: data.count }) })),
     tree,
   );
+  const after = opts.after || null;
   root.textContent = '';
-  root.append(
-    h('div', { class: 'pd-status' }, h('span', { class: 'chip', text: data.status })),
-    h('div', { class: 'ws' }, model, propsPane, treePane),
-  );
+  const status = h('div', { class: 'pd-status' }, h('span', { class: 'chip', text: data.status }));
+  if (after) {
+    after.textContent = '';
+    root.append(status, h('div', { class: 'ws' }, model));
+    after.append(h('div', { class: 'ws' }, propsPane, treePane));
+  } else {
+    root.append(status, h('div', { class: 'ws' }, model, propsPane, treePane));
+  }
 
   // ---- drawing -------------------------------------------------------------------------------------------------
   const atIso = () => Math.round(((state.t % 360) + 360) % 360) === ISO.t && Math.round(state.p) === ISO.p;
@@ -107,7 +114,8 @@ export function mount(root, data, opts) {
     const pn = (state.sel && data.panels[state.sel]) || data.robotPanel;
     propsHint.textContent = state.sel ? '' : W.selectedHint;
     props.textContent = '';
-    props.append(
+    // Element.append turns a null into the text "null", so the parts a panel lacks are filtered out first
+    props.append(...[
       h('div', { class: 'name', text: pn.name }),
       h('div', { class: 'slotline', text: pn.line }),
       pn.does ? h('p', { class: 'does', text: pn.does }) : null,
@@ -115,7 +123,7 @@ export function mount(root, data, opts) {
         h('div', null, h('dt', { text: f.dt }), h('dd', null, f.dd, f.est ? ' ' : null, f.est ? h('span', { class: 'est', text: f.est }) : null)))),
       h('span', { class: 'status real', text: pn.status }),
       pn.note ? h('p', { class: 'note', text: pn.note }) : null,
-    );
+    ].filter(Boolean));
   }
   function renderTree() {
     tree.textContent = '';
@@ -256,6 +264,7 @@ export function mount(root, data, opts) {
       clearTimeout(rto);
       if (raf) cancelAnimationFrame(raf);
       root.textContent = '';
+      if (after) after.textContent = '';
     },
   };
 }

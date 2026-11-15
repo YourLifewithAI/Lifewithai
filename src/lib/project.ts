@@ -6,8 +6,10 @@ import type { StageId } from './site';
 import type { TopicId } from './topics';
 import type { WordsTable } from './words';
 
-// Text in the data is plain text. A quote is written {{Who: words}} and renders as <q data-by="Who">, so quotes can be
-// counted: only the builder's own words and the project's own lines are quoted.
+// Text in the data is words as typed. Where the page shows it through Rich (src/components/site/project/Rich.tsx),
+// inline Markdown works (**bold**, *italic*, [links](https://...), `code`). A quote is written {{Who: words}} and
+// renders as <q data-by="Who">, so quotes can be counted: only the builder's own words and the project's own lines
+// are quoted.
 export type Words = string;
 
 // A template: {name} is filled in by the page, e.g. 'Built by {builder} with Claude'.
@@ -194,6 +196,7 @@ export interface ProjectPage {
     drawnFrom: string;
     scale: string;
     howTo: Words[];
+    photo?: { alt: string; caption: Words }; // the words for a photo beside the drawing (the page brings the picture)
     partLabels: Record<string, string>; // the drawing's label for a part, by slot (or by part id for a fixed part)
     sourceWords: Record<string, string>; // how a size was got, counted in Measurements, by the model's source code
     measGroups: [string, string][]; // [heading, key pattern]; anything left over goes under words.otherSizes

@@ -2,6 +2,7 @@
 // (words/projects/<id>.md, read by src/content/<id>.ts) and the site's words; the model (src/content/<id>.model.json),
 // prepared by src/lib/project-model.ts, gives the drawing its shapes.
 // Ported from the studio's round 4 template (page.html and page.js).
+import Image, { type StaticImageData } from 'next/image';
 import Link from 'next/link';
 import { stages } from '@/lib/site';
 import { topicById } from '@/lib/topic-words';
@@ -111,8 +112,26 @@ const COLOURS = [
   ['pillar', 'colourPillars'],
 ] as const;
 
-export function DrawingSheet({ page, drawing }: P & { drawing: DrawingData }) {
+// photo: a picture of the build as it is, shown beside the drawing on a wide screen and under it on a phone. sizes: under
+// 900 px the figure is the sheet's width, at most 560 px; from 900 px it is the narrower of two columns (drawing.css).
+// It sits at the fold on a desktop, so it loads straight away. The figure carries a key because it is handed to a client
+// component (ProjectDrawing), whose children React checks as a list.
+export function DrawingSheet({ page, drawing, photo }: P & { drawing: DrawingData; photo?: StaticImageData }) {
   const w = page.words, d = page.drawing;
+  const aside =
+    photo && d.photo ? (
+      <figure key="photo" className="photo pd-photo">
+        <Image
+          src={photo}
+          alt={d.photo.alt}
+          sizes="(min-width: 1112px) 440px, (min-width: 900px) calc((100vw - 96px) / 2.3), min(560px, calc(100vw - 67px))"
+          loading="eager"
+        />
+        <figcaption>
+          <Rich text={d.photo.caption} />
+        </figcaption>
+      </figure>
+    ) : null;
   return (
     <section className="sheet" id="drawing" aria-labelledby="h-drawing">
       <div className="sheet-body drawing-body">
@@ -122,7 +141,7 @@ export function DrawingSheet({ page, drawing }: P & { drawing: DrawingData }) {
         <p className="sheet-sub">
           <Rich text={d.sub} />
         </p>
-        <ProjectDrawing data={drawing} words={w} />
+        <ProjectDrawing data={drawing} words={w} aside={aside} />
         <p className="pending">
           <Rich text={d.pending} />
         </p>

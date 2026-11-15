@@ -7,6 +7,7 @@ import SiteFooter from '@/components/site/SiteFooter';
 import SiteHeader from '@/components/site/SiteHeader';
 import { TopicSprite } from '@/components/site/TopicIcons';
 import { SITE } from '@/lib/site';
+import { THEME_COLOR, themeScript } from '@/lib/theme';
 import { topics } from '@/lib/topic-words';
 import { inline, slot, words } from '@/lib/words';
 import './globals.css';
@@ -41,17 +42,23 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#E2E7F0' },
-    { media: '(prefers-color-scheme: dark)', color: '#07192E' },
-  ],
+  // No themeColor here: the head script adds the one theme-color tag, light or dark (src/lib/theme.ts).
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   // The sign-up form and the analytics banner run in the browser, so their words go to them as props.
   const w = words('site');
   return (
-    <html lang="en">
+    // The head script may set data-theme="dark" before React starts, so <html> is allowed to differ from the server's.
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        {/* A saved dark choice, applied before the first paint so no page flashes light first, and the browser's bar
+            colour to match. Without JavaScript the script doesn't run, and the light bar colour comes from here. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <noscript>
+          <meta name="theme-color" content={THEME_COLOR.light} />
+        </noscript>
+      </head>
       <body className={`${jost.variable} ${publicSans.variable}`}>
         <a className="skip" href="#main">
           {slot(w, 'Skip link')}

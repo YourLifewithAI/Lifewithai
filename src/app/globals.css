@@ -3,25 +3,23 @@
    one ink plus a red pencil. Plain CSS; Tailwind stays loaded only for the analytics consent banner. */
 @import "tailwindcss" source("../");
 
-/* ---------- tokens ---------- */
+/* ---------- tokens ----------
+   The palette of the Asher build sketch (design-stage/round2/asher/src/style.css; Ben, 2026-11-15: "the background was
+   off-white"): --table is its desk, --paper its sheet, --paper-2 sits between them, --ink and --ink-2 are its inks,
+   --hair its rule. --hair-2 is a hairline dark enough (3:1) to mark the edge of a control. The red pencil stays.
+   Light for every reader; dark only when they pick the moon by Subscribe (data-theme="dark" on <html>, set before the
+   first paint by the script in src/app/layout.tsx). The theme-color values in src/lib/theme.ts match --paper (the sticky bar). */
 :root {
-  --table: #E2E7F0; --paper: #F3F5F9; --paper-2: #E9EDF4;
-  --ink: #2B2F8E; --ink-2: #5A5EA6; --hair: #B4BAD8; --red: #B5362C; --focus: #B5362C;
+  --table: #EEF1F4; --paper: #F8FAFC; --paper-2: #F1F4F6;
+  --ink: #1C2630; --ink-2: #45525F; --hair: #C6CFD8; --hair-2: #737F8B; --red: #B5362C; --focus: #B5362C;
   --jost: var(--font-jost), "Jost", "Futura", "Century Gothic", "Avenir Next", sans-serif;
   --sans: var(--font-public-sans), "Public Sans", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --fs: 17px;
   color-scheme: light;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --table: #07192E; --paper: #11315A; --paper-2: #17406F;
-    --ink: #DCE7F5; --ink-2: #A9BEDB; --hair: #3F6590; --red: #F39A82; --focus: #F39A82;
-    color-scheme: dark;
-  }
-}
 :root[data-theme="dark"] {
-  --table: #07192E; --paper: #11315A; --paper-2: #17406F;
-  --ink: #DCE7F5; --ink-2: #A9BEDB; --hair: #3F6590; --red: #F39A82; --focus: #F39A82;
+  --table: #151B21; --paper: #1B232B; --paper-2: #171D24;
+  --ink: #E4EAF0; --ink-2: #A9B5C1; --hair: #33404C; --hair-2: #707D8B; --red: #F39A82; --focus: #F39A82;
   color-scheme: dark;
 }
 
@@ -67,6 +65,20 @@ main[tabindex="-1"]:focus { outline: none; }
 .brand:hover { text-decoration: underline; color: inherit; }
 .bar-line { font: 500 15px/1.2 var(--jost); color: var(--ink-2); }
 @media (max-width: 479px) { .bar-line { display: none; } }
+
+/* ---------- the sun and the moon by Subscribe: light or dark pages (src/components/site/ThemeToggle.tsx) ---------- */
+.theme { display: inline-flex; flex: none; }
+.theme-btn { width: 44px; height: 48px; margin: 0; padding: 0; display: inline-flex; align-items: center; justify-content: center;
+  border: 2px solid var(--ink); border-radius: 0; background: var(--paper); color: var(--ink); cursor: pointer; }
+.theme-btn + .theme-btn { margin-left: -2px; }
+.theme-btn:hover { background: var(--paper-2); }
+.theme-btn svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6px; stroke-linecap: round;
+  stroke-linejoin: round; }
+.theme-btn svg * { vector-effect: non-scaling-stroke; }
+/* The chosen one is filled. Keyed to data-theme, which is set before the first paint, so it is right before React runs. */
+:root:not([data-theme="dark"]) .theme-light, :root[data-theme="dark"] .theme-dark { background: var(--ink); color: var(--paper);
+  cursor: default; }
+.theme-btn:focus-visible { position: relative; z-index: 1; }
 
 /* ---------- sheets ---------- */
 .sheet { background: var(--paper); border: 2px solid var(--ink); position: relative;
@@ -146,14 +158,17 @@ svg text.sm { font-size: 16px; font-weight: 500; fill: var(--ink-2); }
 .mast { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 2px 12px; align-items: center; padding: 22px 20px 12px; }
 .mast h1 { grid-column: 1; grid-row: 1; font-size: 30px; font-weight: 700; letter-spacing: -0.015em; line-height: 1.05; }
 .mast .btn { grid-column: 2; grid-row: 1; }
-.mast-line { grid-column: 1 / -1; grid-row: 2; font: 500 24px/1.15 var(--jost); letter-spacing: -0.005em; }
-.mast-tag { grid-column: 1 / -1; grid-row: 3; font: 500 17px/1.3 var(--jost); margin-top: 8px; max-width: 52ch; }
+.mast-line { grid-column: 1; grid-row: 2; font: 500 24px/1.15 var(--jost); letter-spacing: -0.005em; }
+.mast-tag { grid-column: 1; grid-row: 3; font: 500 17px/1.3 var(--jost); margin-top: 8px; max-width: 52ch; }
+/* on a phone the sun and moon sit under Subscribe, beside the line and the tagline */
+.mast .theme { grid-column: 2; grid-row: 2 / span 2; justify-self: end; align-self: start; margin-top: 8px; }
 @media (min-width: 900px) {
-  .mast { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 16px; align-items: baseline; padding: 30px 28px 16px; }
+  .mast { grid-template-columns: auto minmax(0, 1fr) auto auto; column-gap: 16px; align-items: baseline; padding: 30px 28px 16px; }
   .mast h1 { font-size: 44px; }
   .mast-line { grid-column: 2; grid-row: 1; font-size: 44px; line-height: 1.05; }
   .mast .btn { grid-column: 3; align-self: center; }
-  .mast-tag { grid-row: 2; font-size: 20px; margin-top: 6px; }
+  .mast .theme { grid-column: 4; grid-row: 1; align-self: center; margin-top: 0; }
+  .mast-tag { grid-column: 1 / -1; grid-row: 2; font-size: 20px; margin-top: 6px; }
 }
 
 /* ---------- the topic strip, built like a title block; one ground line under every icon ---------- */
@@ -200,8 +215,11 @@ svg text.sm { font-size: 16px; font-weight: 500; fill: var(--ink-2); }
 /* ---------- spotlight ---------- */
 .block { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
 .spot-grid { display: grid; gap: 18px; padding: 22px 22px 20px; }
-@media (min-width: 900px) { .spot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 30px; padding: 28px; align-items: start; } }
+/* the photo (5:4) stands a little taller than the plan drawing did (4:3): its column is a touch narrower, so the two
+   columns end near each other */
+@media (min-width: 900px) { .spot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 30px; padding: 28px; align-items: start; } }
 .photo { margin: 0; border: 1.5px solid var(--ink); display: flex; flex-direction: column; min-width: 0; background: var(--paper); }
+.photo img { display: block; width: 100%; height: auto; }
 .photo .fig svg { aspect-ratio: 4 / 3; }
 .photo svg text { font-size: 13px; }
 .photo svg text.sm { font-size: 12px; }

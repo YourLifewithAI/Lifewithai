@@ -1,6 +1,9 @@
 ---
 ben_pass: no
 ---
+The drawing's own words (each part, each plate and each size, as the part panel, the parts list and Measurements
+show them) are in asher-drawing.md, next to this file.
+
 # Title
 Asher
 
@@ -67,6 +70,12 @@ The drawing
 
 # Drawing: under the heading
 Drag to turn him, or tap a part to see what it is. Every part drawn is on the robot today.
+
+# Photo beside the drawing, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
+Asher from the side: the webcam at the front, the computer case and coiled cable on top, the controller board in the middle, the power bank on its plate at the back with the motor battery's holder under it, and the yellow mecanum wheels.
+
+# Photo beside the drawing: caption (under the photo; placeholder words for Ben to replace)
+Asher from the side.
 
 # Drawing status chip (on the drawing’s top corner, and in the part panel when nothing is selected)
 Real and built. In progress.
@@ -383,7 +392,7 @@ Be driven from a phone or a browser, in every direction, with live video and two
 a remote driver, 15-20 min
 
 # Can do 1: how well
-Works. The audio on an iPhone ran about 3 s late.
+Worked then; the audio on an iPhone ran about 3 s late. Not sure it still works: remote driving hasn't been tried since the card was rebuilt on 2026-11-14.
 
 # Can do 2: he can
 Drive himself, with Claude choosing each move from a photo and the distance sensor
@@ -516,200 +525,200 @@ What changed
 # Journal: what went wrong label
 What went wrong
 
-# Journal 1: date (newest first; the entries run in number order)
+# Journal entry: date (one entry is four slots, date to what went wrong. The page shows them in this order, newest first: to add one, copy a whole entry and paste it above this one)
 2026-11-15
 
-# Journal 1: title
+# Journal entry: title
 Hide and seek, built
 
-# Journal 1: what changed (a list)
+# Journal entry: what changed (a list)
 - Hide and seek, with Claude as the seeker, is built and tested on the laptop. Players show him a toy, hide it while he counts aloud, then follow him and call out clues. He looks all round each room and asks {{Asher: Is that it?}} when he thinks he sees it.
 
-# Journal 1: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - Not played yet. It waits on a charged motor pack.
 
-# Journal 2: date
+# Journal entry: date
 2026-11-15
 
-# Journal 2: title
+# Journal entry: title
 A quick talker, and the false alarms it exposed
 
-# Journal 2: what changed (a list)
+# Journal entry: what changed (a list)
 - Listening moved to the laptop: 0.14 s a clip instead of 2.5 s, and 20 of 20 test lines right, against 6 on the Pi. The Pi keeps its own small model as a backup.
 - Ben’s split: a big model drives, a small fast one (Haiku) talks. In his words, the big model is {{Ben: far too reasoning intensive and slow to respond quickly enough for interacting with Asher to be fun.}} The talking half came first. It only talks and never moves him. He now starts answering about 3 s after someone stops, where it used to take 10 to 20 s.
 - The fix, the ears gate: take the speech model’s first try only, and ignore an "Asher" that the model itself doubts. The name match is stricter now. A "stop" always gets through.
 - How well: every test line said to him still gets through. In about 75 minutes of ordinary noise at home afterwards, no false call got through, and the one real call was answered.
 
-# Journal 2: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - He began answering nobody: {{Asher: I did not quite catch that.}} Two causes. When the speech model was unsure about a burst of noise, it tried again more loosely and made up a fluent line, sometimes with his name in it. And his name match counted words like "her" and "answer" as his name.
 - Two review passes found 22 problems before the change went onto the robot. The oldest had been there for weeks: a "stop" shouted three times was thrown out as a stutter before the stop rule ever saw it. That is fixed.
 
-# Journal 3: date
+# Journal entry: date
 2026-11-14 and 15
 
-# Journal 3: title
+# Journal entry: title
 He finds his voice
 
-# Journal 3: what changed (a list)
+# Journal entry: what changed (a list)
 - Ben: {{Ben: Asher’s speech is very robotic... There’s no fluidity to the way the sentences flow.}} The Pi made the voice itself, and took 8 seconds to make a 13-second line. Now the laptop’s graphics card makes each line and the Pi only plays it. Ben heard four British voices and picked one called Lewis.
 - Two newer voice engines were tried. One was better but too slow; the other was lively but sounded like a different man on every line.
 - What worked: keeping Lewis and changing how he says a line: his pace, how high his voice sits, how much it rises and falls. Sarcasm comes out flat and slow; misgiving lower, slower and quieter; delight higher and quicker. Ben: {{Ben: Sarcasm was significantly better in this rendition.}}
 
-# Journal 3: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - At first he heard his own voice and thought he was being spoken to.
 - A line full of numbers was too long to say in one go. It is now cut into pieces the way the voice engine itself does it.
 
-# Journal 4: date
+# Journal entry: date
 2026-11-12
 
-# Journal 4: title
+# Journal entry: title
 A mustache and a monocle
 
-# Journal 4: what changed (a list)
+# Journal entry: what changed (a list)
 - Ben asked: {{Ben: can we change the mouth to be an expressive handlebar mustache and have a monocle over the left eye?}} The mustache is the mouth now and carries the mood: the tips curl up when he is pleased and droop when he is sad. When he is startled the monocle drops out and swings on its chain.
 
-# Journal 4: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - The first mustache curled straight up into his eyes, and the sad one ran off the bottom of the screen.
 
-# Journal 5: date
+# Journal entry: date
 2026-11-12
 
-# Journal 5: title
+# Journal entry: title
 This drawing made true to the robot
 
-# Journal 5: what changed (a list)
+# Journal entry: what changed (a list)
 - The drawing now matches the photo-measured model part for part: 122 pieces. Every size says how it was got: tape and scale, a photo against a yardstick, a plain photo, a maker’s datasheet, or a best guess.
 
-# Journal 5: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - A separate review caught nine problems, among them a deck drawn over the computer when the wheels were swapped, and a claim that every size was good to 5 mm when some are guesses. All fixed before it went up.
 
-# Journal 6: date
+# Journal entry: date
 2026-11-12
 
-# Journal 6: title
+# Journal entry: title
 An old phone becomes his face
 
-# Journal 6: what changed (a list)
+# Journal entry: what changed (a list)
 - The phone is a Motorola Droid from 2009-2010, last used in 2012. Its battery is dead, so one USB cable carries both its power and its face.
 - The face is a page in the phone’s own browser, drawn on a canvas: eight moods, eyes that look around and blink, and a squish when you poke the glass. Asher’s own software can drive it.
 
-# Journal 6: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - The phone rejected the right Wi-Fi password every time, a known bug in phones of that age. About an hour went on the Wi-Fi before the phone’s own log showed the password was never the problem.
 
-# Journal 7: date
+# Journal entry: date
 2026-11-11
 
-# Journal 7: title
+# Journal entry: title
 Measured, and the plan agreed
 
-# Journal 7: what changed (a list)
+# Journal entry: what changed (a list)
 - Three photos with a yardstick gave the real wheelbase (141 mm, not 155) and the lens height (about 95 mm). Then Ben’s scale and tape: 1325 g with both batteries in, 5.5 in from axle to axle, 7 in across the wheels.
 - Ben decided: a whole new chassis with room to grow, a camera on servos, the face as character, under $100, printed rather than ordered.
 - Drawing the magnet idea showed a mistake: magnets alternating corner to corner would still pull an upside-down face on. With the top pair one pole and the bottom pair the other, an upside-down face is pushed away.
 
-# Journal 7: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - An earlier read of a side photo put the pillars at 32 mm. The yardstick was hiding their lower part.
 
-# Journal 8: date
+# Journal entry: date
 2026-11-11
 
-# Journal 8: title
+# Journal entry: title
 The before, photographed and modelled
 
-# Journal 8: what changed (a list)
+# Journal entry: what changed (a list)
 - 17 photos from every side, and a model built from them in Blender, written as a script so each size is one number with its source.
 - The photos showed what nobody had written down: the computer and the power bank sit on hook-and-loop strips, the sensor is foam-taped to the top of the webcam, and loose leads hang near the wheels.
 
-# Journal 8: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - The first read of the power bank was wrong: the rear photo shows the slim one on record.
 
-# Journal 9: date
+# Journal entry: date
 2026-11-11
 
-# Journal 9: title
+# Journal entry: title
 The idea, and the plan
 
-# Journal 9: what changed (a list)
+# Journal entry: what changed (a list)
 - A printed chassis with faces that swap. Solid plastic in front of the distance sensor blocks it, so every face leaves its two round transducers open, and those become the face’s eyes.
 - Magnets hold; two pins of different sizes take a sideways knock. The camera stays where it is, because the route maps and turn timings were all made from it.
 - No print service gives a price without an upload, so the first estimate was about $100-300. The design tool, Blender 5.2, was already on the laptop.
 
-# Journal 9: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - Nothing yet. The kit plates’ hole pattern is not published anywhere, so Ben measures it.
 
-# Journal 10: date
+# Journal entry: date
 2026-11-08
 
-# Journal 10: title
+# Journal entry: title
 Hearing his name
 
-# Journal 10: what changed (a list)
+# Journal entry: what changed (a list)
 - Only speech said to him (his name, a quick follow-up, or an answer to his question) reaches the AI, plus "stop". Hearing moved to a bigger model on the laptop’s graphics card.
 - On 20 recorded lines: 10 of 10 said to him were flagged, 0 of 10 others, about 0.5 s each.
 
-# Journal 10: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - On the Pi’s small speech model his name was heard as other words, so only 3 of 100 lines got flagged as said to him.
 - The test lines were spoken by computer voices, so a real room will be worse.
 
-# Journal 11: date
+# Journal entry: date
 2026-11-03
 
-# Journal 11: title
+# Journal entry: title
 A research navigation model
 
-# Journal 11: what changed (a list)
+# Journal entry: what changed (a list)
 - Ben drove a route by hand so NoMaD, a research navigation model, could learn it. The model could tell where it was on the route.
 
-# Journal 11: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - On the Pi each step took 2.4 s at best (6-7 s live), about 10 times too slow. In four live runs he got lost each time: best 33 of 52 waypoints, nothing hit.
 - Claude re-tuned the driver after every run, chasing the last failure. Next time the driver is frozen first.
 - Then the motor battery died, after about 1.5-2 hours.
 
-# Journal 12: date
+# Journal entry: date
 2026-11-01
 
-# Journal 12: title
+# Journal entry: title
 Waking him up
 
-# Journal 12: what changed (a list)
+# Journal entry: what changed (a list)
 - A script rebuilt everything in about 25 minutes, and he answered when Ben called his name.
 - First voice-only drive, about 40 minutes, no typing: into another room and home again. He mistook a second spot for home because a toy he used as a landmark had moved: {{Asher: Ah. I trusted a toy, and toys move. Lesson learned.}}
 - Model trials on the same route: Opus did the full round trip in 13.1 minutes, 88 moves, about $2.67 at API prices.
 - Each look-think-move took about 11 s, mostly model time. So Claude built a lean driver that sends about 5.7k tokens a move instead of about 248k.
 
-# Journal 12: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - The memory card had died again.
 - Haiku could not do the trip in three tries. Sonnet got there but could not get home: it went in circles, and Ben carried it back.
 
-# Journal 13: date
+# Journal entry: date
 2026-04
 
-# Journal 13: title
+# Journal entry: title
 A brain, eyes and ears, first drives
 
-# Journal 13: what changed (a list)
+# Journal entry: what changed (a list)
 - 04-01: the first voice-controlled move. Ben spoke, the laptop wrote it down, Claude decided, and the car moved: two feet became a 2 s move.
 - 04-17 to 04-19: the Pi and the webcam went on. Driving from any device, live video, audio both ways.
 - 04-19: Claude drove for the first time, about 10 minutes, no collisions. The same day a remote driver drove him for 15-20 minutes, and his first voice was picked out of five.
 - 04-21: his first trip to another room. On 04-25 he surveyed it properly, after Claude had called it reached three times too early: its idea of a 90° turn was really 45°.
 
-# Journal 13: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - On USB power alone the board rebooted under the motors. A pack of two 18650 batteries fixed it.
 - 04-24: the Pi’s memory card died after two power cuts without a clean shutdown.
 - Claude got stuck in debugging loops twice. Out of that came a rule to act after three failed tries, and Ben’s keep-it-simple rule.
 
-# Journal 14: date
+# Journal entry: date
 2026-03
 
-# Journal 14: title
+# Journal entry: title
 Day 1: the build
 
-# Journal 14: what changed (a list)
+# Journal entry: what changed (a list)
 - Built over an afternoon and evening: about four hours, against the kit’s one.
 - The car became its own Wi-Fi hotspot with a touch-control page, and Ben drove it around from his phone.
 - Claude got its own tools to drive the car: move, distance, camera, stop. Its first distance reading: 42 cm.
 
-# Journal 14: what went wrong (a list)
+# Journal entry: what went wrong (a list)
 - One wheel motor went on backwards. The batteries Ben bought did not fit the holder.
 - The motors would not move: 15 pins, an I2C scan and 210 pin pairs found nothing. They sat behind a shift register chip.
 - The one-letter bug: the car would not join the home Wi-Fi because the firmware had one letter of the network name in the wrong case. Then an old saved name kept coming back until the chip was wiped.
@@ -748,13 +757,13 @@ Who did what
 # Receipt: who did what (its paragraphs)
 Claude wrote the firmware, drives him (Opus) and talks for him (Haiku). It also built the model this drawing comes from.
 
-Ben decides what gets built, and measures the robot.
+Ben built him, decides what gets built, and measures the robot.
 
 # Receipt: what broke label
 What broke
 
 # Receipt: what broke (its paragraphs)
-The memory card, twice: in April after two power cuts without a clean shutdown, and again before he woke up in November.
+The memory card, three times: in April after two power cuts without a clean shutdown; found dead on 2026-11-01 after six months unused, cause not recorded; and on 2026-11-03, when the Pi was left on its power bank until the bank ran flat.
 
 Haiku could not drive the round trip, and Sonnet could not get home.
 
@@ -803,7 +812,7 @@ You build this at your own risk. It is one builder’s design, shared as it is. 
 # Before you copy this: checks (a list)
 - The power switch is the real stop. A spoken "stop" takes about 4.3 s.
 - Tidy the loose leads near the wheels before a drive: the webcam’s spare cable and the battery lead.
-- Shut him down cleanly with "wind down". The memory card died once after two power cuts without a clean shutdown.
+- Shut him down cleanly with "wind down". The memory card has died three times, twice when the power cut out without a clean shutdown (in April, and on 2026-11-03 when the power bank ran flat).
 - He has a camera and microphones. In a home, keep what he sees and hears private.
 
 # Licence: heading
@@ -829,7 +838,7 @@ The motor pack lasted about 1.5-2 hours on 2026-11-03.
 Materials
 
 # Materials (its paragraphs)
-The kit: two clear plates, brass pillars, four mecanum wheels.
+The kit: two plates, brass pillars, four mecanum wheels.
 
 Two plates cut from a plastic litter box.
 
@@ -845,7 +854,7 @@ Every part on the robot now, with prices (est.) and the total.
 Parts list
 
 # Parts list: under the heading ({date} is filled in)
-Prices est., checked {date}
+Prices est., where known
 
 # Parts list: part column
 Part
@@ -875,7 +884,7 @@ in the kit
 Asher, as it stands
 
 # Parts list: note ({date} is filled in)
-Prices are estimates seen on {date}, not paid. Parts in the kit, built into another part or home-made count as $0.
+Prices are estimates, not paid. Only the kit's price is on record so far. Parts in the kit, built into another part or home-made count as $0.
 
 # Parts list: one part without a price ({n} is filled in)
 {n} part has no known price and counts as $0.
@@ -1038,693 +1047,3 @@ What it carries
 
 # Footnote (the last line of the page)
 The drawings show the model only: no camera frames, no recordings.
-
-# Part, main computer: role (its heading in the lists of parts)
-Main computer
-
-# Part, main computer: label on the drawing (the name beside it on the drawing)
-Main computer
-
-# Part, main computer: name (in the part panel and the parts lists)
-Raspberry Pi 4 Model B, 2 GB
-
-# Part, main computer: made by (the part panel’s second line, with the model; may be left empty)
-Raspberry Pi
-
-# Part, main computer: model (may be left empty)
-Pi 4 Model B 2 GB
-
-# Part, main computer: what it does
-The main computer: reads the camera, plays his voice, sends what it hears to the laptop to be written down, and keeps a small speech model as a backup.
-
-# Part, main computer: note (may be left empty)
-Its USB ports share 1.2 A in total. The price is one shop’s on the check date; the build note guessed about $45.
-
-# Part, camera: role
-Camera
-
-# Part, camera: label on the drawing
-Camera
-
-# Part, camera: name
-eMeet C980 Pro webcam
-
-# Part, camera: made by (may be left empty)
-eMeet
-
-# Part, camera: model (may be left empty)
-C980 Pro
-
-# Part, camera: what it does
-Asher’s only eye: a wide USB webcam.
-
-# Part, camera: note (may be left empty)
-Lies crosswise at the very front on its own clip, which hooks over the upper deck's front edge. The lens is about 95 mm off the floor. It is wider than the decks. Its microphones and speakers are Asher's ears and voice, and the distance sensor rides on its top.
-
-# Part, distance sensor: role
-Distance sensor
-
-# Part, distance sensor: label on the drawing
-Distance sensor
-
-# Part, distance sensor: name
-HC-SR04 ultrasonic distance sensor
-
-# Part, distance sensor: made by (may be left empty)
-generic (in the kit)
-
-# Part, distance sensor: model (may be left empty)
-HC-SR04
-
-# Part, distance sensor: what it does
-Measures how far the nearest thing ahead is, by timing an echo.
-
-# Part, distance sensor: note (may be left empty)
-Came in the kit. Foam-taped to the top of the webcam in the kit’s cat-face bracket, its two transducers about 136 mm off the floor. On Asher it hears no echo about half the time.
-
-# Part, controller board: role
-Controller board
-
-# Part, controller board: label on the drawing
-Controller board
-
-# Part, controller board: name
-ACEBOTT ESP32 Max controller board
-
-# Part, controller board: made by (may be left empty)
-ACEBOTT
-
-# Part, controller board: model (may be left empty)
-ESP32 Max V1.0 (QA007)
-
-# Part, controller board: what it does
-The small board that runs the reflexes and tells the motor shield what to do, over Wi-Fi from the main computer.
-
-# Part, controller board: note (may be left empty)
-Came in the kit. Makes its own 5 V and 3.3 V from the motor battery.
-
-# Part, motor driver: role
-Motor driver
-
-# Part, motor driver: label on the drawing
-Motor driver
-
-# Part, motor driver: name
-ACEBOTT car shield
-
-# Part, motor driver: made by (may be left empty)
-ACEBOTT
-
-# Part, motor driver: model (may be left empty)
-QA052 ESP32 Car Shield V1.0
-
-# Part, motor driver: what it does
-Sits on the controller board and switches battery power to the four motors.
-
-# Part, motor driver: note (may be left empty)
-Came in the kit. 3 A in total; one speed line is shared by all four motors, so they cannot run at different speeds.
-
-# Part, motors and wheels: role
-Motors and wheels
-
-# Part, motors and wheels: label on the drawing
-Mecanum wheel and motor
-
-# Part, motors and wheels: name
-Four TT motors with 60 mm mecanum wheels
-
-# Part, motors and wheels: made by (may be left empty)
-ACEBOTT (kit)
-
-# Part, motors and wheels: model (may be left empty)
-TT geared motor 1:48, 60 mm mecanum wheel
-
-# Part, motors and wheels: what it does
-Four small geared motors and four wheels with angled rollers, so the car can also slide sideways.
-
-# Part, motors and wheels: note (may be left empty)
-Came in the kit. The size is one wheel.
-
-# Part, motor battery: role
-Motor battery
-
-# Part, motor battery: label on the drawing
-Motor battery
-
-# Part, motor battery: name
-Two 18650 lithium-ion cells
-
-# Part, motor battery: made by (may be left empty)
-Nuon
-
-# Part, motor battery: model (may be left empty)
-18650, button top, protected, in the kit's two-cell holder
-
-# Part, motor battery: what it does
-The motor battery: runs the motors, the shield, the controller board and the distance sensor.
-
-# Part, motor battery: note (may be left empty)
-Their capacity is not in Ben’s files. On 2026-11-03 the motor battery lasted about 1.5-2 hours.
-
-# Part, computer battery: role
-Computer battery
-
-# Part, computer battery: label on the drawing
-Computer battery
-
-# Part, computer battery: name
-Anker PowerCore Slim 10000 PD power bank
-
-# Part, computer battery: made by (may be left empty)
-Anker
-
-# Part, computer battery: model (may be left empty)
-A1231
-
-# Part, computer battery: what it does
-The computer battery: runs the main computer, the fan and the webcam.
-
-# Part, computer battery: note (may be left empty)
-What the robot uses is its USB-C socket: 5 V at up to 3 A, listed as its own part.
-
-# Part, power bank socket: role
-5 V supply for the computer
-
-# Part, power bank socket: name
-The power bank's own 5 V socket
-
-# Part, power bank socket: made by (may be left empty)
-Anker
-
-# Part, power bank socket: model (may be left empty)
-USB-C output of the A1231
-
-# Part, power bank socket: what it does
-Turns the power bank's cell voltage into the 5 V the computer runs on.
-
-# Part, power bank socket: note (may be left empty)
-Part of the power bank: it only works with that battery.
-
-# Part, ears and voice: role
-Ears and voice
-
-# Part, ears and voice: name
-Microphones and speakers in the webcam
-
-# Part, ears and voice: made by (may be left empty)
-eMeet
-
-# Part, ears and voice: model (may be left empty)
-C980 Pro
-
-# Part, ears and voice: what it does
-Asher's ears and voice. They are inside the webcam.
-
-# Part, ears and voice: note (may be left empty)
-Part of the webcam, no separate price or power. Ben's files say two microphones, the maker says four. Two 1 W speakers.
-
-# Part, kit decks: name
-Two kit decks
-
-# Part, kit decks: made by (may be left empty)
-ACEBOTT
-
-# Part, kit decks: model (may be left empty)
-QD001 kit, bottom and top plate
-
-# Part, kit decks: what it does
-The lower deck carries the motors; the upper deck carries the controller, shield and motor battery.
-
-# Part, kit decks: note (may be left empty)
-The whole kit cost about $60: plates, motors, wheels, controller, shield, distance sensor and battery holder.
-
-# Part, kit decks: price (shown in place of a worked-out price)
-about $60
-
-# Part, Ben’s plates: name
-Two plates cut from a plastic litter box
-
-# Part, Ben’s plates: made by (may be left empty)
-home-made
-
-# Part, Ben’s plates: model (may be left empty)
-about 3 mm HDPE, two
-
-# Part, Ben’s plates: what it does
-Ben's two extra plates: one on short standoffs over the front carries the main computer; one on tall standoffs over the rear carries the power bank.
-
-# Part, Ben’s plates: note (may be left empty)
-Two sizes: 92 x 94 mm under the computer and 84 x 102 mm under the power bank, both about 3 mm thick.
-
-# Part, pillars: name
-Pillars, standoffs and screws
-
-# Part, pillars: made by (may be left empty)
-ACEBOTT kit and loose parts
-
-# Part, pillars: model (may be left empty)
-eight 40 mm and five 14 mm M3 brass pillars, M2.5 standoffs
-
-# Part, pillars: what it does
-Hold the decks apart.
-
-# Part, pillars: note (may be left empty)
-
-
-# Part, cat-face bracket: label on the drawing
-Cat-face bracket
-
-# Part, cat-face bracket: name
-Cat-face bracket
-
-# Part, cat-face bracket: made by (may be left empty)
-ACEBOTT (kit)
-
-# Part, cat-face bracket: model (may be left empty)
-
-
-# Part, cat-face bracket: what it does
-The kit’s cat-face bracket. It holds the distance sensor and is foam-taped to the top of the webcam.
-
-# Part, cat-face bracket: note (may be left empty)
-
-
-# Part, computer case: name
-Computer case with fan
-
-# Part, computer case: made by (may be left empty)
-not named in Ben's files
-
-# Part, computer case: model (may be left empty)
-Pi 4 case with fan
-
-# Part, computer case: what it does
-Protects and cools the main computer.
-
-# Part, computer case: note (may be left empty)
-A Miuzei fan case, about 72 x 85 x 33 mm. Its weight and fan draw are not in Ben’s files.
-
-# Part, memory card: name
-32 GB memory card
-
-# Part, memory card: made by (may be left empty)
-generic
-
-# Part, memory card: model (may be left empty)
-microSD 32 GB
-
-# Part, memory card: what it does
-Holds the main computer's software.
-
-# Part, memory card: note (may be left empty)
-
-
-# Part, battery holder: name
-Two-cell battery holder and power switch
-
-# Part, battery holder: made by (may be left empty)
-ACEBOTT (kit)
-
-# Part, battery holder: model (may be left empty)
-kit holder with in-line switch
-
-# Part, battery holder: what it does
-Holds the two motor cells crosswise on the upper deck, under the power bank plate, and switches the motor side on and off.
-
-# Part, battery holder: note (may be left empty)
-
-
-# Part, board regulators: name
-Regulators on the controller board
-
-# Part, board regulators: made by (may be left empty)
-ACEBOTT
-
-# Part, board regulators: model (may be left empty)
-chips not named in the files
-
-# Part, board regulators: what it does
-Make the 5 V and 3.3 V that the controller and the distance sensor use.
-
-# Part, board regulators: note (may be left empty)
-Part of the controller board.
-
-# Level 1: name (the plates, from the floor up)
-Lower kit deck
-
-# Level 1: what it holds
-The four motors sit on it, between the two kit decks, with the wheels outboard.
-
-# Level 1: size, how it was got
-read from photos, the length against a yardstick
-
-# Level 1: height, how it was got
-a best guess (the yardstick hid it)
-
-# Level 1: made of
-the kit’s own plate
-
-# Level 2: name
-Upper kit deck
-
-# Level 2: what it holds
-The controller board on brass standoffs with the motor driver plugged on top, and the two motor cells in their open holder. The webcam's clip hooks over its front edge.
-
-# Level 2: size, how it was got
-read from photos, the length against a yardstick
-
-# Level 2: height, how it was got
-read from a photo with a yardstick
-
-# Level 2: made of
-the kit’s own plate
-
-# Level 3: name
-Computer plate, cut by Ben
-
-# Level 3: what it holds
-The main computer in its fan case, on two hook-and-loop strips. It stands on four short standoffs over the front of the upper deck and overhangs it a little.
-
-# Level 3: size, how it was got
-read from photos, the length against a yardstick
-
-# Level 3: height, how it was got
-the upper deck plus standoffs read from a photo
-
-# Level 3: made of
-plastic cut from a litter box
-
-# Level 4: name
-Power bank plate, cut by Ben
-
-# Level 4: what it holds
-The power bank, lying across on two hook-and-loop strips. It stands on four tall stacked standoffs over the rear of the upper deck, above the motor cells.
-
-# Level 4: size, how it was got
-read from photos
-
-# Level 4: height, how it was got
-the upper deck plus standoffs read from a photo
-
-# Level 4: made of
-plastic cut from a litter box
-
-# Size wheel_d: name (every size in the model, under Measurements; the value and unit come from the model)
-Wheel diameter
-
-# Size wheel_d: note
-Mecanum wheel diameter, from Ben's build notes; the rear photo agrees (56 to 60 mm).
-
-# Size wheel_w: name
-Wheel width
-
-# Size wheel_w: note
-Wheel width, from Ben's build notes (listings give 28 to 31 mm).
-
-# Size weight_g: name
-Weight, both batteries in
-
-# Size weight_g: note
-The whole robot with both batteries in, on Ben's scale, 2026-11-11.
-
-# Size wheelbase: name
-Axle to axle
-
-# Size wheelbase: note
-Front wheel centre to rear wheel centre, from Ben’s tape: 5.5 in (139.7 mm). The yardstick photos gave 141 mm.
-
-# Size track: name
-Wheel centre to wheel centre, across
-
-# Size track: note
-Left wheel centre to right wheel centre. Ben's tape read 7 in (178 mm) from outer rim to outer rim; take away one 30 mm wheel width and it is 148. The top photo read about 170 across the rims.
-
-# Size deck_l: name
-Kit deck length
-
-# Size deck_l: note
-Length of the upper kit deck; the side photo reads 210 to 221. The kit's maker publishes no plate drawing (the 226 x 170 x 51 mm it lists is the box).
-
-# Size deck_x: name
-Deck centre ahead of the axle midpoint
-
-# Size deck_x: note
-How far the decks' centre sits ahead of the point midway between the axles; the side and top photos agree within 3 mm.
-
-# Size deck_w: name
-Kit deck width
-
-# Size deck_w: note
-Width of the kit decks, from the rear and underside photos.
-
-# Size deck_t: name
-Kit deck thickness
-
-# Size deck_t: note
-Thickness of the acrylic kit decks.
-
-# Size lower_deck_top: name
-Lower deck top above the floor
-
-# Size lower_deck_top: note
-Top of the lower kit deck above the floor. The yardstick hides it, so it is set where the motors sit on it centred on the axles.
-
-# Size deck_gap: name
-Gap between the kit decks
-
-# Size deck_gap: note
-Height of the pillars between the two kit decks, from Ben's build notes. The yardstick hides the lower deck; 40 mm fits the motors.
-
-# Size pillar_x: name
-Pillar positions, front to back
-
-# Size pillar_x: note
-Where the pillars stand, front to back, from the point midway between the axles (minus is behind it), as seen in the side photo. They stand in pairs about 42 mm either side of the middle (a guess).
-
-# Size motor_l: name
-Motor length (gearbox and can)
-
-# Size motor_l: note
-TT gear motor length, gearbox plus motor.
-
-# Size motor_w: name
-Motor width
-
-# Size motor_w: note
-TT gear motor width, along the axle.
-
-# Size motor_h: name
-Motor height
-
-# Size motor_h: note
-TT gear motor height.
-
-# Size motor_shaft_in: name
-Axle from the gearbox's outer end
-
-# Size motor_shaft_in: note
-How far the axle sits in from the gearbox's outer end.
-
-# Size esp_long: name
-Controller board, across
-
-# Size esp_long: note
-ESP32 Max controller board, across the robot.
-
-# Size esp_short: name
-Controller board, front to back
-
-# Size esp_short: note
-ESP32 Max controller board, front to back.
-
-# Size esp_front_x: name
-Controller board front edge
-
-# Size esp_front_x: note
-How far the controller board's front edge sits ahead of the point midway between the axles. The top photo shows the board from 20 mm behind that point to 35 mm ahead, meeting the computer plate.
-
-# Size esp_standoff: name
-Controller board standoffs
-
-# Size esp_standoff: note
-Height of the brass standoffs under the controller board.
-
-# Size shield_gap: name
-Header stack, board to driver
-
-# Size shield_gap: note
-Height of the header pins between the controller board and the motor driver plugged on top of it.
-
-# Size plate_t: name
-Ben's plate thickness
-
-# Size plate_t: note
-Thickness of Ben's plates, cut from a plastic (HDPE) litter box.
-
-# Size velcro_t: name
-Hook-and-loop pair thickness
-
-# Size velcro_t: note
-Thickness of a pair of hook-and-loop strips.
-
-# Size pi_plate_fb: name
-Computer plate, front to back
-
-# Size pi_plate_fb: note
-Computer plate, front to back; in the top photo its back edge meets the motor driver.
-
-# Size pi_plate_ac: name
-Computer plate, across
-
-# Size pi_plate_ac: note
-Computer plate, across.
-
-# Size pi_plate_over: name
-Computer plate overhang past the deck
-
-# Size pi_plate_over: note
-How far the computer plate overhangs the front of the upper deck.
-
-# Size pi_standoff: name
-Computer plate standoffs
-
-# Size pi_standoff: note
-Height of the black standoffs under the computer plate.
-
-# Size pi_case_ac: name
-Computer case, across
-
-# Size pi_case_ac: note
-Raspberry Pi in its Miuzei fan case, across the robot (the top photo reads 78 to 90; the Pi's USB end faces right). A tape measure would settle it.
-
-# Size pi_case_fb: name
-Computer case, front to back
-
-# Size pi_case_fb: note
-Fan case, front to back (top photo: 72).
-
-# Size pi_case_h: name
-Computer case height with fan lid
-
-# Size pi_case_h: note
-Fan case height with its fan lid (side photo: 32 to 36).
-
-# Size pi_case_x: name
-Computer case centre, ahead of the axle midpoint
-
-# Size pi_case_x: note
-How far the case's centre sits ahead of the point midway between the axles (the top photo shows the case from 43 to 115 mm ahead).
-
-# Size cam_l: name
-Webcam length
-
-# Size cam_l: note
-eMeet C980 Pro webcam, end to end.
-
-# Size cam_h: name
-Webcam height
-
-# Size cam_h: note
-Webcam height (front photo: about 40).
-
-# Size cam_d: name
-Webcam depth
-
-# Size cam_d: note
-Webcam depth, front to back (top photo: 32).
-
-# Size cam_lens_z: name
-Lens centre above the floor
-
-# Size cam_lens_z: note
-Lens centre above the floor: the side photo reads 96 and the front photo 88 to 98. Older notes said 130.
-
-# Size sensor_tilt: name
-Distance sensor tipped back
-
-# Size sensor_tilt: note
-How far the distance sensor's face is tipped back from upright, in degrees.
-
-# Size sensor_z: name
-Distance sensor centres above the floor
-
-# Size sensor_z: note
-Height of the distance sensor's two round transducers above the floor (front photo: 41 mm above the lens).
-
-# Size transducer_d: name
-Distance sensor transducer diameter
-
-# Size transducer_d: note
-Diameter of each HC-SR04 transducer.
-
-# Size transducer_pitch: name
-Transducer centre to centre
-
-# Size transducer_pitch: note
-Transducer centre to centre (front photos: 26 to 26.7).
-
-# Size catface_w: name
-Cat-face bracket width
-
-# Size catface_w: note
-Width of the kit's acrylic cat-face bracket.
-
-# Size catface_h: name
-Cat-face bracket height
-
-# Size catface_h: note
-Height of the cat-face bracket to the tips of its ears.
-
-# Size bank_l: name
-Power bank length
-
-# Size bank_l: note
-Anker PowerCore Slim 10000 PD power bank, end to end; it lies across the robot.
-
-# Size bank_w: name
-Power bank width
-
-# Size bank_w: note
-Power bank width, front to back.
-
-# Size bank_t: name
-Power bank thickness
-
-# Size bank_t: note
-Power bank thickness; the rear photo agrees.
-
-# Size bank_plate_back: name
-Power bank plate back edge, from the axle midpoint
-
-# Size bank_plate_back: note
-How far the power bank plate's back edge sits behind the point midway between the axles (top photo; the bank itself reads 86 to 17 mm behind).
-
-# Size bank_plate_fb: name
-Power bank plate, front to back
-
-# Size bank_plate_fb: note
-Power bank plate, front to back.
-
-# Size bank_plate_ac: name
-Power bank plate, across
-
-# Size bank_plate_ac: note
-Power bank plate, across.
-
-# Size bank_standoff: name
-Power bank plate standoffs
-
-# Size bank_standoff: note
-Height of the stacked black standoffs under the power bank plate.
-
-# Size cells_box_ac: name
-Motor cell holder, across
-
-# Size cells_box_ac: note
-Two-cell 18650 holder, across the robot.
-
-# Size cells_box_fb: name
-Motor cell holder, front to back
-
-# Size cells_box_fb: note
-Two-cell 18650 holder, front to back.

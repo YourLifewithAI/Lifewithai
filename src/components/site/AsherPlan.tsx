@@ -1,5 +1,6 @@
 // A plan drawing of Asher from above, in the drawing-set line style. Front is to the right.
-// Its words come from words/home.md (the "Spotlight drawing" slots), passed in by the front page.
+// Not on any page now: a photo took its place on the front page (2026-11-15), and its words were taken out of
+// words/home.md. To bring it back, add a slot to home.md for each field below and pass them in from the front page.
 export interface AsherPlanWords {
   label: string; // read out in place of the drawing
   powerBank: string;
