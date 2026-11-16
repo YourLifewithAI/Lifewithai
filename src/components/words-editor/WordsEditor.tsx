@@ -11,19 +11,22 @@
 import { usePathname, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent as ReactKeyboardEvent } from 'react';
 import {
-  allPieces, changeSnippet, cleanHint, fileLabel, hasMarkdown, matcher, pageFiles, rankPieces, rebuild, squash,
-  type IndexFile, type LogEntry, type Matcher, type Piece,
+  allPieces, changeSnippet, cleanHint, ELSEWHERE_MIN, fileLabel, hasMarkdown, matcher, pageFiles, rankPieces, rebuild,
+  squash, type IndexFile, type LogEntry, type Matcher, type Piece,
 } from './pieces';
 
 const API = '/api/words-editor';
 const FLAG = 'words-editor';
 const UI = '[data-words-editor]';
 
-type Hit = { el: Element; cands: Piece[] };
+/** What a pointer is on: the element, and when the element holds words from more than one place, the run of text
+ *  (`node`) that is the words found. */
+type Hit = { el: Element; cands: Piece[]; node?: Text };
 type Box = { top: number; left: number; width: number; height: number };
 type Font = { family: string; size: number; lineHeight: number; weight: string };
 interface Editing {
   el: Element;
+  node?: Text;
   cands: Piece[];
   pick: number;
   /** each candidate's slot text when the editor opened: sent as `before` */
@@ -57,11 +60,11 @@ const inUI = (t: EventTarget | null) => t instanceof Element && !!t.closest(`${U
 const label = (p: Piece) => `${fileLabel(p.file)} · ${p.slot}`;
 const fold = (s: string) => s.replace(/\s*\n\s*/g, ' ').trim();
 
-// an element's box; for one with no box of its own (display: contents), its contents' box
-function boxOf(el: Element): Box | null {
+// an element's box; for one with no box of its own (display: contents), and for a run of text, its contents' box
+function boxOf(el: Element | Text): Box | null {
   if (!el.isConnected) return null;
-  let r = el.getBoundingClientRect();
-  if (!r.width && !r.height) {
+  let r = el instanceof Element ? el.getBoundingClientRect() : null;
+  if (!r || (!r.width && !r.height)) {
     const range = document.createRange();
     range.selectNodeContents(el);
     r = range.getBoundingClientRect();
@@ -71,8 +74,8 @@ function boxOf(el: Element): Box | null {
 }
 
 // the texts an element shows or reads out, squashed: its text, a term with its meaning (<dt> and <dd> together), then
-// what's read out in its place (alt, aria-label) and a field's placeholder
-function textsOf(el: Element): string[] {
+// (unless `shown` only) what's read out in its place (alt, aria-label) and a field's placeholder
+function textsOf(el: Element, shown = false): string[] {
   const out: string[] = [];
   const tag = el.tagName.toLowerCase();
   if (tag === 'dt' || tag === 'dd') {
@@ -81,7 +84,7 @@ function textsOf(el: Element): string[] {
     if (dt?.tagName === 'DT' && dd?.tagName === 'DD') out.push(`${dt.textContent ?? ''}${dd.textContent ?? ''}`);
   }
   out.push(el.textContent ?? '');
-  for (const a of ['alt', 'aria-label', 'placeholder']) {
+  for (const a of shown ? [] : ['alt', 'aria-label', 'placeholder']) {
     const v = el.getAttribute(a);
     if (v) out.push(v);
   }
@@ -91,27 +94,125 @@ function textsOf(el: Element): string[] {
 // The same words in several slots of one file (a date in more than one row, say): put first the slot at the same place
 // in the file as this element is among the page's elements with those words, when the counts agree.
 function byPlace(hit: Hit): Hit {
-  const c = hit.cands;
-  if (c.length < 2 || !c.every((p) => p.file === c[0].file)) return hit;
+  const c = hit.cands.filter((p) => p.file === hit.cands[0].file);
+  if (hit.node || c.length < 2) return hit;
   const key = squash(hit.el.textContent ?? '');
   if (!key) return hit;
   const same = [...document.querySelectorAll(hit.el.tagName)].filter((e) => !inUI(e) && squash(e.textContent ?? '') === key);
   const k = same.indexOf(hit.el);
   if (same.length !== c.length || k < 0) return hit;
   const sorted = [...c].sort((a, b) => a.i - b.i);
-  return { el: hit.el, cands: [sorted[k], ...sorted.filter((_, n) => n !== k)] };
+  return { ...hit, cands: [sorted[k], ...sorted.filter((_, n) => n !== k), ...hit.cands.filter((p) => !c.includes(p))] };
 }
 
-function findHit(start: Element, m: Matcher, own: string[]): Hit | null {
-  let el: Element | null = start;
-  for (let up = 0; el && up <= 8; up++, el = el.parentElement) {
-    if (el === document.body || el === document.documentElement || inUI(el)) break;
-    if ((el.textContent ?? '').length > 20000) break;
-    for (const t of textsOf(el)) {
-      // short words found only in another page's files don't count (rankPieces): look further up
-      const cands = rankPieces(m.exact(t), own, t);
-      if (cands.length) return byPlace({ el, cands });
+// The same short words in more than one file the page shows ("Topic" in a table on the front page, on Asher's page
+// and on a topic page): put first the file whose other words sit nearest these on the page. Words found in only one
+// file count; the smallest part of the page around these words that has any decides.
+function byContext(hit: Hit, m: Matcher, own: string[]): Hit {
+  const files = [...new Set(hit.cands.map((p) => p.file))];
+  if (files.length < 2 || own.includes(hit.cands[0].file)) return hit;
+  let around = hit.el.parentElement;
+  for (let up = 0; around && up < 6 && around !== document.body; up++, around = around.parentElement) {
+    const els = around.querySelectorAll('*');
+    if (els.length > 400) break;
+    const score = new Map<string, number>();
+    for (const e of els) {
+      if (e === hit.el || e.contains(hit.el) || inUI(e)) continue;
+      const t = squash(e.textContent ?? '');
+      if (!t || t.length > 300) continue;
+      const fs = new Set(m.exact(t).map((p) => p.file));
+      const [f] = fs;
+      if (fs.size === 1 && files.includes(f)) score.set(f, (score.get(f) ?? 0) + 1);
     }
+    const best = [...score].sort((a, b) => b[1] - a[1]);
+    if (best.length && (best.length === 1 || best[0][1] > best[1][1])) {
+      const f = best[0][0];
+      return { ...hit, cands: [...hit.cands.filter((p) => p.file === f), ...hit.cands.filter((p) => p.file !== f)] };
+    }
+  }
+  return hit;
+}
+
+// the run of text under the pointer, when the pointer is on its words (not out in the empty end of its line)
+function textAt(x: number, y: number): Text | null {
+  const d = document as Document & { caretPositionFromPoint?: (x: number, y: number) => { offsetNode: Node } | null };
+  const node = d.caretPositionFromPoint ? d.caretPositionFromPoint(x, y)?.offsetNode : document.caretRangeFromPoint?.(x, y)?.startContainer;
+  if (!(node instanceof Text) || !node.data.trim() || inUI(node.parentElement)) return null;
+  const range = document.createRange();
+  range.selectNodeContents(node);
+  for (const r of range.getClientRects()) if (x >= r.left && x <= r.right && y >= r.top && y <= r.bottom) return node;
+  return null;
+}
+
+// the paragraph, heading, list item or cell an element sits in (itself, if it is one)
+function blockOf(el: Element): Element {
+  let b: Element | null = el;
+  for (let up = 0; b && up <= 8; up++, b = b.parentElement) {
+    const d = getComputedStyle(b).display;
+    if (d !== 'contents' && !d.startsWith('inline')) return b;
+  }
+  return el;
+}
+
+// The files a page shows besides its own: any with longer words (ELSEWHERE_MIN or more) shown whole on it; any with the
+// words of two of its slots shown whole (a topic's name and its small word, on the front page's strip); and the files
+// of a folder when three or more of them have words shown whole (the topics' names in the sign-up form, on every page).
+// Their short words count on this page too.
+function shownFiles(m: Matcher, own: string[]): string[] {
+  const long = new Set<string>();
+  const slots = new Map<string, Set<number>>();
+  for (const el of document.body.querySelectorAll('*')) {
+    if (inUI(el) || (el.textContent ?? '').length > 4000) continue;
+    for (const t of textsOf(el)) {
+      if (t.length < 3) continue;
+      for (const p of m.exact(t)) {
+        if (own.includes(p.file)) continue;
+        if (t.length >= ELSEWHERE_MIN) long.add(p.file);
+        else slots.set(p.file, (slots.get(p.file) ?? new Set()).add(p.i));
+      }
+    }
+  }
+  const folders = new Map<string, string[]>();
+  for (const [file, s] of slots) {
+    if (s.size >= 2) long.add(file);
+    const dir = file.includes('/') ? file.slice(0, file.lastIndexOf('/')) : '';
+    if (dir) folders.set(dir, [...(folders.get(dir) ?? []), file]);
+  }
+  for (const fs of folders.values()) if (fs.length >= 3) fs.forEach((f) => long.add(f));
+  return [...long];
+}
+
+// The words a pointer is on, in this order: the whole paragraph (or heading, list item, cell) they're in, so a link in
+// a paragraph opens the paragraph; the element itself; the run of text under the pointer (`node`), for an element that
+// holds words from more than one place; then further up; then, failing all that, words held in only a few slots.
+function findHit(start: Element, node: Text | null, m: Matcher, own: string[], near: string[]): Hit | null {
+  const usable = (el: Element) => el !== document.body && el !== document.documentElement && !inUI(el) && (el.textContent ?? '').length <= 20000;
+  // short words found only in a file the page doesn't show don't count (rankPieces)
+  const rank = (t: string) => rankPieces(m.exact(t), own, t, near);
+  const whole = (el: Element, shown = false): Hit | null => {
+    if (!usable(el)) return null;
+    for (const t of textsOf(el, shown)) {
+      const cands = rank(t);
+      if (cands.length) return byPlace(byContext({ el, cands }, m, own));
+    }
+    return null;
+  };
+  // Words shown on the page are the words pointed at, not the read-out label of a part they sit in (a section's
+  // aria-label); an element that shows none (a picture, an icon) is its read-out words, not its caption's.
+  const shows = !!(start.textContent ?? '').trim();
+  const block = shows ? blockOf(start) : start;
+  const first = whole(block, block !== start) ?? (block !== start ? whole(start) : null);
+  if (first) return first;
+  if (node?.parentElement && usable(node.parentElement)) {
+    const t = squash(node.data);
+    const cands = t ? rank(t) : [];
+    if (cands.length) return byContext({ el: node.parentElement, node, cands }, m, own);
+  }
+  let el: Element | null = start.parentElement;
+  for (let up = 1; el && up <= 8; up++, el = el.parentElement) {
+    if (!usable(el)) break;
+    const h = whole(el, shows);
+    if (h) return h;
   }
   // nothing matches exactly: words held in only a few slots (a term list, an element with more than one part)
   const words = (start.textContent ?? '').trim();
@@ -119,7 +220,7 @@ function findHit(start: Element, m: Matcher, own: string[]): Hit | null {
     const t = squash(words);
     const inside = m.within(t);
     const slots = new Set(inside.map((p) => `${p.file}#${p.i}`));
-    const cands = slots.size >= 1 && slots.size <= 3 ? rankPieces(inside, own, t) : [];
+    const cands = slots.size >= 1 && slots.size <= 3 ? rankPieces(inside, own, t, near) : [];
     if (cands.length) return { el: start, cands };
   }
   return null;
@@ -192,6 +293,18 @@ export default function WordsEditor({ css }: { css: string }) {
   live.current = { on, m, own, edit, files };
   const hover = useRef<Hit | null>(null);
   const down = useRef<{ x: number; y: number } | null>(null);
+  // the other files this page is seen to show (shownFiles), worked out once per page when first needed
+  const nearRef = useRef<{ key: string; m: Matcher | null; files: string[] }>({ key: '', m: null, files: [] });
+  const nearFiles = useCallback(() => {
+    const { m, own } = live.current;
+    const key = `${window.location.pathname}|${own.join(',')}`;
+    if (nearRef.current.key !== key || nearRef.current.m !== m) nearRef.current = { key, m, files: shownFiles(m, own) };
+    return nearRef.current.files;
+  }, []);
+  const hitAt = useCallback(
+    (t: Element, node: Text | null) => findHit(t, node, live.current.m, live.current.own, nearFiles()),
+    [nearFiles],
+  );
   const boxRef = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLTextAreaElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
@@ -222,8 +335,8 @@ export default function WordsEditor({ css }: { css: string }) {
 
   // the highlight follows its element as the page scrolls or changes size
   const paint = useCallback(() => {
-    const cur = live.current.edit ? { el: live.current.edit.el, cands: live.current.edit.cands } : hover.current;
-    const box = cur ? boxOf(cur.el) : null;
+    const cur: Hit | null = live.current.edit ?? hover.current;
+    const box = cur ? boxOf(cur.node ?? cur.el) : null;
     if (!cur || !box) {
       setHl(null);
       return;
@@ -244,21 +357,38 @@ export default function WordsEditor({ css }: { css: string }) {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(paint);
     };
-    const over = (e: MouseEvent) => {
-      if (live.current.edit) return;
+    // the highlight follows the pointer, run of text by run of text; worked out at most once a frame, and only when the
+    // pointer has moved onto another element or another run
+    let moved: MouseEvent | null = null;
+    let moveFrame = 0;
+    let at: { t: Element; node: Text | null } | null = null;
+    const look = () => {
+      moveFrame = 0;
+      const e = moved;
+      moved = null;
+      if (!e || live.current.edit) return;
       const t = e.target;
       if (!(t instanceof Element) || inUI(t)) {
+        at = null;
         if (hover.current) {
           hover.current = null;
-          repaint();
+          paint();
         }
         return;
       }
-      hover.current = findHit(t, live.current.m, live.current.own);
-      repaint();
+      const node = textAt(e.clientX, e.clientY);
+      if (at && at.t === t && at.node === node) return;
+      at = { t, node };
+      hover.current = hitAt(t, node);
+      paint();
+    };
+    const over = (e: MouseEvent) => {
+      moved = e;
+      if (!moveFrame) moveFrame = requestAnimationFrame(look);
     };
     const out = (e: MouseEvent) => {
       if (!e.relatedTarget && hover.current && !live.current.edit) {
+        at = null;
         hover.current = null;
         repaint();
       }
@@ -288,16 +418,18 @@ export default function WordsEditor({ css }: { css: string }) {
         areaRef.current?.focus();
         return;
       }
-      const hit = findHit(t, live.current.m, live.current.own);
+      // a click made with the keyboard has no pointer, so no run of text: its element's words are found
+      const hit = hitAt(t, e.detail !== 0 ? textAt(e.clientX, e.clientY) : null);
       if (!hit) {
         const shows = (t.textContent ?? '').trim() || t.getAttribute('alt') || t.getAttribute('aria-label');
         if (shows) say('These words aren’t in a words file: they come from the build’s data or the code. Ask Claude to change them.');
         return;
       }
-      const box = boxOf(hit.el) ?? { top: e.clientY, left: e.clientX, width: 0, height: 0 };
+      const box = boxOf(hit.node ?? hit.el) ?? { top: e.clientY, left: e.clientX, width: 0, height: 0 };
       const texts = hit.cands.map((p) => files.find((f) => f.name === p.file)?.slots[p.i]?.text ?? '');
       hover.current = null;
-      setEdit({ el: hit.el, cands: hit.cands, pick: 0, texts, text: hit.cands[0].source, error: '', saving: false, warned: false, font: fontOf(hit.el), rect: box });
+      at = null;
+      setEdit({ el: hit.el, node: hit.node, cands: hit.cands, pick: 0, texts, text: hit.cands[0].source, error: '', saving: false, warned: false, font: fontOf(hit.el), rect: box });
     };
     // no form on the page sends anything while editing
     const submit = (e: Event) => {
@@ -309,7 +441,7 @@ export default function WordsEditor({ css }: { css: string }) {
     const key = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && live.current.edit && !inUI(e.target)) setEdit(null);
     };
-    window.addEventListener('mouseover', over, true);
+    window.addEventListener('mousemove', over, true);
     window.addEventListener('mouseout', out, true);
     window.addEventListener('pointerdown', press, true);
     window.addEventListener('click', click, true);
@@ -319,7 +451,8 @@ export default function WordsEditor({ css }: { css: string }) {
     window.addEventListener('resize', repaint);
     return () => {
       cancelAnimationFrame(frame);
-      window.removeEventListener('mouseover', over, true);
+      cancelAnimationFrame(moveFrame);
+      window.removeEventListener('mousemove', over, true);
       window.removeEventListener('mouseout', out, true);
       window.removeEventListener('pointerdown', press, true);
       window.removeEventListener('click', click, true);
@@ -328,7 +461,49 @@ export default function WordsEditor({ css }: { css: string }) {
       window.removeEventListener('scroll', repaint, true);
       window.removeEventListener('resize', repaint);
     };
-  }, [on, paint, say]);
+  }, [on, paint, say, hitAt]);
+
+  // For checking the matching, from the browser's console: window.__wordsAudit() lists the words on this page that
+  // the editor can't find in a words file (each run of text, and each picture's or button's read-out words);
+  // window.__wordsAudit(true) lists every run, with the slot a click there opens.
+  useEffect(() => {
+    if (!on || !files) return;
+    type Row = { text: string; where: string; opens?: string };
+    const w = window as Window & { __wordsAudit?: (all?: boolean) => Row[] };
+    w.__wordsAudit = (all = false) => {
+      const missed: Row[] = [];
+      const note = (text: string, el: Element, hit: Hit | null) => {
+        if (!hit) missed.push({ text, where: where(el) });
+        else if (all) missed.push({ text, where: where(el), opens: `${hit.cands.map(label).join(' | ')}${hit.node ? ' (run)' : ''}` });
+      };
+      const where = (el: Element) => {
+        const bits: string[] = [];
+        for (let e: Element | null = el; e && e !== document.body && bits.length < 4; e = e.parentElement) {
+          bits.unshift(e.tagName.toLowerCase() + (e.classList.length ? `.${[...e.classList].join('.')}` : ''));
+        }
+        return bits.join(' > ');
+      };
+      const seen = (el: Element) => {
+        const s = getComputedStyle(el);
+        return s.display !== 'none' && s.visibility !== 'hidden' && el.getClientRects().length > 0;
+      };
+      const walk = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      for (let n = walk.nextNode(); n; n = walk.nextNode()) {
+        const t = n as Text;
+        const el = t.parentElement;
+        if (!el || !t.data.trim() || inUI(el) || el.closest('script, style, noscript, template') || !seen(el)) continue;
+        note(t.data.trim().slice(0, 120), el, hitAt(el, t));
+      }
+      for (const el of document.body.querySelectorAll('[alt], [aria-label], [placeholder]')) {
+        if (inUI(el) || !seen(el)) continue;
+        note(`[${el.getAttribute('alt') ?? el.getAttribute('aria-label') ?? el.getAttribute('placeholder')}]`, el, hitAt(el, null));
+      }
+      return missed;
+    };
+    return () => {
+      delete w.__wordsAudit;
+    };
+  }, [on, files, hitAt]);
 
   // repaint when the editor opens or closes
   useEffect(() => {

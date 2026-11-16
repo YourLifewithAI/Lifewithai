@@ -127,6 +127,11 @@ test('a hole at the start or end of a few words stands only for figures, so a he
   assert.deepEqual(found('Many parts'), []);
   // a click on that header offers nothing, so the page says the words aren't in a words file
   assert.deepEqual(offered('Parts on the robot 22 parts', '/projects/rover'), []);
+  // three words of its own are enough for a hole at the end to stand for words
+  const host = slotPieces('x', { i: 0, name: 'P', hint: '', line: 1, text: 'part of the {host}' })[0];
+  assert.equal(host.pattern?.test(squash('part of the computer battery')), true);
+  const count = slotPieces('x', { i: 0, name: 'C', hint: '', line: 1, text: '{n} parts' })[0];
+  assert.equal(count.pattern?.test(squash('Fixed parts')), false);
 });
 
 test('the page\'s own files come first; short words from other pages\' files don\'t count', () => {
@@ -146,6 +151,13 @@ test('the page\'s own files come first; short words from other pages\' files don
   assert.deepEqual(offered('The robot keeps no recordings.', '/about'), ['projects/rover · slot']);
   // site's words are on every page, short or not
   assert.deepEqual(offered('Made-up site', '/about'), ['site · slot']);
+  // so are a file's the page is seen to show (the front page shows each topic's lines, so a topic's name there counts)
+  const near = (text: string, page: string, files: string[]) =>
+    rankPieces(m.exact(squash(text)), pageFiles(page, names), squash(text), files).map((p) => `${p.file} · ${p.kind}`);
+  assert.deepEqual(near('Yes', '/about', ['projects/rover']), ['projects/rover · cell']);
+  assert.deepEqual(near('Yes', '/about', ['topics/building']), []);
+  // and the page's own files still come first
+  assert.deepEqual(near('On this page', '/privacy', ['projects/rover']), ['privacy · slot', 'projects/rover · slot']);
   // within one slot, the smallest piece wins
   const intro = pieces('projects/rover', 'Intro');
   const own = pageFiles('/projects/rover', names);

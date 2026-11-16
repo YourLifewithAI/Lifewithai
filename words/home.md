@@ -11,7 +11,7 @@ It has a webcam with microphones and a speaker. Claude looks through the camera,
 Asher, a small four-wheeled robot with a webcam and a cat-eared distance sensor.
 
 # Spotlight photo: caption (under the photo; placeholder words for Ben to replace)
-Asher, as built.
+Asher, our family mascot
 
 # Spotlight: main parts, for screen readers (the name read out for the small tags)
 Main parts

@@ -120,8 +120,8 @@ export const hasMarkdown = (source: string): boolean =>
 
 const escapeRe = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-// Template words whose own words (the holes left out) are shorter than this are too short to go on by themselves: a hole
-// at their start or end may only stand for a number or a date written in figures.
+// Template words whose own words (the holes left out) are shorter than this, and fewer than three words, are too short to
+// go on by themselves: a hole at their start or end may only stand for a number or a date written in figures.
 const FEW_WORDS = 12;
 // what a hole with words on both sides of it can stand for: any text, but some
 const ANY = '[\\s\\S]{1,200}?';
@@ -154,13 +154,16 @@ function patternOf(plain: string, holes: string[]): RegExp | null {
   parts.push(rest);
   const fixed = parts.join('').length;
   if (fixed < 3) return null;
+  // three words or more of its own are enough to go on, however short ("part of the {host}")
+  const own = holes.reduce((t, h) => t.split(h).join(' '), plain).split(/\s+/).filter((w) => /[a-z]/i.test(w)).length;
+  const few = fixed < FEW_WORDS && own < 3;
   const last = parts.length - 1;
   let re = '';
   parts.forEach((part, k) => {
     if (k > 0) {
       // the hole before this part: at the start or the end of the words when nothing comes before or after it
       const edge = (k === 1 && !parts[0]) || (k === last && !part);
-      re += edge && fixed < FEW_WORDS ? FIGURES : ANY;
+      re += edge && few ? FIGURES : ANY;
     }
     re += escapeRe(part);
   });
@@ -387,20 +390,22 @@ export function pageFiles(pathname: string, names: string[]): string[] {
   return names.filter((n) => n === p || n.startsWith(`${p}-`) || n.startsWith(`${p}/`));
 }
 
-/** 0 for the page's own files, 1 for site (on every page), 2 for the rest. */
-export function fileRank(name: string, own: string[]): number {
-  return own.includes(name) ? 0 : name === 'site' ? 1 : 2;
+/** 0 for the page's own files; 1 for site (on every page) and for `near`, the other files the page is seen to show
+ *  (WordsEditor finds them: a file with longer words shown whole on the page); 2 for the rest. */
+export function fileRank(name: string, own: string[], near: string[] = []): number {
+  return own.includes(name) ? 0 : name === 'site' || near.includes(name) ? 1 : 2;
 }
 
-/** Words shorter than this (squashed) are only looked for in the page's own files and site: short words like "Yes" or
- *  "Parts" are in many files, so another page's file holding them says nothing about where these came from. */
+/** Words shorter than this (squashed) are only looked for in the page's own files, site and the files the page is seen
+ *  to show: short words like "Yes" or "Parts" are in many files, so a file the page doesn't show holding them says
+ *  nothing about where these came from. */
 export const ELSEWHERE_MIN = 12;
 
 /** The pieces found for some text (`text`, squashed, is what was matched), one per slot, best first: the page's own
- *  files, then site, then the rest. Another page's files count only when the page's own files have no match and the
- *  text is at least ELSEWHERE_MIN long. Within a slot, the smallest piece comes first. */
-export function rankPieces(found: Piece[], own: string[], text: string): Piece[] {
-  const rank = (p: Piece) => fileRank(p.file, own);
+ *  files, then site and the files the page is seen to show (`near`), then the rest. The rest count only when nothing
+ *  better matches and the text is at least ELSEWHERE_MIN long. Within a slot, the smallest piece comes first. */
+export function rankPieces(found: Piece[], own: string[], text: string, near: string[] = []): Piece[] {
+  const rank = (p: Piece) => fileRank(p.file, own, near);
   const best = Math.min(...found.map(rank));
   const elsewhere = best > 0 && text.length >= ELSEWHERE_MIN;
   const kept = found.filter((p) => rank(p) < 2 || elsewhere);
