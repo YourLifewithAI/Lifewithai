@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Growing
-
-# Small word under the name
-Farms
+Agriculture
 
 # Covers (one short line, for the title block)
 Farms, ranches, orchards, greenhouses, gardens, bees

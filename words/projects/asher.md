@@ -8,20 +8,22 @@ show them) are in asher-drawing.md, next to this file.
 Asher
 
 # Hook (one line under the title)
-A hobby car kit, a small computer and a webcam. Claude drives him: it looks, listens, decides and sends short moves.
+Asher is a customized rover.
 
 # Intro (the paragraphs under the hook)
-Asher is a small robot car built from a hobby kit: an ACEBOTT QD001 Smart Car, about $60. The kit gives him an ESP32 board, four mecanum wheels (the kind that can drive sideways) and an ultrasonic distance sensor.
+At its core, Asher is a small robot car built from a hobby kit: an ACEBOTT QD001 Smart Car which cost around $60. The kit came with two ESP32 boards, four mecanum wheels (which let Asher drive in any direction), an ultrasonic distance sensor, and a few other items that I set aside.
 
-On top sit a Raspberry Pi 4 and a webcam, an eMeet C980 Pro, which is also his microphones and speaker. They ride on plates cut from a plastic litter box.
+To get Claude's help, I mounted a Raspberry Pi 4, 2G, and an eMeet C980 Pro, a webcam. The webcam doubles as Asher's microphone and speakers. All those extra additions ride on thick plastic plates cut out of a plastic litter box.
 
-Claude, an AI model, drives him. He speaks in a British voice called Lewis.
+No shame in using what you've got lying around!
+
+Claude, an frontier AI model, is Asher's brain and it's what drives the rover. At my kids' request, we made Asher sound like an old medieval British dude, run by the Kokoro software.
 
 # Photo beside the intro, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
 Asher from the side: the webcam at the front, the computer case and coiled cable on top, the controller board in the middle, the power bank on its plate at the back with the motor battery's holder under it, and the yellow mecanum wheels.
 
 # Photo beside the intro: caption (under the photo; placeholder words for Ben to replace)
-Asher from the side.
+Asher, side view
 
 # Jump links, for screen readers (the name read out for the row of links under the intro)
 On this page
@@ -48,7 +50,7 @@ Stage of this build
 (this build)
 
 # Stage note (beside the stage steps, and again in the core)
-He works in trial runs at home, one run at a time. Hide and seek is built but has only been tested on the laptop.
+Back in April of 2026 on Claude Opus 4.6, Asher took 3 hours to find his way from my entryway to the kitchen. Now it takes 7 minutes. It' all trial and error, and we're working out the kinks. Hide and seek is next.
 
 # Title block: topic
 Topic
@@ -72,13 +74,13 @@ Status
 Real, Ben’s bench
 
 # Drawing: heading
-The drawing
+Asher's Schematic
 
 # Drawing: under the heading
-Drag to turn him, or tap a part to see what it is. Every part drawn is on the robot today.
+Drag to turn him, or tap a part to see what it is. It's not a perfect replica, but everything you see is part of the build.
 
 # Drawing status chip (on the drawing’s top corner, and in the part panel when nothing is selected)
-Real and built. In progress.
+Work in progress.
 
 # Drawing: heading, for screen readers (read out, not shown)
 The model
@@ -105,13 +107,13 @@ Selected part
 Tap a part in the model or the list
 
 # Part panel, nothing selected: heading
-Asher as built
+Asher's part list
 
 # Part panel, nothing selected: line
 Nothing selected. Tap any part to see what it is and what it does.
 
 # Whole robot: what it is (in the part panel when nothing is selected)
-Four-wheel car with mecanum wheels: a hobby kit with two decks, plus two small plates Ben cut from a plastic litter box, raised on standoffs.
+Four-wheel car with mecanum wheels: a hobby kit with two decks, plus two small plates Ben cut from a plastic litter box, raised on standoffs from an AvrestYPT kit.
 
 # Part panel, nothing selected: levels
 Levels
@@ -120,13 +122,13 @@ Levels
 Whole robot
 
 # Whole robot: where the size came from (in the part panel)
-from the as-built model; Measurements says how each size was got
+Measurements aren't perfect
 
 # Weight label
 Weight
 
 # Weight: where it came from
-Ben’s scale, both batteries in
+I measured this on a kitchen scale.
 
 # Part panel: size
 Size
@@ -228,9 +230,9 @@ A drawing of his software is still to come.
 How to read the drawing
 
 # How to read the drawing (the paragraphs inside it; the colour key follows)
-Asher is real: every part in the drawing is on the robot, stacked the way the model shows. The model was made from photos, a tape measure and a scale; Measurements, in the core, lists every size, where it came from and how good it is.
+Asher is my personal DIY robotics project. It's a constant work in progress and is inspired by my constant dabbling with AI. The rendering here was made by Claude, I just checked it to make sure everything was right. Building the rover initially was fun, but it was too basic. That's why I started adding things on. It's a bit addictive and not all the parts are very cheap, but it's a ton of fun to do with the kids. The initial plates for mounting the motors and the ESP32's were fine, but as soon as I wanted to add more bits and bobs, like the Pi, the webcam, and the Anker battery, I had to get creative and make my own plates. We had an old litter box we were going to throw away, and the plastic was sturdy so I thought, "hell, why not use this?" Hacked it up, sanded down the edges, and boom, more platforms to hold more hardware.
 
-"est." means the maker’s or a seller’s published figure for that model, not a measurement of the part on the robot. "unknown" means no figure was found. Prices are estimates, not paid.
+I've tried to give accurate names for parts, but if you have questions about any specifics let me know. Prices are estimates and some of those numbers are going to change based on market demand for things like chips, etc.
 
 The colours group the parts:
 
@@ -256,7 +258,7 @@ plates
 pillars
 
 # Drawing title block: drawn from
-Drawn from
+Measurements are drawn from
 
 # Drawn from
 Photos, a yardstick, a tape measure and a scale
@@ -271,7 +273,7 @@ Millimetres
 What runs where
 
 # What runs where: intro (the paragraph under the heading)
-Claude does the thinking, in the cloud. A Raspberry Pi on the robot handles the camera, the microphones, the speaker and the word "stop". The ESP32 board from the car kit runs the wheels. A laptop in the house does the heavy listening, the voice and two quick vision checks on its graphics card.
+Claude processes all the visual and ultrasonic data in the cloud, along with all the auditory input from the verbal commands we give Asher. A Raspberry Pi on the robot handles the camera, the microphones, the speaker and basic command words. The ESP32 board from the car kit runs the wheels. My laptop parses all the audio, the voice and vision on its graphics card. More sophisticated computers, like an Orin Jetson by NVIDIA, could probably do everything on the body itself, but those are much more expensive and I'd still need the laptop to allow Claude to interface with the robot.
 
 # What runs where: at a glance (a table: one row per line, cells split by |, the first row the column names)
 Job | Runs on | microSD card | Graphics card

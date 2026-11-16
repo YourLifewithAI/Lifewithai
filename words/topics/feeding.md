@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Feeding
-
-# Small word under the name
-Kitchens
+Food Service
 
 # Covers (one short line, for the title block)
 Kitchens, bakeries, food processing, cold storage

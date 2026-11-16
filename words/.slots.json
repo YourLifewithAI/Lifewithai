@@ -25,11 +25,8 @@
       "Spotlight status: an interview": [],
       "Topics heading": [],
       "Topics: the key under the drawings": [],
-      "Open plot": [],
+      "Open plots": [],
       "Open plot, for screen readers": [],
-      "Topic count: none": [],
-      "Topic count: one": [],
-      "Topic count: more": ["{n}"],
       "Under the topics": []
     }
   },
@@ -305,6 +302,7 @@
       "Part, main computer: model": [],
       "Part, main computer: what it does": [],
       "Part, main computer: note": [],
+      "Part, main computer: price": [],
       "Part, camera: role": [],
       "Part, camera: label on the drawing": [],
       "Part, camera: name": [],
@@ -585,7 +583,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []
@@ -595,7 +592,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []
@@ -605,7 +601,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []
@@ -615,7 +610,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []
@@ -625,7 +619,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []
@@ -635,7 +628,6 @@
     "repeat": [],
     "slots": {
       "Name": [],
-      "Small word under the name": [],
       "Covers": [],
       "About": [],
       "Ask": []

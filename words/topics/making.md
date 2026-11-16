@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Making
-
-# Small word under the name
-Workshops
+Robotics
 
 # Covers (one short line, for the title block)
 Machining, fabrication, 3D printing, craft, the bench

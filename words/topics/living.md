@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Living
-
-# Small word under the name
-Health and access
+Domestics
 
 # Covers (one short line, for the title block)
 Health and accessibility: aids people build for themselves

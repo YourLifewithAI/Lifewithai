@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Fixing
-
-# Small word under the name
-Repair
+Repairs
 
 # Covers (one short line, for the title block)
 Cars and trucks, equipment, appliances, the grid

@@ -11,7 +11,7 @@ Beyond the chatbot.
 Bringing AI to life.
 
 # Settled sentence (introduces the topics on the front page, opens the About page)
-Life with AI: beyond the chatbot. Exploring AI off screen, putting it on the ranch, in the workshop, in the kitchen, behind the counter and in the waiting room.
+Welcome to Life with AI: Beyond the Chatbot. We're exploring AI as it moves off the screen. What happens when AI enters the physical world? What happens when people start building with AI at home? What happens when it's used on the ranch, in the workshop, in the kitchen, in the hospital, and in your garage? People like myself, with no background in robotics or programming, can now build things we never thought we'd be able to build. It's democratizing, but there's still a steep learning curve. I want to help make all of it more accessible for everyone. Right now the topics are wide open and I need contributors. My project is an example of how I want to format these contributions, so take a look at that and contact me if you're comfortable with sharing that level of detail. If you are, I'd love to interview you, learn about your project, and give it the same treatment so that other people can learn from your experience.
 
 # Description (what search engines and link previews show for the front page)
 Exploring AI off screen: on the ranch, in the workshop, in the kitchen, behind the counter and in the waiting room.
@@ -23,7 +23,7 @@ Ben, host of Life with AI
 hello@lifewithai.ai
 
 # Invite (opens the call for builders under the topics)
-Do this kind of work? Tell us.
+Are you building something cool and want to share it?
 
 # Subscribe button
 Subscribe
@@ -56,7 +56,7 @@ Site
 Life with AI elsewhere
 
 # Sign-up heading
-New pieces, by email
+Want updates on new open-source projects? Sign up!
 
 # Sign-up: email label
 Your email
@@ -65,10 +65,10 @@ Your email
 Topics you care about (optional)
 
 # Sign-up: what we do with the address
-We use your email only to send new pieces. You can ask us to remove it at any time. See [how we keep it](/privacy#signup-data).
+If you sign up for the e-mail, you'll get notifications when a new project gets highlighted. You can ask us to remove it at any time. See [how we keep it](/privacy#signup-data).
 
 # Sign-up button
-Send me new pieces
+Sign me up!
 
 # Sign-up: sending
 Sending...

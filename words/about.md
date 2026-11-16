@@ -19,7 +19,7 @@ Ben, host of Life with AI. He builds too. His own build is [Asher](/projects/ash
 
 Most people meet AI as a chatbot: a box you type into. This site is about the rest of it. It follows AI off the screen and into real work: on the farm, on the job site, at the bench, in the repair bay, in the kitchen, and in the aids people build for themselves.
 
-The site has six topics: [Growing](/topics/growing), [Building](/topics/building), [Making](/topics/making), [Fixing](/topics/fixing), [Feeding](/topics/feeding) and [Living](/topics/living).
+The site has six topics: [Agriculture](/topics/growing), [Construction](/topics/building), [Robotics](/topics/making), [Repairs](/topics/fixing), [Food Service](/topics/feeding) and [Domestics](/topics/living).
 
 ## How a piece is made {#how}
 

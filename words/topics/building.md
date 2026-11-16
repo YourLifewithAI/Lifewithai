@@ -2,10 +2,7 @@
 ben_pass: no
 ---
 # Name
-Building
-
-# Small word under the name (&shy; marks where it may break on a phone)
-Construc&shy;tion
+Construction
 
 # Covers (one short line, for the title block)
 Framing, wiring, plumbing, heating and cooling

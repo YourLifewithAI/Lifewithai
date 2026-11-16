@@ -1,12 +1,12 @@
-// The topic strip: six buildings and two open plots on one ground line, built as a title block.
-// Every topic starts as an open plot (a dashed drawing). Its first interview fills it in.
-// Its words are in words/home.md (the "Topics" and "Open plot" slots) and words/topics/.
+// The topic strip: six buildings and two open plots on one ground line, built as a title block. Each cell shows
+// only its name (Ben, 2026-11-15: "The simple topic headers are sufficient").
+// Every topic starts as a dashed drawing. Its first interview fills it in, with a flag.
+// Its words are in words/home.md (the "Topics" and "Open plots" slots) and words/topics/.
 import Link from 'next/link';
 import { OPEN_PLOTS } from '@/lib/topics';
 import { topics } from '@/lib/topic-words';
 import { interviewsFor } from '@/lib/pieces';
-import { fill } from '@/lib/project';
-import { slot, words } from '@/lib/words';
+import { list, slot, words } from '@/lib/words';
 import { TopicIcon } from './TopicIcons';
 
 export default function Strip({
@@ -19,8 +19,7 @@ export default function Strip({
   intro?: string;
 }) {
   const w = words('home');
-  const countWords = (n: number) =>
-    n === 0 ? slot(w, 'Topic count: none') : n === 1 ? slot(w, 'Topic count: one') : fill(slot(w, 'Topic count: more'), { n });
+  const openNames = list(w, 'Open plots');
   return (
     <div className="topics">
       <div className="topics-head">
@@ -42,8 +41,7 @@ export default function Strip({
                 </span>
                 <span className="plate">
                   <span className="flag" aria-hidden="true" />
-                  <span className="verb">{t.verb}</span> <span className="gloss">{t.gloss}</span>{' '}
-                  <span className="count">{countWords(n)}</span>
+                  <span className="verb">{t.verb}</span>
                 </span>
               </Link>
             </li>
@@ -57,10 +55,8 @@ export default function Strip({
               </span>
               <span className="plate">
                 <span className="flag" aria-hidden="true" />
-                <span className="verb">{slot(w, 'Open plot')}</span>{' '}
-                <span className="count">
-                  <span className="vh">{slot(w, 'Open plot, for screen readers')}</span>
-                </span>
+                <span className="verb">{openNames[i] ?? ''}</span>{' '}
+                <span className="vh">{slot(w, 'Open plot, for screen readers')}</span>
               </span>
             </a>
           </li>

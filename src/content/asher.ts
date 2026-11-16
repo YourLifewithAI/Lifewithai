@@ -195,7 +195,7 @@ export const PARTS: [string, string][] = [
   ['controller-regulators', 'board regulators'],
 ];
 // parts whose price is shown in words, not worked out from the model
-export const PRICE_IN_WORDS = ['acebott-kit-plates', 'standoffs'];
+export const PRICE_IN_WORDS = ['rpi4b-2gb', 'acebott-kit-plates', 'standoffs'];
 // facts the code acts on where the model file is wrong (not words; see markModel in src/lib/project-model.ts)
 // The prices: only the kit's (about $60) is in Asher's records (skills/asher/content/build-record.md). The model
 // file's shop prices are not in the records, so those parts show no price until Ben gives one (fact check,

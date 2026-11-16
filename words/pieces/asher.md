@@ -11,10 +11,10 @@ DIY Robotics
 Asher
 
 # Who (under the title)
-Asher began as a weekend project. It started with a stock ACEBOTT kit, but I got an itch to make it something more. I was playing around with Claude Opus 4.6 at the time, and I thought it would be fun to give Claude something to use to explore our home.
+Asher began as a weekend project. I'd ordered a stock ACEBOTT kit, but I quickly got an itch to make it something more. I was playing around with Claude Opus 4.6 at the time, and I thought it would be fun to give Claude something to use to explore the physical world.
 
 # Hook (one line; also the page's description for search engines)
-At its core, Asher's nothing fancy. It's just a rover, a camera, and an ultrasonic sensor.
+At its core, Asher's just a fancy rover with a little brain, a camera, and an ultrasonic sensor.
 
 # Main parts (a list, shown as small tags)
 - A hobby car kit

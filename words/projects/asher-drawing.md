@@ -21,10 +21,13 @@ Raspberry Pi
 Pi 4 Model B 2 GB
 
 # Part, main computer: what it does
-The main computer: reads the camera, plays his voice, sends what it hears to the laptop to be written down, and keeps a small speech model as a backup.
+This is the main addition that allows Asher to navigate the house. The ESP32's are like the spine and lower nervous system that handle movements and reflexes. The Raspeberry Pi is more like the higher reasoning via Claude. The Pi reads the camera, plays Asher's voice, sends what it hears to the laptop, and holds keeps a small speech model as a backup in case Kokoro fails. Might wipe the smaller model to free up space, though.
 
 # Part, main computer: note (may be left empty)
 
+
+# Part, main computer: price (shown in place of a worked-out price)
+~ $100. Pretty sure it was $50 when I bought it in April. Holy crap chips have gotten more expensive.
 
 # Part, camera: role
 Camera
@@ -42,10 +45,10 @@ eMeet
 C980 Pro
 
 # Part, camera: what it does
-Asher’s only eye: a wide USB webcam.
+Asher’s only eye: a wide USB webcam. Also holds the speakers and microphone. A bifocal camera would be better, as it would give Asher/Claude depth perception. Right now we're relying on the ultrasonic sensor for depth, and that sensor isn't very good.
 
 # Part, camera: note (may be left empty)
-Lies crosswise at the very front on its own clip, which hooks over the upper deck's front edge. The lens is about 95 mm off the floor. It is wider than the decks. Its microphones and speaker are Asher's ears and voice, and the distance sensor rides on its top.
+Lies crosswise at the very front on its own clip, which hooks over the upper deck's front edge. To be honest, it's not very well secured, but so far it hasn't fallen off. The lens is about 95 mm off the floor. It is wider than the decks. Its microphones and speaker are Asher's ears and voice, and the distance sensor rides on its top.
 
 # Part, distance sensor: role
 Distance sensor
@@ -66,7 +69,7 @@ HC-SR04
 Measures how far the nearest thing ahead is, by timing an echo.
 
 # Part, distance sensor: note (may be left empty)
-Came in the kit. Foam-taped to the top of the webcam in the kit’s cat-face bracket, its two transducers about 136 mm off the floor. On 2026-11-03 it heard no echo on about half its readings.
+Came in the kit. Foam-taped to the top of the webcam in the kit’s cat-face bracket, its two transducers about 136 mm off the floor. It's not very reliable. It tends to only hear echoes around half of the time. I'd love to update to a Lidar sensor of some kind.
 
 # Part, controller board: role
 Controller board
@@ -84,7 +87,7 @@ ACEBOTT
 ESP32 Max V1.0 (QA007)
 
 # Part, controller board: what it does
-The small board that runs the four wheel motors and reads the distance sensor. It takes short timed moves from the main computer over Wi-Fi.
+The small board that runs the four wheel motors and reads the distance sensor. It takes short timed moves from the main computer over Wi-Fi. The Wi-Fi part is important because it allows Claude to run Asher remotely from my laptop over our home network. This is powered by the same batteries that run the mecanum wheel motors.
 
 # Part, controller board: note (may be left empty)
 Came in the kit. Makes its own 5 V and 3.3 V from the motor battery.
@@ -126,7 +129,7 @@ ACEBOTT (kit)
 TT geared motor 1:48, 60 mm mecanum wheel
 
 # Part, motors and wheels: what it does
-Four small geared motors and four wheels with angled rollers, so the car can also slide sideways.
+Four small geared motors and four wheels with angled rollers, so the car can also slide sideways. I plan on swapping these out at some point, because they're loud, and they're not very secure. They cause Asher to drift to the right, but Claude's already figured this out and makes corrections accordingly.
 
 # Part, motors and wheels: note (may be left empty)
 Came in the kit. The size is one wheel.
@@ -147,7 +150,7 @@ Nuon
 18650, button top, protected, in the kit's two-cell holder
 
 # Part, motor battery: what it does
-The motor battery: runs the motors, the shield, the controller board and the distance sensor.
+The motor battery: runs the motors, the shield, the controller board and the distance sensor. I'll probably swap these out at some point. The coils that connect to the anodes get loose and can cause the whole thing to stop moving.
 
 # Part, motor battery: note (may be left empty)
 Their capacity is not in Ben’s files. On 2026-11-03 the motor battery lasted about 1.5-2 hours.
@@ -168,7 +171,7 @@ Anker
 A1231
 
 # Part, computer battery: what it does
-The computer battery: runs the main computer, the fan and the webcam.
+This is a backup phone battery. It powers the Raspberry Pi and the webcam.
 
 # Part, computer battery: note (may be left empty)
 What the robot uses is its USB-C socket: 5 V, listed as its own part.
@@ -273,7 +276,7 @@ ACEBOTT (kit)
 
 
 # Part, cat-face bracket: what it does
-The kit’s cat-face bracket. It holds the distance sensor and is foam-taped to the top of the webcam.
+This bracket came with the ACEBOTT kit. Honestly? I kind of like it. I've considered 3D printing other brackets like the outline of an old dude with a handlebar mustache and a top hat. Might replace it entirely with a salvaged Android phone to roll with a digital face. We already tested that, the problem right now is figuring out how to mount the old phone and keep it powered. The bracket holds the distance sensor and is foam-taped to the top of the webcam. Yes. Foam-tape with velcro strips. DIY baby!
 
 # Part, cat-face bracket: note (may be left empty)
 

@@ -182,6 +182,17 @@ svg text.sm { font-size: 16px; font-weight: 500; fill: var(--ink-2); }
 .strip li::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--hair); }
 .strip li:nth-child(4n+1)::before { display: none; }
 .strip li:nth-child(n+5) { border-top: 1px solid var(--hair); }
+/* On a small phone four cells are too narrow for a name like "Construction", so the strip takes three to a row */
+@media (max-width: 469px) {
+  .strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .strip li:nth-child(4n+1)::before { display: block; }
+  .strip li:nth-child(3n+1)::before { display: none; }
+  .strip li:nth-child(n+4) { border-top: 1px solid var(--hair); }
+}
+@media (max-width: 359px) {
+  .strip .verb { font-size: 13px; }
+  .strip .plate { padding-left: 7px; padding-right: 4px; }
+}
 @media (min-width: 900px) {
   .strip { grid-template-columns: repeat(8, minmax(0, 1fr)); }
   .strip li:nth-child(4n+1)::before { display: block; }
@@ -198,9 +209,6 @@ svg text.sm { font-size: 16px; font-weight: 500; fill: var(--ink-2); }
 .lit .flag::after { content: ""; position: absolute; left: 1.5px; top: 0; width: 11px; height: 7px; background: var(--red);
   clip-path: polygon(0 0, 100% 0, 68% 50%, 100% 100%, 0 100%); }
 .verb { font-weight: 600; font-size: 15px; line-height: 1.2; hyphens: auto; overflow-wrap: break-word; }
-.gloss { font-weight: 500; font-size: 13px; line-height: 1.2; letter-spacing: -0.01em; hyphens: auto;
-  overflow-wrap: break-word; }
-.count { font-weight: 500; font-size: 13px; line-height: 1.25; margin-top: 3px; }
 .none .art svg, .open .art svg { stroke-dasharray: 3 2.5; --ic-tint: var(--paper); }
 .cell:hover .art, .cell[aria-current="page"] .art { background: var(--paper-2); }
 .cell[aria-current="page"] .plate { background: var(--ink); color: var(--paper); }
@@ -273,7 +281,6 @@ h3.sec-s { font-size: 19px; margin-top: 8px; }
 .topic-head { display: flex; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
 .topic-head .ic { width: 120px; flex: none; border-bottom: 2px solid var(--ink); }
 .topic-head h1 { font-size: 34px; font-weight: 600; }
-.topic-head .gloss-line { font: 500 17px/1.3 var(--jost); color: var(--ink-2); margin-top: 4px; }
 @media (min-width: 900px) { .topic-head h1 { font-size: 44px; } .topic-head .ic { width: 160px; } }
 
 /* ---------- plain pages (about, privacy, stubs) ---------- */

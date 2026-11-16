@@ -42,7 +42,6 @@ export default async function TopicPage({ params }: Props) {
             <TopicIcon id={topic.id} dashed={mine.length === 0} />
             <div>
               <h1>{topic.verb}</h1>
-              <p className="gloss-line">{topic.gloss}</p>
             </div>
           </div>
           <div className="copy stack">
