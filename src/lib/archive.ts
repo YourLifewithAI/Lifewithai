@@ -1,8 +1,7 @@
 // The old site lives on its own host. This is the one place that names it.
-// Today: the archive's Netlify address. Before launch: https://arcology.lifewithai.ai, once its DNS record
-// is in. The archive's own podcast feed already points its episodes at that host, and a 301 is cached for
-// good, so switch this line before the first deploy. Every redirect follows it.
-export const ARCHIVE_HOST = 'https://lifewithai-arcology.netlify.app';
+// The archive's own name, in DNS since 2026-11-15 (a CNAME to the archive's Netlify address). The archive's podcast
+// feed points its episodes at this host too, and a 301 is cached for good. Every redirect follows this line.
+export const ARCHIVE_HOST = 'https://arcology.lifewithai.ai';
 
 // Old paths that answer with a 301 to the same path on the archive host.
 // `:path*` matches the bare path and everything under it.
