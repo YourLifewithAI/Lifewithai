@@ -178,7 +178,9 @@
 .pp .plain-t .num { text-align: right; }
 .pp .plain-t .est { font-weight: 400; color: var(--ink-2); font-size: 13px; white-space: nowrap; }
 .pp .plain-t tfoot th, .pp .plain-t tfoot td { font-weight: 600; border-bottom: 0; border-top: 2px solid var(--ink); }
-.pp .parts-t td.num { white-space: nowrap; width: 32%; }
+/* fixed columns: a price given in words (a sentence, say) wraps in its own column instead of squeezing the parts */
+.pp .parts-t { table-layout: fixed; }
+.pp .parts-t th.num, .pp .parts-t td.num { width: 36%; overflow-wrap: break-word; }
 .pp .parts-t .pn, .pp .meas .pn { font-weight: 500; display: block; }
 .pp .parts-t .pslot { display: block; font: 500 13px/1.3 var(--jost); color: var(--ink-2); }
 .pp .meas td.num { width: 38%; }

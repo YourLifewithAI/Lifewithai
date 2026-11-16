@@ -156,6 +156,8 @@ export interface ProjectWords {
   partsNote: string;
   partsUnknownOne: string;
   partsUnknownMany: string;
+  bomKit: string;
+  bomKitHas: string;
   measurements: string;
   measurementsSub: string;
   axleToAxle: string;

@@ -335,8 +335,11 @@ export function drawingData(m: Model, w: Words, d: DrawingWords): DrawingData {
 }
 
 // ---- the parts list ------------------------------------------------------------------------------------------------------
+// A bill of materials (Ben, 2026-11-15): one row for each thing you buy or make to build the robot, not one for each part
+// on it. The kit is one row, with the parts that came in it; a part built into another part has no row of its own.
+// The total is the same as every part's, since the parts left out are the ones at $0.
 export interface PartsList {
-  rows: { role: string; part: string; price: string; est: boolean; foot: boolean }[];
+  rows: { role: string; part: string; price: string; est: boolean; foot: boolean; has?: string }[];
   total: string;
   totalEst: boolean;
   foot: string | null;
@@ -348,13 +351,24 @@ export function partsList(m: Model, w: Words): PartsList {
   const all = [...inSlots.map((x) => ({ role: x.slot.name, p: x.part })), ...fixed.map((p) => ({ role: w.fixedPart, p }))];
   // a priced part whose note says the price covers more than the part itself (the kit plates carry the whole kit's price)
   const isFoot = (p: ModelPart) => !!(p.note && p.price && p.price > 0 && p.wholeKit);
-  const rows = all.map(({ role, p }) => {
-    const pr = priceOf(m, p, w);
-    return { role, part: p.name, price: pr.text, est: pr.est, foot: isFoot(p) };
-  });
+  // what came in the kit: a part at $0 that is neither home-made nor built into another part
+  const inKit = (p: ModelPart) => p.price === 0 && !p.homeMade && !p.builtInto;
+  // "Four TT motors" -> "four TT motors" inside a sentence; "HC-SR04 ..." and "ACEBOTT ..." keep their capitals
+  const low = (s: string) => (/^[A-Z][a-z]/.test(s) ? s[0].toLowerCase() + s.slice(1) : s);
+  const kitHas = all.filter((x) => inKit(x.p) || x.p.wholeKit).map((x) => low(x.p.name));
+  const rows = [...all]
+    // the kit first: everything else is added to it
+    .sort((a, b) => Number(!!b.p.wholeKit) - Number(!!a.p.wholeKit))
+    .filter(({ p }) => p.wholeKit || !(p.price === 0 && !p.homeMade))
+    .map(({ role, p }) => {
+      const pr = priceOf(m, p, w);
+      if (p.wholeKit) return { role: '', part: w.bomKit, price: pr.text, est: pr.est, foot: false, has: fill(w.bomKitHas, { parts: kitHas.join(', ') }) };
+      return { role: role === w.fixedPart ? '' : role, part: p.name, price: pr.text, est: pr.est, foot: isFoot(p) };
+    });
   const sum = all.reduce((a, x) => a + (x.p.price || 0), 0);
   const unknown = all.filter((x) => x.p.price === null || x.p.price === undefined).length;
-  const footPart = all.find((x) => isFoot(x.p));
+  // the kit's own row says what its price covers, so no footnote for it
+  const footPart = all.find((x) => isFoot(x.p) && !x.p.wholeKit);
   const note = [fill(w.partsNote, { date: m.pricesCheckedOn })];
   if (unknown) note.push(fill(unknown > 1 ? w.partsUnknownMany : w.partsUnknownOne, { n: unknown }));
   return {

@@ -151,6 +151,8 @@ export const LABELS: [keyof ProjectWords, string][] = [
   ['partsNote', 'Parts list: note'],
   ['partsUnknownOne', 'Parts list: one part without a price'],
   ['partsUnknownMany', 'Parts list: parts without a price'],
+  ['bomKit', 'Parts list: the kit'],
+  ['bomKitHas', 'Parts list: what came in the kit'],
   ['measurements', 'Measurements: heading'],
   ['measurementsSub', 'Measurements: under the heading'],
   ['axleToAxle', 'Measurements: axle to axle'],
@@ -204,7 +206,8 @@ export const PRICE_IN_WORDS = ['rpi4b-2gb', 'acebott-kit-plates', 'standoffs'];
 const NO_PRICE_ON_RECORD = 'Fact check 2026-11-15: no source gives this price.';
 const FACTS = [
   { path: 'parts.sensor-bracket.homeMade', value: false, why: 'Review item 3: it is the kit’s bracket, not home-made.' },
-  { path: 'parts.rpi4b-2gb.price', value: null, why: NO_PRICE_ON_RECORD }, // was $67.50 est.
+  // Ben, 2026-11-15, in the words editor: "~ $100" now (about $50 when he bought it in April). His words show as the price.
+  { path: 'parts.rpi4b-2gb.price', value: 100, why: 'Ben, 2026-11-15: about $100 now.' }, // was $67.50 est.
   { path: 'parts.emeet-c980-pro.price', value: null, why: NO_PRICE_ON_RECORD }, // was $89.99 est.
   { path: 'parts.anker-powercore-slim-10000.price', value: null, why: NO_PRICE_ON_RECORD }, // was $40 est.
   { path: 'parts.case-fan.price', value: null, why: NO_PRICE_ON_RECORD }, // was $10 est.

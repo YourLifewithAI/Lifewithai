@@ -850,13 +850,19 @@ Hook-and-loop strips under the computer and the power bank. Foam tape and the ki
 Parts
 
 # Parts: under the heading
-Every part on the robot now, with prices (est.) and the total.
+What it takes to build one, with prices (est.) and the total.
 
 # Parts list: heading
-Parts list
+Bill of materials
 
 # Parts list: under the heading ({date} is filled in)
-Prices est., where known
+What to buy, or make, to build one. Prices est., where known.
+
+# Parts list: the kit (its name in the bill of materials, where it is one row)
+ACEBOTT QD001 Smart Car kit
+
+# Parts list: what came in the kit (under the kit's name; {parts} is filled in)
+In the kit: {parts}.
 
 # Parts list: part column
 Part
@@ -886,7 +892,7 @@ in the kit
 Asher, as it stands
 
 # Parts list: note ({date} is filled in)
-Prices are estimates, not paid. Only the kit's price is on record so far. Parts in the kit, built into another part or home-made count as $0.
+Prices are estimates, not what was paid. Only the kit's price and Ben's guess for the Pi are on record so far.
 
 # Parts list: one part without a price ({n} is filled in)
 {n} part has no known price and counts as $0.

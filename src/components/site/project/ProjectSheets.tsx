@@ -566,10 +566,13 @@ function PartsTable({ page, parts }: P & { parts: PartsList }) {
               <tr key={i}>
                 <td>
                   <span className="pn">{r.part}</span>
-                  <span className="pslot">
-                    <span className="vh">{w.partsRole}: </span>
-                    {r.role}
-                  </span>
+                  {r.has && <span className="pslot">{r.has}</span>}
+                  {r.role && (
+                    <span className="pslot">
+                      <span className="vh">{w.partsRole}: </span>
+                      {r.role}
+                    </span>
+                  )}
                 </td>
                 <td className="num">
                   {r.price}
