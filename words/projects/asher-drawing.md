@@ -21,7 +21,7 @@ Raspberry Pi
 Pi 4 Model B 2 GB
 
 # Part, main computer: what it does
-This is the main addition that allows Asher to navigate the house. The ESP32's are like the spine and lower nervous system that handle movements and reflexes. The Raspeberry Pi is more like the higher reasoning via Claude. The Pi reads the camera, plays Asher's voice, sends what it hears to the laptop, and holds keeps a small speech model as a backup in case Kokoro fails. Might wipe the smaller model to free up space, though.
+This is the main addition that allows Asher to navigate the house. The ESP32's are like the spine and lower nervous system that handle movements and reflexes. The Raspberry Pi is more like the higher reasoning via Claude. The Pi reads the camera, plays Asher's voice, sends what it hears to the laptop, and keeps a small speech model as a backup in case Kokoro fails. Might wipe the smaller model to free up space, though.
 
 # Part, main computer: note (may be left empty)
 

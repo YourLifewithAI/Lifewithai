@@ -17,7 +17,7 @@ To get Claude's help, I mounted a Raspberry Pi 4, 2G, and an eMeet C980 Pro, a w
 
 No shame in using what you've got lying around!
 
-Claude, an frontier AI model, is Asher's brain and it's what drives the rover. At my kids' request, we made Asher sound like an old medieval British dude, run by the Kokoro software.
+Claude, a frontier AI model, is Asher's brain and it's what drives the rover. At my kids' request, we made Asher sound like an old medieval British dude, run by the Kokoro software.
 
 # Photo beside the intro, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
 Asher from the side: the webcam at the front, the computer case and coiled cable on top, the controller board in the middle, the power bank on its plate at the back with the motor battery's holder under it, and the yellow mecanum wheels.
@@ -50,7 +50,7 @@ Stage of this build
 (this build)
 
 # Stage note (beside the stage steps, and again in the core)
-Back in April of 2026 on Claude Opus 4.6, Asher took 3 hours to find his way from my entryway to the kitchen. Now it takes 7 minutes. It' all trial and error, and we're working out the kinks. Hide and seek is next.
+Back in April of 2026 on Claude Opus 4.6, Asher took 3 hours to find his way from my entryway to the kitchen. Now it takes 7 minutes. It's all trial and error, and we're working out the kinks. Hide and seek is next.
 
 # Title block: topic
 Topic
