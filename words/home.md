@@ -5,7 +5,7 @@ ben_pass: no
 Innovator spotlight
 
 # Spotlight: more about the build (after the card's one-line hook)
-It has a webcam with microphones and a speaker. Claude looks through the camera, listens, decides, and sends short moves.
+I added an old webcam I had sitting around in the garage, which came with built-in microphones and speaker. This gives Claude a window into our world. It's not much, but it's enough to see, to hear, and to sense distance. It's everything Claude needs to safely navigate.
 
 # Spotlight photo, for screen readers (what the photo shows, read out in place of it; placeholder words for Ben to replace)
 Asher, a small four-wheeled robot with a webcam and a cat-eared distance sensor.
@@ -13,14 +13,11 @@ Asher, a small four-wheeled robot with a webcam and a cat-eared distance sensor.
 # Spotlight photo: caption (under the photo; placeholder words for Ben to replace)
 Asher, our family mascot
 
-# Spotlight: main parts, for screen readers (the name read out for the small tags)
-Main parts
+# Spotlight: main parts heading (over the small tags under the photo)
+Project basics
 
 # Spotlight button
 See the build
-
-# Spotlight: what comes next (shown while the spotlight holds one of Ben's own builds)
-Next in this spot: the first guest builder, in their own words.
 
 # Spotlight table: kind (the strip of boxes along the bottom of the spotlight)
 Kind
@@ -35,7 +32,7 @@ Stage
 Status
 
 # Spotlight status: Ben's own build
-Real, Ben’s bench
+Work in Progress
 
 # Spotlight status: an interview
 Interview

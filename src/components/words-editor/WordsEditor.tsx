@@ -678,6 +678,12 @@ export default function WordsEditor({ css }: { css: string }) {
           <div className="we-head">
             <p className="we-where">{label(p)}</p>
             {hint && <p className="we-hint">{hint}</p>}
+            {/* words from another page's file show there too: a topic's name changed here renames the topic */}
+            {!own.includes(p.file) && (
+              <p className="we-shared">
+                {`These words aren’t only on this page: they’re in “${fileLabel(p.file)}”, so a change here shows everywhere they do.`}
+              </p>
+            )}
             {edit.cands.length > 1 && (
               <label className="we-choose">
                 <span>These words are in more than one place. Which one?</span>

@@ -64,17 +64,21 @@ export default function Home() {
               <p className="copy">
                 {spot.hook} {slot(w, 'Spotlight: more about the build')}
               </p>
-              <ul className="chips" aria-label={slot(w, 'Spotlight: main parts, for screen readers')}>
-                {spot.receipt.map((c) => (
-                  <li key={c}>{c}</li>
-                ))}
-              </ul>
               <div className="btnrow">
                 <Link className="btn primary" href={spot.href}>
                   {slot(w, 'Spotlight button')}
                 </Link>
               </div>
-              {isBench ? <p className="spot-next">{slot(w, 'Spotlight: what comes next')}</p> : null}
+            </div>
+            {/* The main parts, under the photo on a wide screen and after the words on a phone (Ben, 2026-11-15: no
+                empty space under the photo; a heading says what the boxes are) */}
+            <div className="spot-basics">
+              <h4 id="spot-basics-h">{slot(w, 'Spotlight: main parts heading')}</h4>
+              <ul className="chips" aria-labelledby="spot-basics-h">
+                {spot.receipt.map((c) => (
+                  <li key={c}>{c}</li>
+                ))}
+              </ul>
             </div>
           </div>
           <div className="tb">

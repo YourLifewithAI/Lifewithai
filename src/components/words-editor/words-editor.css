@@ -139,6 +139,13 @@
   color: var(--we-ink-2);
   font-size: 14px;
 }
+.we-shared {
+  margin-top: 4px;
+  padding-left: 8px;
+  border-left: 3px solid var(--we-ink);
+  color: var(--we-ink);
+  font-size: 14px;
+}
 .we-choose {
   display: grid;
   gap: 4px;
