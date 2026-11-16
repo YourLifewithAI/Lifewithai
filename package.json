@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "edit": "node scripts/edit-words.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/google-analytics.test.ts",
+    "test": "tsx --test src/lib/google-analytics.test.ts src/lib/words-edit.test.ts src/components/words-editor/pieces.test.ts",
     "words:check": "tsx src/lib/words-check.ts",
     "words:snapshot": "tsx src/lib/words-check.ts --snapshot",
     "legacy:index": "tsx legacy/src/lib/index-builder.ts",

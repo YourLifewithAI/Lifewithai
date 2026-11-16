@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import type { NextConfig } from "next";
+import { PHASE_DEVELOPMENT_SERVER } from "next/constants";
 import { archiveRedirects } from "./src/lib/archive";
 
 // Turbopack's root (Next uses it as the file tracing root too) is this folder, so Next doesn't guess one from a
@@ -36,4 +37,10 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default nextConfig;
+// The words editor's save route (src/app/api/words-editor/route.dev.ts) is a route only in the local preview with the
+// editor on (`npm run edit`: next dev with WORDS_EDITOR=1). Everywhere else, `next build` included, Next doesn't read
+// files ending in .dev.ts as routes, so the editor's write endpoint never ships to the live site.
+export default function config(phase: string): NextConfig {
+  const editor = phase === PHASE_DEVELOPMENT_SERVER && process.env.WORDS_EDITOR === "1";
+  return editor ? { ...nextConfig, pageExtensions: ["dev.ts", "tsx", "ts", "jsx", "js"] } : nextConfig;
+}

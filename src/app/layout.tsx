@@ -12,6 +12,20 @@ import { topics } from '@/lib/topic-words';
 import { inline, slot, words } from '@/lib/words';
 import './globals.css';
 
+// The words editor: only in the local preview started with `npm run edit` (src/lib/words-edit.ts). NODE_ENV is fixed
+// when the site is built, so a production build drops this whole branch, both imports included, and never ships the
+// editor. (Its save route is kept out of the build by next.config.ts.)
+async function WordsEditorSlot() {
+  if (process.env.NODE_ENV === 'development' && process.env.WORDS_EDITOR === '1') {
+    const [{ default: WordsEditor }, { editorStyles }] = await Promise.all([
+      import('@/components/words-editor/WordsEditor'),
+      import('@/lib/words-edit'),
+    ]);
+    return <WordsEditor css={editorStyles()} />;
+  }
+  return null;
+}
+
 const jost = Jost({
   variable: '--font-jost',
   subsets: ['latin'],
@@ -99,6 +113,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             accept: slot(w, 'Analytics banner: accept'),
           }}
         />
+        <WordsEditorSlot />
       </body>
     </html>
   );

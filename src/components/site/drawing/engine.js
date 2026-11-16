@@ -86,9 +86,10 @@ export function mount(root, data, opts) {
   function draw() {
     const width = sheet.clientWidth || 360, height = sheet.clientHeight || 400;
     const ae = document.activeElement, hadFocus = ae && svg.contains(ae) ? ae.getAttribute('data-id') : null;
-    // On a narrow sheet the leader labels would take two 150 px columns off the drawing: number the parts instead,
-    // print the key under the sheet and move the title block out of the SVG.
-    const narrow = width < 600, col = narrow ? 14 : 150;
+    // Numbers on every width (Ben, 2026-11-15): a circled number on each part that picks it, the key under the sheet,
+    // and the title block as a line under it. (render.js can still draw names at the sheet's edge, numbered: false, but
+    // they took two 150 px columns off the drawing and couldn't be clicked.)
+    const narrow = true, col = 14;
     const res = drawModel(svg, scene, {
       W: width, H: height,
       frame: { x: col, y: narrow ? 58 : 46, w: width - col * 2, h: height - (narrow ? 58 + 32 : 46 + 70) },
@@ -98,15 +99,25 @@ export function mount(root, data, opts) {
     });
     tbline.textContent = res.tbText;
     tbline.className = narrow ? 'tbline' : 'tbline vh';
-    keyBox.textContent = '';
-    res.key.forEach((k) => keyBox.append(h('li', { 'data-n': k.n }, h('b', { text: String(k.n) }), h('span', { text: k.text }))));
+    // The key only changes when the labels are switched on or off: rebuild it then, so a focused line keeps its focus
+    // while the model turns; otherwise just show which line's part is picked.
+    const sig = res.key.map((k) => k.n + ':' + k.text + ':' + k.id).join('|');
+    if (sig !== keySig) {
+      keySig = sig;
+      keyBox.textContent = '';
+      res.key.forEach((k) => keyBox.append(h('li', { 'data-n': k.n },
+        k.id
+          ? h('button', { type: 'button', class: 'kbtn', 'data-id': k.id }, h('b', { text: String(k.n) }), h('span', { text: k.text }))
+          : h('span', { class: 'kbtn' }, h('b', { text: String(k.n) }), h('span', { text: k.text })))));
+    }
+    keyBox.querySelectorAll('button.kbtn').forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute('data-id') === state.sel)));
     keyBox.hidden = !res.key.length;
     if (hadFocus) {
       const g = svg.querySelector('.hits [data-id="' + CSS.escape(hadFocus) + '"]');
       if (g) try { g.focus({ preventScroll: true }); } catch (e) { /* old browsers */ }
     }
   }
-  let raf = 0;
+  let raf = 0, keySig = '';
   const schedule = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; draw(); }); };
 
   // ---- the selected part ---------------------------------------------------------------------------------------
@@ -140,6 +151,15 @@ export function mount(root, data, opts) {
     draw();
     renderProps();
     tree.querySelectorAll('.pbtn').forEach((b) => b.setAttribute('aria-pressed', String(b.getAttribute('data-id') === state.sel)));
+    // Where the parts list scrolls inside its own box (beside the model on a wide screen), bring the picked part into
+    // view there, without scrolling the page.
+    const b = state.sel ? tree.querySelector('.pbtn[aria-pressed="true"]') : null;
+    if (b && treePane.scrollHeight > treePane.clientHeight + 1) {
+      const r = b.getBoundingClientRect(), pr = treePane.getBoundingClientRect();
+      const head = treePane.querySelector('summary')?.getBoundingClientRect().height || 0;
+      if (r.top < pr.top + head) treePane.scrollTop -= pr.top + head - r.top + 8;
+      else if (r.bottom > pr.bottom) treePane.scrollTop += r.bottom - pr.bottom + 8;
+    }
   }
 
   // ---- controls ------------------------------------------------------------------------------------------------
@@ -191,9 +211,14 @@ export function mount(root, data, opts) {
     state.focusId = g.getAttribute('data-id');
     select(state.focusId);
   });
+  // a part picked from the key or the list is also where Tab lands on the drawing next
+  listen(keyBox, 'click', (e) => {
+    const b = e.target.closest ? e.target.closest('button[data-id]') : null;
+    if (b) { state.focusId = b.getAttribute('data-id'); select(state.focusId); }
+  });
   listen(tree, 'click', (e) => {
     const b = e.target.closest ? e.target.closest('[data-id]') : null;
-    if (b) select(b.getAttribute('data-id'));
+    if (b) { state.focusId = b.getAttribute('data-id'); select(state.focusId); }
   });
 
   // drag to turn. Pointer capture starts only once a drag has begun, so a plain tap still reaches the part under it.

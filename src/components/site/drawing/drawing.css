@@ -28,28 +28,41 @@
   border: 1px solid var(--ink-2); border-radius: 3px; }
 .pp .pd .pd-status { margin: 0 0 10px; }
 
-/* the workspace: the model, the selected part and the parts list, one under the other at every width, each as wide as
-   the sheet (Ben, 2026-11-15: no large dead space). Side by side, the short part panel left a long empty column beside
-   the parts list; instead the list runs in columns on a wide screen and the part panel spreads its figures out. */
+/* the workspace (Ben, 2026-11-15: no large dead space; pick a part and its box shows beside the model). Phone: the
+   model, the selected part and the parts list, one under the other. 760 to 899 px: the same, each as wide as the sheet;
+   the part panel's words on the left and its figures on the right, the parts list in two columns of even length. From
+   900 px: the model on the left; the selected part's box beside it and the parts list under that, the list scrolling
+   inside its own box so the right column ends level with the model. */
 .pp .pd .ws { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 /* the boxes' edges are --hair-2: the model is dragged, and the parts list opens and closes */
 .pp .pd .pane, .pp .pd .model { background: var(--sheet); border: 1px solid var(--hair-2); min-width: 0; }
 .pp .pd .pane > .ph { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 4px 10px;
   padding: 10px 14px 8px; border-bottom: 1px solid var(--rule); }
 .pp .pd .pane > .pb { padding: 12px 14px 14px; }
-/* wide: the part panel's words on the left, its figures on the right; the parts list in two or three columns of even
-   length (a long group runs on into the next column; a heading stays with its first part) */
-@media (min-width: 760px) {
+/* a long group in the parts list may run on into the next column; a heading stays with its first part */
+.pp .pd .tree .slot { break-after: avoid; }
+.pp .pd .tree .pbtn { break-inside: avoid; }
+@media (min-width: 760px) and (max-width: 899.98px) {
   .pp .pd .props > .pb { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 28px; align-items: start;
     grid-template-rows: repeat(5, auto) 1fr; }
   .pp .pd .props > .pb > .status { justify-self: start; }
   .pp .pd .props > .pb > * { grid-column: 1; }
   .pp .pd .props > .pb > .figs { grid-column: 2; grid-row: 1 / span 6; margin-top: 4px; }
   .pp .pd .tree ul { columns: 2; column-gap: 0; }
-  .pp .pd .tree .slot { break-after: avoid; }
-  .pp .pd .tree .pbtn { break-inside: avoid; }
 }
-@media (min-width: 1000px) { .pp .pd .tree ul { columns: 3; } }
+@media (min-width: 900px) {
+  .pp .pd .ws { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); grid-template-areas: "model props" "model tree";
+    grid-template-rows: auto 1fr; align-items: start; }
+  .pp .pd .ws > .model { grid-area: model; }
+  .pp .pd .ws > .props { grid-area: props; }
+  /* contain: size keeps the long list from setting the row's height: the model does, and the list scrolls */
+  .pp .pd .ws > .tree { grid-area: tree; align-self: stretch; contain: size; min-height: 200px; overflow-y: auto;
+    overscroll-behavior: contain; }
+  /* closed, the list is just its heading: no empty box down to the bottom of the model */
+  .pp .pd .ws > .tree:not([open]) { align-self: start; contain: none; min-height: 0; }
+  .pp .pd .tree > summary { position: sticky; top: 0; z-index: 1; background: var(--sheet); }
+  .pp .pd .props .figs { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+}
 
 /* the model sheet */
 .pp .pd .pd-sheet { position: relative; width: 100%; height: 420px; overflow: hidden; touch-action: pan-y;
@@ -57,6 +70,8 @@
 @media (min-width: 760px) { .pp .pd .pd-sheet { height: 480px; } }
 .pp .pd .pd-sheet.dragging { cursor: grabbing; }
 .pp .pd .pd-sheet svg { display: block; width: 100%; height: 100%; max-width: none; }
+/* a click can focus the drawing itself; keyboard focus shows on each part instead (.hitg below) */
+.pp .pd .pd-sheet svg:focus { outline: none; }
 .pp .pd .pd-sheet .part { pointer-events: none; }
 .pp .pd .pd-sheet .tap { fill: transparent; stroke: transparent; stroke-width: 6; stroke-linejoin: round; cursor: pointer; }
 .pp .pd .pd-sheet .hitg:focus { outline: none; }
@@ -68,6 +83,14 @@
 .pp .pd .pd-sheet .part.quiet .sil { stroke-opacity: 0.45; }
 .pp .pd .pd-sheet .part.sel .sil { stroke: var(--select); stroke-width: 2.25; stroke-opacity: 1; }
 .pp .pd .pd-sheet .labels { pointer-events: none; }
+/* a number picks its part: its circle, and a finger-sized ring round it, take the tap */
+.pp .pd .pd-sheet .lbl[data-id] .numhit, .pp .pd .pd-sheet .lbl[data-id] .numc { pointer-events: auto; cursor: pointer; }
+.pp .pd .pd-sheet .numhit { fill: transparent; stroke: none; }
+.pp .pd .pd-sheet .lbl[data-id]:hover .numc { stroke: var(--select); stroke-width: 2; }
+.pp .pd .pd-sheet .lbl.sel .numc { fill: var(--select); stroke: var(--select); }
+.pp .pd .pd-sheet .lbl.sel .num { fill: var(--sheet); }
+.pp .pd .pd-sheet .lbl.sel .leader { stroke: var(--select); }
+.pp .pd .pd-sheet .lbl.sel .leader-dot { fill: var(--select); }
 .pp .pd .pd-sheet .leader { fill: none; stroke: var(--ink-2); stroke-width: 1; }
 .pp .pd .pd-sheet .leader-dot { fill: var(--ink-2); }
 .pp .pd .pd-sheet .numc { fill: var(--sheet); stroke: var(--ink); stroke-width: 1.2; }
@@ -85,9 +108,15 @@
 .pp .pd .tbline { padding: 6px 12px 0; font-family: var(--jost); font-size: 13px; color: var(--ink-2); }
 .pp .pd .keylist { margin: 0; padding: 6px 12px 4px; list-style: none; display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 2px 14px; font-size: 14px; }
-.pp .pd .keylist li { display: flex; gap: 8px; align-items: baseline; min-width: 0; }
+.pp .pd .keylist li { min-width: 0; }
+/* each line of the key picks its part, like its number on the drawing */
+.pp .pd .keylist .kbtn { display: flex; gap: 8px; align-items: center; width: 100%; min-height: 40px; padding: 4px 6px;
+  border: 0; border-left: 3px solid transparent; background: none; text-align: left; line-height: 1.25; }
+.pp .pd .keylist button.kbtn:hover { background: color-mix(in srgb, var(--select) 8%, transparent); }
+.pp .pd .keylist button.kbtn[aria-pressed="true"] { border-left-color: var(--select); background: var(--select-soft); }
+.pp .pd .keylist button.kbtn[aria-pressed="true"] b { background: var(--select); border-color: var(--select); color: var(--sheet); }
 .pp .pd .keylist b { flex: 0 0 22px; height: 22px; border: 1px solid var(--ink); border-radius: 50%; text-align: center;
-  font: 600 12px/20px var(--jost); align-self: center; }
+  font: 600 12px/20px var(--jost); }
 
 /* the controls under the sheet: Labels and Explode (turning is by drag only) */
 .pp .pd .pd-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 14px; padding: 10px 12px;

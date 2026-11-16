@@ -4,6 +4,7 @@
     "slots": {
       "Title": [],
       "Description": [],
+      "Photo of Ben, for screen readers": [],
       "Page": ["{stages}"]
     }
   },

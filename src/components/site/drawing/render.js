@@ -352,7 +352,7 @@ export function draw(svg, scene, opts) {
     }
   }
 
-  const vw = cam.vw, anchors = {}, hitsBy = {}, hitOrder = [];
+  const vw = cam.vw, anchors = {}, hitsBy = {}, hitOrder = [], keyOfSolid = {};
   const parts = el('g', { class: 'parts' }, svg);
   const picks = el('g', { class: 'taps' }, svg);
   paintOrder(items, vw).forEach((it) => {
@@ -381,6 +381,7 @@ export function draw(svg, scene, opts) {
     // label anchor: the middle of the top of the solid's box
     const b = it.box, top = P([(b.x0 + b.x1) / 2, (b.y0 + b.y1) / 2, b.z1]);
     anchors[s.id] = top;
+    keyOfSolid[s.id] = key;
     // a pick area per solid, in painter order, so a tap lands on the part drawn on top there
     const hl = hull(pp);
     el('polygon', { points: pointsAttr(hl), class: 'tap', 'data-id': key }, picks);
@@ -407,15 +408,17 @@ export function draw(svg, scene, opts) {
     (hb.hulls.length ? hb.hulls : hb.all).forEach((pts) => el('polygon', { points: pointsAttr(pts), class: 'hit' }, g2));
   });
 
-  // Numbered labels (narrow sheets): a small circled number at each anchor, the key printed under the sheet.
-  // Each label's number is fixed by its place in the model's own label list, so it never changes as the model turns or
-  // explodes. Sorting by screen position only decides which circle is placed first (to keep them apart), never a number.
+  // Numbered labels: a small circled number at each anchor, the key printed under the sheet. Each label's number is
+  // fixed by its place in the model's own label list, so it never changes as the model turns or explodes. Sorting by
+  // screen position only decides which circle is placed first (to keep them apart), never a number. A number picks its
+  // part (data-id, read by engine.js's click handler) and turns red while that part is picked; keyboard users pick
+  // parts through the focusable layer above, so the numbers stay out of the accessibility tree.
   const keyList = [];
   if (opts.labelsOn && opts.numbered) {
     const ng = el('g', { class: 'labels', 'aria-hidden': 'true' }, svg);
     const pts = [];
     scene.labels.forEach((L, i) => {
-      keyList.push({ n: i + 1, text: L.text });
+      keyList.push({ n: i + 1, text: L.text, id: keyOfSolid[L.solid] || null });
       const a = anchors[L.solid];
       if (a) pts.push({ a, n: i + 1, solid: L.solid });
     });
@@ -433,9 +436,12 @@ export function draw(svg, scene, opts) {
       x = Math.max(12, Math.min(opts.W - 12, x));
       y = Math.max(12, Math.min(opts.H - 12, y));
       placed.push({ x, y });
-      const lg = el('g', { class: 'lbl', 'data-n': it.n, 'data-solid': it.solid }, ng);
+      const id = keyOfSolid[it.solid];
+      const lg = el('g', { class: 'lbl' + (id && opts.sel === id ? ' sel' : ''), 'data-n': it.n, 'data-solid': it.solid, 'data-id': id }, ng);
       el('line', { x1: it.a.x, y1: it.a.y, x2: x, y2: y, class: 'leader' }, lg);
       el('circle', { cx: it.a.x, cy: it.a.y, r: 2.2, class: 'leader-dot' }, lg);
+      // numbers sit 24 px apart: a 13.5 px pick ring is as big as it can be without reaching a neighbour's circle
+      el('circle', { cx: x, cy: y, r: 13.5, class: 'numhit' }, lg);
       el('circle', { cx: x, cy: y, r: 10.5, class: 'numc' }, lg);
       txt(lg, x, y + 4.5, String(it.n), 'num', 'middle');
     });

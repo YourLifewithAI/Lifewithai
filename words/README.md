@@ -3,6 +3,35 @@
 Every word a reader sees on the site lives in this folder, one file per page. Change anything you like: the
 code only reads these files. Nothing here goes live until the site is pushed.
 
+## Editing on the page
+
+The easy way is to change the words right on the page, in the preview.
+
+1. Start the preview with the editor on: `npm run edit` (for a set port, `npm run edit -- -p 3011`). Open the
+   address it prints.
+2. Click "Edit text" at the bottom right. Words you can change light up as the pointer passes over them.
+3. Click the words, type, and press Save. Enter saves a one-line spot, Ctrl+Enter a longer one, and Esc or
+   Cancel leaves the words as they were. The page shows the new words at once.
+4. The panel above the button has a "Done with this page" box for each of the page's files. Tick it once the
+   page sounds like you: it sets `ben_pass: yes` (see "Your pass" below).
+5. "Your changes" in the panel lists your latest changes. The newest change in each spot has Undo.
+
+The editor saves into these same files, on this laptop only. Nothing goes live until the site is pushed.
+Words that don't light up come from the build's data or the code: ask Claude about those. While editing, a
+click on a link edits its words instead of following it, so click "Stop editing" to move around the site.
+Editing the files directly, as below, still works. The list of changes is kept in `.words-edits.jsonl`, next
+to this folder, and stays on the laptop.
+
+The editor is never part of the live site: a production build leaves out its button, its code and its save
+route. Start it only with `npm run edit`, which keeps the preview on this computer. Never put `WORDS_EDITOR` in
+a `.env` file: plain `next dev` listens to the whole home network, and the editor would let other devices change
+the files.
+
+To take the editor to another site that reads its words with `src/lib/words.ts`: copy `src/lib/words-edit.ts`,
+`src/app/api/words-editor/`, `src/components/words-editor/` and `scripts/edit-words.mjs`. Then add the `edit`
+line to `package.json`, the `WordsEditorSlot` lines to `src/app/layout.tsx`, and the `config(phase)` lines
+(which turn on the `.dev.ts` route only in the editor's preview) to `next.config.ts`.
+
 ## How a file works
 
 A line that starts with `# ` (one hash and a space) names a slot. The words under it, down to the next `# `

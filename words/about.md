@@ -7,6 +7,9 @@ About
 # Description (what search engines and link previews show)
 Who runs Life with AI, what it is, how a piece is made, and the rules it keeps.
 
+# Photo of Ben, for screen readers (what a screen reader says in place of the photo beside "Who")
+Ben at his desk, with a microphone and his laptop behind him.
+
 # Page (the whole page under the title; the site's settled sentence from site.md opens it. {#who} after a heading is its link name, keep it. A list whose every item starts with a bold word and a colon shows as words and their meanings. The line {stages} shows the three stages from site.md there)
 ## Who {#who}
 

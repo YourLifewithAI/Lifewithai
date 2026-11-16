@@ -314,17 +314,18 @@ export function inlineMarkdown(md: string): InlineNode[] | null {
 }
 
 // ---- the check before launch ----------------------------------------------------------------------------------------
-/** Every words file (README.md aside), as names for words(): 'about', 'topics/making', ... */
-export function wordsFiles(): string[] {
+/** Every words file (README.md aside), as names for words(): 'about', 'topics/making', ... `root` is the words folder
+ *  (the editor's tests point it at a copy). */
+export function wordsFiles(root: string = WORDS_ROOT): string[] {
   const out: string[] = [];
   const walk = (dir: string) => {
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const p = path.join(dir, e.name);
       if (e.isDirectory()) walk(p);
-      else if (e.name.endsWith('.md') && e.name !== 'README.md') out.push(path.relative(WORDS_ROOT, p).replace(/\\/g, '/').replace(/\.md$/, ''));
+      else if (e.name.endsWith('.md') && e.name !== 'README.md') out.push(path.relative(root, p).replace(/\\/g, '/').replace(/\.md$/, ''));
     }
   };
-  walk(WORDS_ROOT);
+  walk(root);
   return out.sort();
 }
 
