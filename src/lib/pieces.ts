@@ -4,13 +4,17 @@
 // Each piece's words (its kind, title, who, hook and main parts) are in words/pieces/<id>.md. Server only.
 import type { StageId } from './site';
 import type { TopicId } from './topics';
-import { list, slot, words } from './words';
+import { topicById } from './topic-words';
+import { list, maybe, slot, words } from './words';
 
 export interface Piece {
   id: string;
   kind: 'interview' | 'bench';
   href: string;
   topic: TopicId;
+  /** the topic as this piece's card names it: its own words if it has them ("DIY Robotics" for Asher, Ben,
+   *  2026-11-15), else the topic's name. The piece still sits under its topic. */
+  topicLabel: string;
   form: string; // what kind of piece it is
   title: string;
   who: string;
@@ -27,6 +31,7 @@ function withWords(d: PieceData): Piece {
   const w = words(`pieces/${d.id}`);
   return {
     ...d,
+    topicLabel: maybe(w, 'Topic on the card') || (topicById(d.topic)?.verb ?? ''),
     form: slot(w, 'Kind of piece'),
     title: slot(w, 'Title'),
     who: slot(w, 'Who'),

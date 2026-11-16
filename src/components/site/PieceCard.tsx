@@ -2,7 +2,6 @@ import Link from 'next/link';
 import type { Piece } from '@/lib/pieces';
 import { fill } from '@/lib/project';
 import { stageLabel } from '@/lib/site';
-import { topicById } from '@/lib/topic-words';
 import { slot, words } from '@/lib/words';
 import { TopicIcon } from './TopicIcons';
 
@@ -10,7 +9,6 @@ import { TopicIcon } from './TopicIcons';
 // The card's own labels are in words/topic-page.md; the piece's words in words/pieces/<id>.md.
 export default function PieceCard({ piece, n, total }: { piece: Piece; n: number; total: number }) {
   const w = words('topic-page');
-  const topic = topicById(piece.topic);
   return (
     <li className="sheet card">
       <div className="sheet-body">
@@ -38,7 +36,7 @@ export default function PieceCard({ piece, n, total }: { piece: Piece; n: number
         </div>
         <div>
           <b>{slot(w, 'Card: topic')}</b>
-          <span>{topic?.verb}</span>
+          <span>{piece.topicLabel}</span>
         </div>
         <div>
           <b>{slot(w, 'Card: stage')}</b>

@@ -6,7 +6,6 @@ import ThemeToggle from '@/components/site/ThemeToggle';
 import { themeWords } from '@/components/site/SiteHeader';
 import asherFront from '@/content/photos/asher-front.jpg';
 import { SITE, stageLabel } from '@/lib/site';
-import { topicById } from '@/lib/topic-words';
 import { spotlight } from '@/lib/pieces';
 import { pageMeta } from '@/lib/meta';
 import { slot, words } from '@/lib/words';
@@ -20,7 +19,6 @@ export function generateMetadata(): Metadata {
 export default function Home() {
   const w = words('home');
   const spot = spotlight();
-  const spotTopic = topicById(spot.topic);
   const isBench = spot.kind === 'bench';
 
   return (
@@ -88,7 +86,7 @@ export default function Home() {
             </div>
             <div>
               <b>{slot(w, 'Spotlight table: topic')}</b>
-              <span>{spotTopic?.verb}</span>
+              <span>{spot.topicLabel}</span>
             </div>
             <div>
               <b>{slot(w, 'Spotlight table: stage')}</b>
